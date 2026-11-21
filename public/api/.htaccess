@@ -1,0 +1,5 @@
+# Only index.php and setup.php are reachable from the web.
+<FilesMatch "^(config|config\.sample|lib)\.php$|\.sql$">
+  Require all denied
+</FilesMatch>
+Options -Indexes
