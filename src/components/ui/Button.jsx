@@ -1,0 +1,37 @@
+import { forwardRef } from 'react';
+import { Link } from 'react-router-dom';
+import { cn } from '@/lib/cn';
+
+// shadcn / 21st.dev style button with a sliding sheen on hover.
+const variants = {
+  primary: 'bg-deep text-linen hover:bg-deep-700 shadow-[0_10px_30px_-12px_rgba(15,59,87,.7)]',
+  amber: 'bg-amber text-deep-900 hover:bg-amber-soft shadow-[0_12px_34px_-12px_rgba(217,154,78,.8)]',
+  light: 'bg-linen text-deep-900 hover:bg-white',
+  outline: 'border border-deep/20 text-deep hover:border-deep/50 hover:bg-deep/5',
+  ghostDark: 'border border-white/15 text-linen hover:border-white/35 hover:bg-white/5',
+  ghost: 'text-deep hover:bg-deep/5',
+};
+const sizes = {
+  sm: 'h-9 px-4 text-sm',
+  md: 'h-12 px-6 text-[15px]',
+  lg: 'h-14 px-8 text-base',
+};
+
+export const Button = forwardRef(function Button({ as, to, href, variant = 'primary', size = 'md', className, children, ...props }, ref) {
+  const cls = cn(
+    'group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full font-medium transition-all duration-300 ease-out active:scale-[.98] disabled:opacity-50 disabled:pointer-events-none',
+    variants[variant],
+    sizes[size],
+    className
+  );
+  const inner = (
+    <>
+      <span className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-white/25 opacity-0 blur-md transition-all duration-700 group-hover:left-[120%] group-hover:opacity-100" />
+      <span className="relative inline-flex items-center gap-2.5">{children}</span>
+    </>
+  );
+  if (to) return <Link ref={ref} to={to} className={cls} {...props}>{inner}</Link>;
+  if (href) return <a ref={ref} href={href} className={cls} {...props}>{inner}</a>;
+  const Comp = as || 'button';
+  return <Comp ref={ref} className={cls} {...props}>{inner}</Comp>;
+});
