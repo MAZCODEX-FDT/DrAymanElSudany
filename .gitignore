@@ -1,0 +1,7 @@
+node_modules
+dist
+.env
+.env.local
+public/api/config.php
+*.log
+.DS_Store
