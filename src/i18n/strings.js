@@ -14,6 +14,7 @@ export const strings = {
     faq: { ar: 'أسئلة شائعة', en: 'FAQ' },
     visit: { ar: 'قبل زيارتك', en: 'Before your visit' },
     articles: { ar: 'مقالات للأهل', en: 'Articles for families' },
+    blog: { ar: 'المقالات', en: 'Blog' },
     contact: { ar: 'تواصل معانا', en: 'Contact' },
     book: { ar: 'احجز ميعاد', en: 'Book a visit' },
     menu: { ar: 'القائمة', en: 'Menu' },
