@@ -277,7 +277,7 @@ function save_upload(array $f): string
 
 /**
  * Google rating and reviews for the clinic's Google Business profile (Places API, New).
- * Needs config.php 'google_places_key' and the Place ID in Settings. Cached for 12 hours in the settings table,
+ * Needs config.php 'google_places_key' and the Place ID in Settings. Cached for 7 days in the settings table,
  * so visitors never wait on Google and the key is never exposed to the browser.
  */
 function google_reviews(bool $force = false): array
@@ -286,7 +286,7 @@ function google_reviews(bool $force = false): array
     $s = settings_all();
     $place = trim((string) ($s['google_place_id'] ?? ''));
     $cache = json_decode((string) (db()->query("SELECT v FROM settings WHERE k = 'google_cache'")->fetchColumn() ?: ''), true);
-    $fresh = is_array($cache) && ($cache['place'] ?? '') === $place && (time() - (int) ($cache['at'] ?? 0)) < 12 * 3600;
+    $fresh = is_array($cache) && ($cache['place'] ?? '') === $place && (time() - (int) ($cache['at'] ?? 0)) < 7 * 86400;
     if (($fresh && !$force) || $key === '' || $place === '') {
         return is_array($cache) ? $cache['data'] ?? [] : [];
     }

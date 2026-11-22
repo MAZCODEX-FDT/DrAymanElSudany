@@ -12,7 +12,7 @@ return [
     // Optional: email notified when a booking or referral arrives (uses PHP mail()).
     'notify_email' => '',
     // Optional: Google Places API key (Places API (New) enabled, restricted to this server's IP). With the Place ID in
-    // Dashboard > Settings, the site shows the live Google rating and recent reviews, refreshed every 12 hours.
+    // Dashboard > Settings, the site shows the live Google rating and recent reviews, refreshed once a week.
     'google_places_key' => '',
     // Optional: send each new booking/referral to the clinic WhatsApp through the WhatsApp Business Cloud API.
     // Needs an approved message template with 5 body variables: type, name, phone, reason, preferred date.

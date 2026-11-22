@@ -148,7 +148,7 @@ function compressToDataUrl(file, max = 1400) {
   });
 }
 
-/** Google rating and recent 4-5 star reviews. Live: the server asks Google Places and caches the answer for 12 hours. */
+/** Google rating and recent 4-5 star reviews. Live: the server asks Google Places and caches the answer for a week. */
 export const publicGoogle = () => call('GET', 'public-google', {}, () => GOOGLE_SAMPLE);
 
 export const refreshGoogle = () => call('POST', 'google-refresh', {}, () => GOOGLE_SAMPLE);

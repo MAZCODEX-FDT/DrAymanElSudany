@@ -30,7 +30,7 @@ function short(text) {
   return s.length > 140 ? `${s.slice(0, 137).trimEnd()}…` : s;
 }
 
-/** Google rating and short quotes. The server refreshes them from Google Places every 12 hours. Hidden until there is data. */
+/** Google rating and short quotes. The server refreshes them from Google Places once a week. Hidden until there is data. */
 export function GoogleReviews() {
   const { lang } = useLang();
   const en = lang === 'en';

@@ -62,7 +62,7 @@ If the API is unreachable the app falls back to demo data automatically and the 
    Then submit `https://<domain>/sitemap.xml`. On Bluehost it is generated live from the database (procedures and articles included).
 8. **Google reviews (optional):** create a Google Cloud API key with *Places API (New)* enabled, restrict it to that API,
    put it in `api/config.php` as `google_places_key`, and paste the clinic's Place ID into Settings. Rating and the latest
-   4–5 star reviews refresh every 12 hours (or press "Refresh Google reviews now").
+   4–5 star reviews refresh once a week (or press "Refresh Google reviews now").
 9. **Analytics (optional):** paste the GA4 Measurement ID (`G-…`) and/or Meta Pixel ID into Settings. Page views, WhatsApp/call taps
    (`click_whatsapp`, `click_call`, Pixel `Contact`) and bookings (`generate_lead`, Pixel `Lead`) are sent with the procedure slug and the
    first page of the visit; no patient details are sent. Bookings also store landing page and source, shown in dashboard Analytics.

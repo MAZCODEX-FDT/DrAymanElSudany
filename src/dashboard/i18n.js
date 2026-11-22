@@ -146,7 +146,7 @@ export const D = {
   ph_ga_id: { ar: 'G-XXXXXXX', en: 'G-XXXXXXX' },
   ph_meta_pixel_id: { ar: '1234567890', en: '1234567890' },
   ph_gsc_verification: { ar: 'google1234abcd.html', en: 'google1234abcd.html' },
-  h_google_place_id: { ar: 'من Place ID Finder بتاع جوجل. التقييم وآخر المراجعات بيتحدثوا لوحدهم كل 12 ساعة.', en: 'From Google’s Place ID Finder. The rating and latest reviews refresh on their own every 12 hours.' },
+  h_google_place_id: { ar: 'من Place ID Finder بتاع جوجل. التقييم وآخر المراجعات بيتحدثوا لوحدهم مرة كل أسبوع.', en: 'From Google’s Place ID Finder. The rating and latest reviews refresh on their own once a week.' },
   h_ga_id: { ar: 'Measurement ID من GA4. الموقع بيبعت الحجوزات وضغطات الواتساب والاتصال كأحداث.', en: 'GA4 Measurement ID. The site sends bookings, WhatsApp and call taps as events.' },
   h_meta_pixel_id: { ar: 'من Meta Events Manager. بيسجل Lead و Contact.', en: 'From Meta Events Manager. Records Lead and Contact.' },
   h_gsc_verification: { ar: 'اسم ملف HTML اللى Search Console بيديهولك. الموقع بيرد عليه لوحده.', en: 'The HTML file name Search Console gives you. The site answers it on its own.' },
