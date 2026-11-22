@@ -116,7 +116,7 @@ export function Hero() {
             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-deep-900/90 to-transparent" />
             <div className="absolute inset-x-6 bottom-6">
               <ShinyText text={t('brand.fullName')} color="#f5f1ea" shineColor="#ebc08c" speed={3} className="font-display text-2xl" />
-              <p className="mt-1 text-sm text-linen/60">{t('brand.tagline')} · {t('brand.city')}</p>
+              <p className="mt-1 text-sm text-linen/60">{t('brand.tagline')}</p>
             </div>
           </div>
 
