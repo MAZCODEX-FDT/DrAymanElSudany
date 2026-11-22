@@ -1,9 +1,12 @@
 import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { MessageCircle, CalendarClock, Stethoscope, FileText, HeartPulse, ClipboardCheck } from 'lucide-react';
 import { useLang } from '@/i18n';
 import { journey } from '@/data/content';
 import { prefersReducedMotion } from '@/lib/smooth';
+
+const ICONS = [MessageCircle, CalendarClock, Stethoscope, FileText, HeartPulse, ClipboardCheck];
 
 /** Pinned horizontal scroll through the patient journey (desktop); stacked cards on mobile. */
 export function Journey() {
@@ -44,15 +47,21 @@ export function Journey() {
           <p className="eyebrow mb-5">{t('journey.eyebrow')}</p>
           <h2 className="font-display text-balance text-4xl leading-[1.25] text-deep sm:text-5xl">{t('journey.title')}</h2>
         </div>
-        {journey.map((s) => (
-          <article key={s.n} className="j-card relative flex flex-col justify-between rounded-[2rem] border border-deep/10 bg-linen p-8 shadow-[0_30px_60px_-40px_rgba(15,59,87,.5)] sm:p-10 lg:h-[62vh] lg:w-[30vw] lg:shrink-0">
-            <span className="j-num font-display block text-7xl text-amber sm:text-8xl">{s.n}</span>
-            <div className="mt-10">
-              <h3 className="font-display text-2xl text-deep sm:text-3xl">{L(s.title)}</h3>
-              <p className="mt-4 text-lg leading-relaxed text-ink/70">{L(s.body)}</p>
-            </div>
-          </article>
-        ))}
+        {journey.map((s, i) => {
+          const Icon = ICONS[i % ICONS.length];
+          return (
+            <article key={s.n} className="j-card relative flex flex-col rounded-[2rem] border border-deep/10 bg-linen p-8 shadow-[0_30px_60px_-40px_rgba(15,59,87,.5)] sm:p-9 lg:w-[22rem] lg:shrink-0 xl:w-[24rem]">
+              <div className="flex items-center justify-between">
+                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-deep text-linen">
+                  <Icon size={26} />
+                </span>
+                <span className="j-num font-display text-6xl leading-none text-amber">{s.n}</span>
+              </div>
+              <h3 className="font-display mt-8 text-2xl text-deep sm:text-3xl">{L(s.title)}</h3>
+              <p className="mt-3 text-lg leading-relaxed text-ink/70">{L(s.body)}</p>
+            </article>
+          );
+        })}
         <div className="hidden lg:block lg:w-[10vw] lg:shrink-0" />
       </div>
     </section>
