@@ -10,6 +10,8 @@ import { Voices } from '@/site/home/Voices';
 import { Cost } from '@/site/home/Cost';
 import { FaqPreview } from '@/site/home/FaqPreview';
 import { DoctorsBand, ClosingCta } from '@/site/home/ClosingCta';
+import { ScanReview, ClinicGallery } from '@/site/home/Extras';
+import { BranchSection } from '@/site/BranchCards';
 
 export default function Home() {
   return (
@@ -22,9 +24,12 @@ export default function Home() {
       <Procedures />
       <Journey />
       <Personas />
+      <ScanReview />
       <Voices />
+      <ClinicGallery />
       <Cost />
       <FaqPreview />
+      <BranchSection />
       <DoctorsBand />
       <ClosingCta />
     </>

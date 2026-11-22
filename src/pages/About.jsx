@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLang } from '@/i18n';
 import { press } from '@/data/content';
 import { useContent, imgSrc } from '@/lib/content';
-import { BranchCards } from '@/site/BranchCards';
+import { BranchSection } from '@/site/BranchCards';
 import { ProcedureIcon } from '@/components/ui/ProcedureIcon';
 import { Seo } from '@/site/Seo';
 import { PageHero } from '@/site/PageHero';
@@ -15,7 +15,7 @@ import { cn } from '@/lib/cn';
 // Everything on this page except the press names comes from the dashboard (Website > About the doctor / Images / Branches).
 export default function About() {
   const { t, L, lang, to } = useLang();
-  const { about, media, gallery, branches, procedures } = useContent();
+  const { about, media, gallery, procedures } = useContent();
   const en = lang === 'en';
   const intro = about.intro ? L(about.intro.body) : '';
   const photo = media.about_doctor;
@@ -52,6 +52,35 @@ export default function About() {
         </section>
       )}
 
+      {procedures.length > 0 && (
+        <section className="bg-white py-24">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <p className="eyebrow mb-4">{t('nav.procedures')}</p>
+                <h2 className="font-display max-w-2xl text-3xl text-deep sm:text-4xl">{en ? 'What Dr. Ayman treats' : 'الحالات اللى د. أيمن بيتعامل معاها'}</h2>
+              </div>
+              <Link to={to('/procedures')} className="inline-flex items-center gap-2 font-medium text-calm hover:text-deep">
+                {t('procedures.all')} ({procedures.length}) <ArrowUpRight size={18} className="rtl:-scale-x-100" />
+              </Link>
+            </div>
+            <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {procedures.map((p) => (
+                <Link key={p.id} to={to(`/procedures/${p.slug}`)} className="group flex min-w-0 items-center gap-4 rounded-2xl border border-deep/10 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-deep/25">
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-mist text-deep">
+                    <ProcedureIcon name={p.icon} className="h-8 w-8" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate font-medium text-deep">{L(p.title)}</span>
+                    <span className="mt-0.5 block truncate text-sm text-slate">{L(p.short)}</span>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {about.sections.map((s, i) => (
         <section key={s.id} className={cn('py-20', i % 2 ? 'bg-white' : 'bg-linen')}>
           <AnimatedContent className={cn('mx-auto grid max-w-7xl items-center gap-12 px-6', s.image && 'lg:grid-cols-2')}>
@@ -78,35 +107,6 @@ export default function About() {
                 </div>
               ))}
             </AnimatedContent>
-          </div>
-        </section>
-      )}
-
-      {procedures.length > 0 && (
-        <section className="bg-linen py-24">
-          <div className="mx-auto max-w-7xl px-6">
-            <div className="flex flex-wrap items-end justify-between gap-6">
-              <div>
-                <p className="eyebrow mb-4">{t('nav.procedures')}</p>
-                <h2 className="font-display max-w-2xl text-3xl text-deep sm:text-4xl">{en ? 'What Dr. Ayman treats' : 'الحالات اللى د. أيمن بيتعامل معاها'}</h2>
-              </div>
-              <Link to={to('/procedures')} className="inline-flex items-center gap-2 font-medium text-calm hover:text-deep">
-                {t('procedures.all')} ({procedures.length}) <ArrowUpRight size={18} className="rtl:-scale-x-100" />
-              </Link>
-            </div>
-            <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {procedures.map((p) => (
-                <Link key={p.id} to={to(`/procedures/${p.slug}`)} className="group flex min-w-0 items-center gap-4 rounded-2xl border border-deep/10 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-deep/25">
-                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-mist text-deep">
-                    <ProcedureIcon name={p.icon} className="h-8 w-8" />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate font-medium text-deep">{L(p.title)}</span>
-                    <span className="mt-0.5 block truncate text-sm text-slate">{L(p.short)}</span>
-                  </span>
-                </Link>
-              ))}
-            </div>
           </div>
         </section>
       )}
@@ -143,14 +143,7 @@ export default function About() {
         </section>
       )}
 
-      {branches.length > 0 && (
-        <section className="bg-white py-24">
-          <div className="mx-auto max-w-7xl px-6">
-            <p className="eyebrow mb-8">{en ? 'Where to find us' : 'أماكن الكشف'}</p>
-            <BranchCards />
-          </div>
-        </section>
-      )}
+      <BranchSection />
       <ClosingCta />
     </>
   );

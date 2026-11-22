@@ -45,7 +45,7 @@ switch ("$method $r") {
         out(public_content());
 
     case 'GET public-testimonials':
-        $rows = db()->query('SELECT id, quote_ar, quote_en, author, source FROM testimonials WHERE approved = 1 ORDER BY id DESC')->fetchAll();
+        $rows = db()->query('SELECT id, quote_ar, quote_en, author, source, rating FROM testimonials WHERE approved = 1 ORDER BY id DESC')->fetchAll();
         out(array_map('clean_row', $rows));
 
     case 'POST lead':

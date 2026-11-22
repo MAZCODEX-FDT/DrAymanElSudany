@@ -1,11 +1,10 @@
 import { Phone, Mail, Globe, ArrowUpRight } from 'lucide-react';
 import { useLang } from '@/i18n';
 import { useSettings, whatsappHref } from '@/lib/settings';
-import { useContent } from '@/lib/content';
 import { track } from '@/lib/api';
 import { Seo } from '@/site/Seo';
 import { PageHero } from '@/site/PageHero';
-import { BranchCards } from '@/site/BranchCards';
+import { BranchSection } from '@/site/BranchCards';
 import { WhatsAppIcon } from '@/site/WhatsAppFab';
 import { SocialIcon, SOCIAL_KEYS, SOCIAL_NAMES } from '@/components/ui/SocialIcons';
 import AnimatedContent from '@/components/reactbits/AnimatedContent';
@@ -15,7 +14,6 @@ import { cn } from '@/lib/cn';
 export default function Contact() {
   const { t, lang } = useLang();
   const s = useSettings();
-  const { branches } = useContent();
   const site = (s.website || '').replace(/^https?:\/\//, '').replace(/\/$/, '');
 
   const cards = [
@@ -70,14 +68,7 @@ export default function Contact() {
         )}
       </section>
 
-      {(branches.length > 0 || s.address_ar) && (
-        <section className="bg-white py-20 sm:py-24">
-          <div className="mx-auto max-w-7xl px-6">
-            <p className="eyebrow mb-8">{t('contact.branches')}</p>
-            <BranchCards />
-          </div>
-        </section>
-      )}
+      <BranchSection />
     </>
   );
 }
