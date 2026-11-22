@@ -36,7 +36,7 @@ export const strings = {
       en: 'Precision in every step, experience behind every decision.',
     },
     sub: {
-      ar: 'بنشرح لحضرتك ولأهلك الحالة بهدوء وبلغة بسيطة قبل أى قرار، وبنرد عليك بسرعة.',
+      ar: 'بنشرح لحضرتك ولأهلك الحالة بوضوح وبلغة بسيطة قبل أى قرار، وبنرد عليك بسرعة.',
       en: 'We explain the condition clearly and simply to you and your family before any decision, and we reply quickly.',
     },
     scroll: { ar: 'انزل', en: 'Scroll' },
