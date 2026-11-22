@@ -6,7 +6,7 @@ import { Menu, X, Globe } from 'lucide-react';
 import { useLang, switchLangPath } from '@/i18n';
 import { useSettings, whatsappHref } from '@/lib/settings';
 import { track } from '@/lib/api';
-import { Logo } from '@/components/ui/Logo';
+import { LogoFull } from '@/components/ui/Logo';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/cn';
 
@@ -64,8 +64,8 @@ export function Navbar() {
             scrolled ? 'bg-deep-900/80 shadow-[0_20px_50px_-20px_rgba(0,0,0,.5)] backdrop-blur-xl' : 'bg-transparent'
           )}
         >
-          <Link to={to('/')} aria-label={t('brand.name')}>
-            <Logo light />
+          <Link to={to('/')} aria-label={t('brand.name')} className="shrink-0">
+            <LogoFull light tight className="h-12 w-auto sm:h-14 xl:h-16" />
           </Link>
           <ul className="hidden items-center gap-0.5 xl:flex">
             {links.map(([href, key]) => (
@@ -98,7 +98,7 @@ export function Navbar() {
       {open && (
         <div ref={panel} className="bg-deep-glow fixed inset-0 z-[60] flex flex-col px-6 pb-10 pt-6 text-linen xl:hidden overflow-y-auto" data-lenis-prevent>
           <div className="flex items-center justify-between">
-            <Logo light />
+            <LogoFull light tight className="h-14 w-auto" />
             <button onClick={() => setOpen(false)} className="grid h-11 w-11 place-items-center rounded-full bg-white/10" aria-label={t('nav.close')}>
               <X size={22} />
             </button>

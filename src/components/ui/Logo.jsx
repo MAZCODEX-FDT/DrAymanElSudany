@@ -68,13 +68,15 @@ export function Logo({ light, className }) {
 }
 
 /** Full bilingual lockup (option A master file, text outlined). */
-export function LogoFull({ light, className }) {
+export function LogoFull({ light, tight, className }) {
+  // tight: cropped to the artwork (no safe-area padding), for the header and menu.
+  const [w, h] = tight ? [1495, 548] : [1615, 668];
   return (
     <img
-      src={`${import.meta.env.BASE_URL}brand/logo-horizontal-${light ? 'reverse' : 'color'}.svg`}
+      src={`${import.meta.env.BASE_URL}brand/logo-horizontal-${light ? 'reverse' : 'color'}${tight ? '-tight' : ''}.svg`}
       alt="د. أيمن السودانى · Dr. Ayman El Sudany"
-      width="1615"
-      height="668"
+      width={w}
+      height={h}
       className={cn('h-auto w-72', className)}
     />
   );
