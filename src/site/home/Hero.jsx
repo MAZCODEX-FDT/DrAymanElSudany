@@ -32,8 +32,8 @@ export function Hero() {
         .from('.h-word', { yPercent: 110, opacity: 0, duration: 1.2, stagger: 0.06 }, '-=0.6')
         .from('.h-sub', { y: 24, opacity: 0, duration: 1 }, '-=0.8')
         .fromTo('.h-cta > *', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, stagger: 0.1, clearProps: 'transform,opacity' }, '-=0.7')
-        .from('.h-emblem .emblem-contour', { scale: 0.6, opacity: 0, transformOrigin: '100px 140px', duration: 1.6, stagger: -0.18, ease: 'expo.out' }, 0.1)
-        .from('.h-dot', { scale: 0, transformOrigin: '172.8px 22px', duration: 1.1, ease: 'back.out(2)' }, 0.7)
+        .from('.h-emblem .emblem-contour', { scale: 0.6, opacity: 0, transformOrigin: '372px 520px', duration: 1.6, stagger: -0.18, ease: 'expo.out' }, 0.1)
+        .from('.h-dot', { scale: 0, transformOrigin: '707px 42px', duration: 1.1, ease: 'back.out(2)' }, 0.7)
         .from('.h-chip', { y: 24, opacity: 0, duration: 0.9, stagger: 0.15 }, '-=0.6');
 
       // Scroll: the emblem drifts and the copy lifts away.
