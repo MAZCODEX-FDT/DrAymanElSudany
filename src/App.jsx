@@ -12,6 +12,9 @@ const ForDoctors = lazy(() => import('@/pages/ForDoctors'));
 const Faq = lazy(() => import('@/pages/Faq'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const Book = lazy(() => import('@/pages/Book'));
+const BeforeVisit = lazy(() => import('@/pages/BeforeVisit'));
+const Articles = lazy(() => import('@/pages/Articles'));
+const Article = lazy(() => import('@/pages/Article'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 const Dashboard = lazy(() => import('@/dashboard/DashboardApp'));
 
@@ -28,6 +31,9 @@ function siteRoutes(prefix) {
       <Route path="faq" element={<Faq />} />
       <Route path="contact" element={<Contact />} />
       <Route path="book" element={<Book />} />
+      <Route path="before-your-visit" element={<BeforeVisit />} />
+      <Route path="articles" element={<Articles />} />
+      <Route path="articles/:slug" element={<Article />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   );

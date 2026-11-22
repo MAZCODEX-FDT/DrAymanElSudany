@@ -57,7 +57,18 @@ If the API is unreachable the app falls back to demo data automatically and the 
    then **delete `api/setup.php`** from the server.
 6. Sign in at `https://<domain>/dashboard`, open **Settings**, and enter the phone, WhatsApp number, address, hours and map link
    exactly as they appear on the Google Business profile. The WhatsApp buttons go live once the number is set.
-7. Submit `https://<domain>/sitemap.xml` in Google Search Console.
+7. **Google Search Console:** add the domain as a URL-prefix property, choose "HTML file", and paste only the file name
+   (e.g. `google1a2b3c.html`) into dashboard Settings → Google and analytics. The site answers that file itself.
+   Then submit `https://<domain>/sitemap.xml`. On Bluehost it is generated live from the database (procedures and articles included).
+8. **Google reviews (optional):** create a Google Cloud API key with *Places API (New)* enabled, restrict it to that API,
+   put it in `api/config.php` as `google_places_key`, and paste the clinic's Place ID into Settings. Rating and the latest
+   4–5 star reviews refresh once a week (or press "Refresh Google reviews now").
+9. **Analytics (optional):** paste the GA4 Measurement ID (`G-…`) and/or Meta Pixel ID into Settings. Page views, WhatsApp/call taps
+   (`click_whatsapp`, `click_call`, Pixel `Contact`) and bookings (`generate_lead`, Pixel `Lead`) are sent with the procedure slug and the
+   first page of the visit; no patient details are sent. Bookings also store landing page and source, shown in dashboard Analytics.
+10. **Bookings to the clinic WhatsApp:** after sending the form the visitor gets a "send on WhatsApp" button with the booking
+   summary. For automatic delivery without the visitor, fill `whatsapp_cloud` in `config.php` (WhatsApp Business Cloud API
+   token, phone number ID, the clinic number, and an approved template with 5 body parameters: type, name, phone, reason, preferred day).
 
 `api/.htaccess` blocks web access to `config.php`, `lib.php` and `schema.sql`. Admin sessions use an HttpOnly,
 SameSite=Strict cookie; writes must be JSON from the same origin; login and public forms are rate-limited per IP.
@@ -69,6 +80,7 @@ SameSite=Strict cookie; writes must be JSON from the same origin; login and publ
 - Approved CV, certificates and academic title → `src/data/content.js` (`about.credentials`).
 - Doctor's review of every medical text in `src/data/procedures.js`, `src/data/faqs.js`, `src/data/content.js`.
 - Domain, and final colour approval in the brand guide.
+- Doctor's review of `src/data/visitGuide.js` (before-your-visit guide, fasting times) and `src/data/articles.js`.
 
 ## Project map
 

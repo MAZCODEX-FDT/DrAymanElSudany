@@ -5,7 +5,7 @@ import { publicContent } from './api';
 // about-the-doctor blocks and images. Loaded once per visit; the last copy is kept in
 // localStorage so returning visitors see it instantly while the fresh copy loads.
 
-const CACHE = 'aes-content-v2';
+const CACHE = 'aes-content-v3';
 const ContentContext = createContext({ ready: false });
 export const useContent = () => useContext(ContentContext);
 
@@ -23,6 +23,8 @@ export function normalize(raw) {
     phone: b.phone || '',
     whatsapp: b.whatsapp || '',
     map_url: b.map_url || '',
+    lat: parseFloat(b.lat) || null,
+    lng: parseFloat(b.lng) || null,
     image: b.image || '',
   }));
   const blocks = (raw.about || []).map((a) => ({ id: a.id, kind: a.kind, title: bi(a, 'title'), body: bi(a, 'body'), image: a.image || '' }));
@@ -42,7 +44,11 @@ export function normalize(raw) {
     if (m.slot === 'gallery') gallery.push(item);
     else if (!media[m.slot]) media[m.slot] = item;
   }
-  return { procedures, faqs, branches, about, media, gallery };
+  const articles = (raw.articles || [])
+    .map((a) => ({ id: a.id, slug: a.slug, category: bi(a, 'category'), title: bi(a, 'title'), excerpt: bi(a, 'excerpt'), body: bi(a, 'body'), image: a.image || '', date: a.published_on || '' }))
+    .filter((a) => a.slug && (a.title.ar || a.title.en))
+    .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  return { procedures, faqs, branches, about, media, gallery, articles };
 }
 
 function readCache() {
@@ -77,7 +83,7 @@ export function ContentProvider({ children }) {
   }, []);
   const value = useMemo(() => {
     const n = normalize(raw);
-    return n ? { ready: true, fresh, ...n } : { ready: false, fresh, procedures: [], faqs: [], branches: [], about: { highlights: [], sections: [], steps: [], credentials: [] }, media: {}, gallery: [] };
+    return n ? { ready: true, fresh, ...n } : { ready: false, fresh, procedures: [], faqs: [], branches: [], about: { highlights: [], sections: [], steps: [], credentials: [] }, media: {}, gallery: [], articles: [] };
   }, [raw, fresh]);
   return <ContentContext.Provider value={value}>{children}</ContentContext.Provider>;
 }

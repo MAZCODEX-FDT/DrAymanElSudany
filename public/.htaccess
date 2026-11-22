@@ -9,6 +9,9 @@ RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 RewriteRule ^api/ - [L]
+# Live sitemap from the database, and Search Console file verification from Settings.
+RewriteRule ^sitemap\.xml$ api/sitemap.php [L]
+RewriteRule ^(google[A-Za-z0-9]+\.html)$ api/gsc.php?f=$1 [L,QSA]
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]

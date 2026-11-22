@@ -1,6 +1,7 @@
 // Data layer. Talks to the PHP API in /api (Bluehost). If the API is not reachable
 // (local preview, design review) it falls back to demo data kept in localStorage.
-import { db, save, nextId } from './demo';
+import { db, save, nextId, GOOGLE_SAMPLE } from './demo';
+import { trackAction } from './analytics';
 
 const FORCE_DEMO = import.meta.env.VITE_DEMO === '1';
 const BASE = import.meta.env.VITE_API_BASE || '/api/index.php';
@@ -48,8 +49,8 @@ async function call(method, r, opts, demoFn) {
 const now = () => new Date().toISOString();
 
 // ---------- resources (dashboard) ----------
-export const RESOURCES = ['appointments', 'leads', 'cases', 'referrers', 'patients', 'testimonials', 'faqs', 'events', 'procedures', 'branches', 'about', 'media'];
-const CONTENT = ['procedures', 'faqs', 'branches', 'about', 'media'];
+export const RESOURCES = ['appointments', 'leads', 'cases', 'referrers', 'patients', 'testimonials', 'faqs', 'events', 'procedures', 'branches', 'about', 'media', 'articles'];
+const CONTENT = ['procedures', 'faqs', 'branches', 'about', 'media', 'articles'];
 const bySort = (a, b) => (a.sort ?? 0) - (b.sort ?? 0) || a.id - b.id;
 
 export const list = (r) => call('GET', r, {}, () => {
@@ -147,16 +148,17 @@ function compressToDataUrl(file, max = 1400) {
   });
 }
 
+/** Google rating and recent 4-5 star reviews. Live: the server asks Google Places and caches the answer for a week. */
+export const publicGoogle = () => call('GET', 'public-google', {}, () => GOOGLE_SAMPLE);
+
+export const refreshGoogle = () => call('POST', 'google-refresh', {}, () => GOOGLE_SAMPLE);
+
 export const publicFaqs = () => call('GET', 'public-faqs', {}, () => db().faqs.filter((f) => f.published !== false));
 export const publicTestimonials = () => call('GET', 'public-testimonials', {}, () => db().testimonials.filter((t) => t.approved));
 
 /** Click tracking (WhatsApp, call, map, form). Fire and forget. */
 export function track(type, page = window.location.pathname) {
-  try {
-    if (typeof window.gtag === 'function') window.gtag('event', `click_${type}`, { page_path: page });
-  } catch {
-    /* analytics optional */
-  }
+  trackAction(type, page);
   call('POST', 'event', { body: { type, page } }, () => {
     db().events.push({ id: nextId(), type, page, created_at: now() });
     save();

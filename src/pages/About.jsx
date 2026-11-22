@@ -60,7 +60,7 @@ export default function About() {
                 <p className="eyebrow mb-4">{t('nav.procedures')}</p>
                 <h2 className="font-display max-w-2xl text-3xl text-deep sm:text-4xl">{en ? 'What Dr. Ayman treats' : 'الحالات اللى د. أيمن بيتعامل معاها'}</h2>
               </div>
-              <Link to={to('/procedures')} className="inline-flex items-center gap-2 font-medium text-calm hover:text-deep">
+              <Link to={to('/procedures')} className="inline-flex min-h-11 items-center gap-2 font-medium text-calm-ink hover:text-deep">
                 {t('procedures.all')} ({procedures.length}) <ArrowUpRight size={18} className="rtl:-scale-x-100" />
               </Link>
             </div>

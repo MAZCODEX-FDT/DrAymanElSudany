@@ -102,7 +102,7 @@ export function BranchSection({ className = 'bg-white py-20 sm:py-24' }) {
     <section className={className}>
       <div className="mx-auto max-w-7xl px-6">
         <p className="eyebrow mb-4">{one ? (en ? 'The clinic' : 'العيادة') : en ? 'Our clinics' : 'أماكن الكشف'}</p>
-        <h2 className="font-display mb-10 text-3xl text-deep sm:text-4xl">{one ? (en ? 'Where to find us' : 'مكان الكشف') : en ? 'Where to find us' : 'تقدر تكشف فين'}</h2>
+        <h2 className="font-display mb-10 text-3xl text-deep sm:text-4xl">{one ? (en ? 'Where to find us' : 'مكان العيادة') : en ? 'Where to find us' : 'تقدر تكشف فين'}</h2>
         <BranchCards />
       </div>
     </section>

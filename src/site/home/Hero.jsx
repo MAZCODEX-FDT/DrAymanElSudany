@@ -97,7 +97,7 @@ export function Hero() {
             <p className="text-xs text-slate">{lang === 'en' ? 'patient reviews' : 'تقييم من المرضى'}</p>
           </div>
           <div className={`h-chip absolute top-44 ${photo ? '-end-4 hidden sm:block' : 'end-0'} max-w-[250px] rounded-2xl bg-white px-5 py-4 text-ink`}>
-            <div className="flex items-center gap-2 text-xs font-medium text-calm">
+            <div className="flex items-center gap-2 text-xs font-medium text-calm-ink">
               <LogoMark className="h-5 w-5" /> {t('hero.cardTitle')}
             </div>
             <p className="mt-2 text-sm leading-relaxed">{t('hero.cardBody')}</p>

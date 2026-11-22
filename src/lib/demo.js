@@ -3,7 +3,7 @@
 import { seedContent } from '@/data/seed';
 import { STOCK_SLOTS, STOCK_GALLERY, STOCK_BRANCH, STOCK_NOTE } from '@/data/stock';
 
-const KEY = 'aes-demo-v6';
+const KEY = 'aes-demo-v8';
 
 function rng(seed) {
   let s = seed;
@@ -146,6 +146,7 @@ function seed() {
       ...STOCK_GALLERY.map((url, i) => ({ slot: 'gallery', url, alt_ar: STOCK_NOTE.ar, alt_en: STOCK_NOTE.en, enabled: true, sort: 20 + i })),
     ]),
     faqs: withIds(site.faqs),
+    articles: withIds((site.articles || []).map((a, i) => ({ ...a, image: STOCK_GALLERY[(i + 2) % STOCK_GALLERY.length] }))),
     appointments,
     leads,
     cases,
@@ -176,6 +177,13 @@ function seed() {
       instagram: 'https://instagram.com/',
       youtube: 'https://youtube.com/',
       tiktok: 'https://tiktok.com/',
+      x: 'https://x.com/',
+      threads: 'https://threads.net/',
+      snapchat: 'https://snapchat.com/',
+      linkedin: 'https://linkedin.com/',
+      telegram: 'https://t.me/',
+      whatsapp_channel: 'https://whatsapp.com/channel/',
+      vezeeta: 'https://vezeeta.com/',
       google_reviews: 4,
       google_reviews_goal: 35,
     },
@@ -210,3 +218,21 @@ export function nextId() {
   d._id = (d._id || 1000) + 1;
   return d._id;
 }
+
+/** What the Google block looks like once the Places key is set. Demo only, labelled as a sample on the page. */
+export const GOOGLE_SAMPLE = {
+  demo: true,
+  rating: 5,
+  count: 4,
+  url: '',
+  reviews_ar: [
+    { author: 'م. ع.', rating: 5, text: 'سمعنا للآخر وشرح لنا كل حاجة قبل أى قرار.', when: 'من أسبوع' },
+    { author: 'س. ح.', rating: 5, text: 'قال بصراحة إن والدى مش محتاج قسطرة، وكتب لنا خطة متابعة واضحة.', when: 'من 3 أسابيع' },
+    { author: 'أ. م.', rating: 5, text: 'بيرد على الواتساب بسرعة لما بنبعت الأشعة.', when: 'من شهر' },
+  ],
+  reviews_en: [
+    { author: 'M. A.', rating: 5, text: 'He listened to the end and explained everything before any decision.', when: 'a week ago' },
+    { author: 'S. H.', rating: 5, text: 'He honestly said my father did not need a catheter and wrote a clear follow-up plan.', when: '3 weeks ago' },
+    { author: 'A. M.', rating: 5, text: 'Replies quickly on WhatsApp when we send scans.', when: 'a month ago' },
+  ],
+};

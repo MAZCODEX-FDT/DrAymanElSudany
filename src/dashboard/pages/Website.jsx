@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
-import { Plus, Pencil, Trash2, ArrowUp, ArrowDown, ImagePlus, X, Stethoscope, HelpCircle, MapPin, UserRound, Images, Quote, ExternalLink } from 'lucide-react';
+import { Plus, Pencil, Trash2, ArrowUp, ArrowDown, ImagePlus, X, Stethoscope, HelpCircle, MapPin, UserRound, Images, Quote, ExternalLink, Newspaper } from 'lucide-react';
 import { useLang } from '@/i18n';
 import * as api from '@/lib/api';
 import { imgSrc } from '@/lib/content';
@@ -144,7 +144,7 @@ function Field({ f, item, setItem, suggestions = {} }) {
         const listId = opts.length ? `sg-${path.replace(/\W/g, '-')}` : undefined;
         return (
           <DField key={path} label={lbl}>
-            <DInput dir={dir} list={listId} value={raw ?? ''} onChange={(e) => setItem(setIn(item, path, e.target.value))} />
+            <DInput type={f.inputType} dir={dir} list={listId} value={raw ?? ''} onChange={(e) => setItem(setIn(item, path, e.target.value))} />
             {listId && (
               <datalist id={listId}>
                 {opts.map((o) => (
@@ -165,7 +165,7 @@ const slugify = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-')
 function tidy(item, fields) {
   let out = item;
   // Same rule as the server: lowercase latin letters, digits and dashes.
-  if ('slug' in out) out = { ...out, slug: slugify(out.slug) || slugify(out.content?.title?.en) || `page-${Date.now().toString(36)}` };
+  if ('slug' in out) out = { ...out, slug: slugify(out.slug) || slugify(out.content?.title?.en || out.title_en) || `page-${Date.now().toString(36)}` };
   for (const f of fields) {
     if (f.type !== 'lines') continue;
     for (const l of f.bi ? ['ar', 'en'] : [null]) {
@@ -417,7 +417,7 @@ function useTabs() {
       hint: d('w_branchesHint'),
       addLabel: 'addBranch',
       publicLink: '/about',
-      blank: { name_ar: '', name_en: '', address_ar: '', address_en: '', hours_ar: '', hours_en: '', phone: '', whatsapp: '', map_url: '', image: '', enabled: true },
+      blank: { name_ar: '', name_en: '', address_ar: '', address_en: '', hours_ar: '', hours_en: '', phone: '', whatsapp: '', map_url: '', lat: '', lng: '', image: '', enabled: true },
       thumb: (b) => b.image || <MapPin size={18} />,
       row: (b, lang) => ({ title: b[`name_${lang}`] || b.name_ar, sub: b[`address_${lang}`] || b.address_ar }),
       fields: [
@@ -427,6 +427,8 @@ function useTabs() {
         { key: 'phone', label: 's_phone', dir: 'ltr' },
         { key: 'whatsapp', label: 's_whatsapp', dir: 'ltr' },
         { key: 'map_url', label: 's_map_url', dir: 'ltr' },
+        { key: 'lat', label: 'f_lat', dir: 'ltr', hint: 'f_latHint' },
+        { key: 'lng', label: 'f_lng', dir: 'ltr' },
         { key: 'image', label: 'f_image', type: 'image' },
       ],
     },
@@ -461,6 +463,25 @@ function useTabs() {
         { key: 'alt', label: 'f_alt', bi: true },
       ],
     },
+    articles: {
+      resource: 'articles',
+      title: d('w_articles'),
+      hint: d('w_articlesHint'),
+      addLabel: 'addArticle',
+      publicLink: '/articles',
+      blank: () => ({ slug: '', category_ar: '', category_en: '', title_ar: '', title_en: '', excerpt_ar: '', excerpt_en: '', body_ar: '', body_en: '', image: '', published_on: new Date().toISOString().slice(0, 10), enabled: true }),
+      thumb: (a) => a.image || <Newspaper size={18} />,
+      row: (a, lang) => ({ title: a[`title_${lang}`] || a.title_ar, sub: [a.published_on, a[`category_${lang}`] || a.category_ar, `/articles/${a.slug}`].filter(Boolean).join(' · ') }),
+      fields: [
+        { key: 'title', label: 'f_title', bi: true },
+        { key: 'slug', label: 'f_slug', dir: 'ltr' },
+        { key: 'category', label: 'f_category', bi: true, suggest: true },
+        { key: 'published_on', label: 'f_date', dir: 'ltr', inputType: 'date' },
+        { key: 'image', label: 'f_image', type: 'image' },
+        { key: 'excerpt', label: 'f_excerpt', type: 'area', rows: 2, bi: true },
+        { key: 'body', label: 'f_articleBody', type: 'area', rows: 14, bi: true },
+      ],
+    },
     testimonials: {
       resource: 'testimonials',
       flag: 'approved',
@@ -479,7 +500,7 @@ function useTabs() {
   };
 }
 
-const TAB_ICONS = { procedures: Stethoscope, faqs: HelpCircle, branches: MapPin, about: UserRound, media: Images, testimonials: Quote };
+const TAB_ICONS = { procedures: Stethoscope, faqs: HelpCircle, branches: MapPin, about: UserRound, media: Images, articles: Newspaper, testimonials: Quote };
 
 export default function Website() {
   const d = useD();
