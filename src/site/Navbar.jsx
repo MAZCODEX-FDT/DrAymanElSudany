@@ -22,6 +22,8 @@ export function Navbar() {
   const links = [
     ['/about', 'nav.about'],
     ['/procedures', 'nav.procedures'],
+    ['/before-your-visit', 'nav.visit'],
+    ['/articles', 'nav.blog'],
     ['/for-doctors', 'nav.doctors'],
     ['/faq', 'nav.faq'],
     ['/contact', 'nav.contact'],
@@ -65,13 +67,13 @@ export function Navbar() {
           <Link to={to('/')} aria-label={t('brand.name')}>
             <Logo light />
           </Link>
-          <ul className="hidden items-center gap-1 lg:flex">
+          <ul className="hidden items-center gap-0.5 xl:flex">
             {links.map(([href, key]) => (
               <li key={href}>
                 <NavLink
                   to={to(href)}
                   className={({ isActive }) =>
-                    cn('rounded-full px-4 py-2 text-[15px] transition-colors', isActive ? 'bg-white/10 text-linen' : 'text-linen/70 hover:text-linen')
+                    cn('whitespace-nowrap rounded-full px-3 py-2 text-[15px] transition-colors 2xl:px-4', isActive ? 'bg-white/10 text-linen' : 'text-linen/70 hover:text-linen')
                   }
                 >
                   {t(key)}
@@ -86,7 +88,7 @@ export function Navbar() {
             <Button to={to('/book')} variant="amber" size="sm" className="hidden sm:inline-flex">
               {t('nav.book')}
             </Button>
-            <button onClick={() => setOpen(true)} className="grid h-10 w-10 place-items-center rounded-full text-linen hover:bg-white/10 lg:hidden" aria-label={t('nav.menu')}>
+            <button onClick={() => setOpen(true)} className="grid h-10 w-10 place-items-center rounded-full text-linen hover:bg-white/10 xl:hidden" aria-label={t('nav.menu')}>
               <Menu size={22} />
             </button>
           </div>
@@ -94,23 +96,23 @@ export function Navbar() {
       </header>
 
       {open && (
-        <div ref={panel} className="bg-deep-glow fixed inset-0 z-[60] flex flex-col px-6 pb-10 pt-6 text-linen lg:hidden" data-lenis-prevent>
+        <div ref={panel} className="bg-deep-glow fixed inset-0 z-[60] flex flex-col px-6 pb-10 pt-6 text-linen xl:hidden overflow-y-auto" data-lenis-prevent>
           <div className="flex items-center justify-between">
             <Logo light />
             <button onClick={() => setOpen(false)} className="grid h-11 w-11 place-items-center rounded-full bg-white/10" aria-label={t('nav.close')}>
               <X size={22} />
             </button>
           </div>
-          <ul className="mt-14 space-y-2">
+          <ul className="mt-10 space-y-1">
             {[['/', 'nav.home'], ...links, ['/book', 'nav.book']].map(([href, key]) => (
               <li key={href} className="m-link">
-                <Link to={to(href)} className="font-display block py-2 text-4xl">
+                <Link to={to(href)} className="font-display block py-2 text-3xl sm:text-4xl">
                   {t(key)}
                 </Link>
               </li>
             ))}
           </ul>
-          <div className="m-link mt-auto flex flex-col gap-3">
+          <div className="m-link mt-auto flex flex-col gap-3 pt-8">
             <Button href={whatsappHref(settings, lang)} onClick={() => track('whatsapp')} variant="amber" size="lg" target="_blank" rel="noopener">
               {t('cta.whatsapp')}
             </Button>
