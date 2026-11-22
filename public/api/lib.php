@@ -8,14 +8,21 @@ const RESOURCES = [
     'referrers' => ['name', 'specialty', 'city', 'phone', 'cases_count', 'last_referral', 'report_sent'],
     'patients' => ['name', 'phone', 'age', 'city', 'condition', 'summary', 'last_visit'],
     'testimonials' => ['quote_ar', 'quote_en', 'author', 'source', 'approved'],
-    'faqs' => ['q_ar', 'a_ar', 'q_en', 'a_en', 'published', 'sort'],
+    'faqs' => ['category_ar', 'category_en', 'q_ar', 'a_ar', 'q_en', 'a_en', 'published', 'sort'],
     'events' => ['type', 'page'],
+    'procedures' => ['slug', 'icon', 'image', 'content', 'enabled', 'sort'],
+    'branches' => ['name_ar', 'name_en', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'phone', 'whatsapp', 'map_url', 'image', 'enabled', 'sort'],
+    'about' => ['kind', 'title_ar', 'title_en', 'body_ar', 'body_en', 'image', 'enabled', 'sort'],
+    'media' => ['slot', 'url', 'alt_ar', 'alt_en', 'enabled', 'sort'],
 ];
-const BOOLS = ['report_sent', 'approved', 'published'];
+/** Website content shown publicly (only enabled rows), ordered by `sort`. */
+const CONTENT = ['procedures', 'faqs', 'branches', 'about', 'media'];
+const JSON_COLS = ['payload', 'content'];
+const BOOLS = ['report_sent', 'approved', 'published', 'enabled'];
 const INTS = ['id', 'cases_count', 'age', 'sort'];
 const DATETIMES = ['created_at', 'responded_at'];
-const SETTING_KEYS = ['phone', 'whatsapp', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok', 'google_reviews', 'google_reviews_goal'];
-const PUBLIC_SETTING_KEYS = ['phone', 'whatsapp', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok'];
+const SETTING_KEYS = ['phone', 'whatsapp', 'email', 'website', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok', 'google_reviews', 'google_reviews_goal'];
+const PUBLIC_SETTING_KEYS = ['phone', 'whatsapp', 'email', 'website', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok'];
 
 function config(): array
 {
@@ -108,7 +115,7 @@ function clean_row(array $row): array
             $row[$k] = (int) $v;
         } elseif (in_array($k, DATETIMES, true)) {
             $row[$k] = str_replace(' ', 'T', $v) . 'Z';
-        } elseif ($k === 'payload') {
+        } elseif (in_array($k, JSON_COLS, true)) {
             $row[$k] = json_decode($v, true) ?: new stdClass();
         }
     }
@@ -126,8 +133,12 @@ function filter_fields(string $r, array $in): array
         $v = $in[$col];
         if (in_array($col, BOOLS, true)) {
             $v = $v ? 1 : 0;
-        } elseif ($col === 'payload') {
+        } elseif (in_array($col, JSON_COLS, true)) {
             $v = json_encode(is_array($v) ? $v : [], JSON_UNESCAPED_UNICODE);
+        } elseif ($col === 'slug') {
+            $v = trim(preg_replace('/[^a-z0-9]+/', '-', strtolower((string) $v)), '-') ?: 'page-' . bin2hex(random_bytes(3));
+        } elseif (in_array($col, ['image', 'url', 'map_url'], true)) {
+            $v = safe_url((string) $v);
         } elseif (in_array($col, DATETIMES, true)) {
             $v = $v ? gmdate('Y-m-d H:i:s', strtotime((string) $v)) : null;
         } elseif (in_array($col, ['next_follow_up', 'last_referral', 'last_visit', 'date'], true)) {
@@ -204,4 +215,56 @@ function notify(string $subject, string $text): void
     if ($to) {
         @mail($to, '=?UTF-8?B?' . base64_encode($subject) . '?=', $text, "Content-Type: text/plain; charset=UTF-8\r\n");
     }
+}
+
+/** Only site-relative paths (/uploads/...) or http(s) links are stored as image/map URLs. */
+function safe_url(string $u): string
+{
+    $u = trim($u);
+    if ($u === '') {
+        return '';
+    }
+    if (preg_match('#^/(?!/)[A-Za-z0-9/_\-.]+$#', $u) || preg_match('#^https?://#i', $u)) {
+        return mb_substr($u, 0, 500);
+    }
+    return '';
+}
+
+/** Enabled website content for the public site, in one call. */
+function public_content(): array
+{
+    $out = [];
+    foreach (CONTENT as $r) {
+        $flag = $r === 'faqs' ? 'published' : 'enabled';
+        $rows = db()->query('SELECT * FROM ' . q($r) . " WHERE $flag = 1 ORDER BY sort, id")->fetchAll();
+        $out[$r] = array_map('clean_row', $rows);
+    }
+    return $out;
+}
+
+/** Stores an uploaded image in /uploads/YYYY/MM after checking it really is a JPEG, PNG, WebP or GIF. */
+function save_upload(array $f): string
+{
+    if (($f['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || !is_uploaded_file($f['tmp_name'])) {
+        fail(422, 'upload failed');
+    }
+    if ($f['size'] > 8 * 1024 * 1024) {
+        fail(413, 'image larger than 8 MB');
+    }
+    $types = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif'];
+    $mime = (new finfo(FILEINFO_MIME_TYPE))->file($f['tmp_name']);
+    if (!isset($types[$mime]) || @getimagesize($f['tmp_name']) === false) {
+        fail(415, 'only jpg, png, webp or gif images');
+    }
+    $sub = gmdate('Y/m');
+    $dir = dirname(__DIR__) . '/uploads/' . $sub;
+    if (!is_dir($dir) && !mkdir($dir, 0755, true)) {
+        fail(500, 'cannot create uploads folder');
+    }
+    $name = bin2hex(random_bytes(12)) . '.' . $types[$mime];
+    if (!move_uploaded_file($f['tmp_name'], "$dir/$name")) {
+        fail(500, 'cannot save file');
+    }
+    @chmod("$dir/$name", 0644);
+    return "/uploads/$sub/$name";
 }

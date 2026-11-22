@@ -24,6 +24,7 @@ export function Navbar() {
     ['/procedures', 'nav.procedures'],
     ['/for-doctors', 'nav.doctors'],
     ['/faq', 'nav.faq'],
+    ['/contact', 'nav.contact'],
   ];
 
   // Solid background once scrolled; hide on scroll down, show on scroll up.

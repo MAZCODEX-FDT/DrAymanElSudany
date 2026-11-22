@@ -6,7 +6,7 @@ import { procedures } from '../src/data/procedures.js';
 const site = (process.env.SITE_URL || 'https://example.com').replace(/\/$/, '');
 if (!process.env.SITE_URL) console.warn('[seo-files] SITE_URL not set; using https://example.com. Set it before the production build.');
 
-const paths = ['/', '/about', '/procedures', ...procedures.map((p) => `/procedures/${p.slug}`), '/for-doctors', '/faq', '/book'];
+const paths = ['/', '/about', '/procedures', ...procedures.map((p) => `/procedures/${p.slug}`), '/for-doctors', '/faq', '/contact', '/book'];
 const today = new Date().toISOString().slice(0, 10);
 const url = (p) => {
   const ar = `${site}${p}`;

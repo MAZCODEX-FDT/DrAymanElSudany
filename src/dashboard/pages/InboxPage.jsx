@@ -24,7 +24,7 @@ const VALUES = {
   self: { ar: 'لنفسه', en: 'Self' },
   parent: { ar: 'لوالده / والدته', en: 'Parent' },
   other: { ar: 'حد من العيلة', en: 'Family member' },
-  routine: { ar: 'عادي', en: 'Routine' },
+  routine: { ar: 'عادى', en: 'Routine' },
   soon: { ar: 'خلال أسبوع', en: 'Within a week' },
   urgent: { ar: 'عاجل', en: 'Urgent' },
 };

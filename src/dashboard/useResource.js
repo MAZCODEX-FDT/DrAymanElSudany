@@ -1,3 +1,4 @@
+import { procedures as defaults } from '@/data/procedures';
 import { useCallback, useEffect, useState } from 'react';
 import * as api from '@/lib/api';
 
@@ -29,4 +30,12 @@ export function useResource(r) {
     await api.remove(r, id);
   };
   return { items, loading, reload, create, update, remove };
+}
+
+/** Procedures from Website > Procedures (falls back to the defaults) for case labels and pickers. */
+export function useProcedures() {
+  const { items } = useResource('procedures');
+  const list = items.length ? items.map((p) => ({ slug: p.slug, title: p.content?.title || { ar: p.slug, en: p.slug } })) : defaults.map((p) => ({ slug: p.slug, title: p.title }));
+  const get = (slug) => list.find((p) => p.slug === slug) || defaults.find((p) => p.slug === slug);
+  return { list, get };
 }

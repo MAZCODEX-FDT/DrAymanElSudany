@@ -4,7 +4,7 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Check, ShieldCheck, Info } from 'lucide-react';
 import { useLang } from '@/i18n';
-import { getProcedure, procedures } from '@/data/procedures';
+import { useContent } from '@/lib/content';
 import { useSettings, whatsappHref } from '@/lib/settings';
 import { track } from '@/lib/api';
 import { Seo } from '@/site/Seo';
@@ -21,7 +21,8 @@ export default function Procedure() {
   const { slug } = useParams();
   const { t, L, to, lang } = useLang();
   const s = useSettings();
-  const p = getProcedure(slug);
+  const { procedures, fresh } = useContent();
+  const p = procedures.find((x) => x.slug === slug);
   const steps = useRef(null);
 
   useGSAP(
@@ -35,22 +36,25 @@ export default function Procedure() {
     { scope: steps, dependencies: [slug, lang] }
   );
 
-  if (!p) return <Navigate to={to('/procedures')} replace />;
+  if (!p) return fresh ? <Navigate to={to('/procedures')} replace /> : <div className="min-h-screen bg-deep" />;
+  const faqs = p.faqs || [];
+  const steps3 = p.steps || {};
+  const list = (v) => (L(v) || []).filter(Boolean);
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
-      { '@type': 'MedicalProcedure', name: L(p.title), description: L(p.short), procedureType: 'https://schema.org/PercutaneousProcedure', howPerformed: L(p.steps.during) },
-      { '@type': 'FAQPage', mainEntity: p.faqs.map((f) => ({ '@type': 'Question', name: L(f.q), acceptedAnswer: { '@type': 'Answer', text: L(f.a) } })) },
+      { '@type': 'MedicalProcedure', name: L(p.title), description: L(p.short), procedureType: 'https://schema.org/PercutaneousProcedure', howPerformed: L(steps3.during) || undefined },
+      ...(faqs.length ? [{ '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: L(f.q), acceptedAnswer: { '@type': 'Answer', text: L(f.a) } })) }] : []),
     ],
   };
-  const waText = lang === 'en' ? `Hello, I have a question about ${L(p.title)}.` : `السلام عليكم، عندي سؤال عن ${L(p.title)}.`;
+  const waText = lang === 'en' ? `Hello, I have a question about ${L(p.title)}.` : `السلام عليكم، عندى سؤال عن ${L(p.title)}.`;
   const others = procedures.filter((x) => x.slug !== p.slug).slice(0, 3);
 
   return (
     <>
       <Seo title={L(p.title)} description={L(p.short)} jsonLd={jsonLd} />
-      <PageHero eyebrow={t('procedures.eyebrow')} title={L(p.title)} sub={L(p.short)}>
+      <PageHero eyebrow={t('procedures.eyebrow')} title={L(p.title)} sub={L(p.short)} image={p.image} imageAlt={L(p.title)}>
         <Button href={whatsappHref(s, lang, waText)} target="_blank" rel="noopener" onClick={() => track('whatsapp')} variant="amber" size="lg">
           <WhatsAppIcon size={20} /> {t('cta.whatsapp')}
         </Button>
@@ -64,7 +68,7 @@ export default function Procedure() {
                 <ProcedureIcon name={p.icon} className="h-12 w-12" />
               </div>
               <nav className="rounded-3xl border border-deep/10 bg-white p-6">
-                {[['what', t('procedures.whatIs')], ['who', t('procedures.whoFor')], ['steps', t('procedures.steps')], ['risk', t('procedures.risky')], ['cost', t('procedures.cost')], ['faq', t('procedures.faq')]].map(([id, label]) => (
+                {[['what', t('procedures.whatIs')], ['who', t('procedures.whoFor')], ['steps', t('procedures.steps')], ['risk', t('procedures.risky')], ['cost', t('procedures.cost')], ['faq', t('procedures.faq')]].filter(([id]) => id !== 'faq' || faqs.length).map(([id, label]) => (
                   <a key={id} href={`#${id}`} className="block rounded-xl px-3 py-2.5 text-ink/70 transition-colors hover:bg-mist/60 hover:text-deep">
                     {label}
                   </a>
@@ -86,7 +90,7 @@ export default function Procedure() {
               <section id="who" className="scroll-mt-28">
                 <h2 className="font-display text-3xl text-deep">{t('procedures.whoFor')}</h2>
                 <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-                  {L(p.whoFor).map((w) => (
+                  {list(p.whoFor).map((w) => (
                     <li key={w} className="flex gap-3 rounded-2xl bg-mist/50 p-5 text-ink/80">
                       <Check size={18} className="mt-1 shrink-0 text-calm" /> {w}
                     </li>
@@ -102,7 +106,7 @@ export default function Procedure() {
                   <div key={k} className="step-item relative">
                     <span className="absolute -start-12 top-0 grid h-10 w-10 place-items-center rounded-full border-2 border-amber bg-linen font-mono text-sm text-deep">{i + 1}</span>
                     <h3 className="font-display text-xl text-deep">{t(`procedures.${k}`)}</h3>
-                    <p className="mt-3 text-lg leading-relaxed text-ink/75">{L(p.steps[k])}</p>
+                    <p className="mt-3 text-lg leading-relaxed text-ink/75">{L(steps3[k])}</p>
                   </div>
                 ))}
               </div>
@@ -119,20 +123,22 @@ export default function Procedure() {
                 <h2 className="font-display text-3xl text-deep">{t('procedures.cost')}</h2>
                 <p className="mt-4 text-ink/70">{t('cost.sub')}</p>
                 <ul className="mt-6 space-y-3">
-                  {L(p.costFactors).map((c, i) => (
+                  {list(p.costFactors).map((c, i) => (
                     <li key={c} className="flex items-center gap-4 rounded-2xl border border-deep/10 bg-white p-5 text-ink/80">
-                      <span className="font-mono text-sm text-amber">0{i + 1}</span> {c}
+                      <span className="font-mono text-sm text-amber">{String(i + 1).padStart(2, '0')}</span> {c}
                     </li>
                   ))}
                 </ul>
               </section>
             </AnimatedContent>
+            {faqs.length > 0 && (
             <section id="faq" className="scroll-mt-28">
               <h2 className="font-display text-3xl text-deep">{t('procedures.faq')}</h2>
               <div className="mt-4">
-                <Accordion items={p.faqs.map((f) => ({ q: L(f.q), a: L(f.a) }))} />
+                <Accordion items={faqs.map((f) => ({ q: L(f.q), a: L(f.a) }))} />
               </div>
             </section>
+            )}
           </article>
         </div>
       </section>

@@ -14,7 +14,7 @@ const Cases = lazy(() => import('./pages/Cases'));
 const InboxPage = lazy(() => import('./pages/InboxPage'));
 const Referrers = lazy(() => import('./pages/Referrers'));
 const Patients = lazy(() => import('./pages/Patients'));
-const Content = lazy(() => import('./pages/Content'));
+const Website = lazy(() => import('./pages/Website'));
 const Analytics = lazy(() => import('./pages/Analytics'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 
@@ -25,7 +25,7 @@ const NAV = [
   ['inbox', 'inbox', Inbox],
   ['referrers', 'referrers', Stethoscope],
   ['patients', 'patients', Users],
-  ['content', 'content', FileText],
+  ['content', 'content', Globe],
   ['analytics', 'analytics', BarChart3],
   ['settings', 'settings', Settings],
 ];
@@ -78,7 +78,7 @@ function Shell({ user, onLogout, lang, setLang }) {
       <Link to="/dashboard" className="flex items-center gap-3 px-2">
         <LogoMark light className="h-9 w-9" />
         <span className="leading-tight">
-          <span className="font-display block text-[15px]">{lang === 'en' ? 'Dr. Ayman El Sudany' : 'د. أيمن السوداني'}</span>
+          <span className="font-display block text-[15px]">{lang === 'en' ? 'Dr. Ayman El Sudany' : 'د. أيمن السودانى'}</span>
           <span className="block text-[11px] text-linen/50">{d('title')}</span>
         </span>
       </Link>
@@ -160,7 +160,7 @@ function Shell({ user, onLogout, lang, setLang }) {
               <Route path="inbox" element={<InboxPage />} />
               <Route path="referrers" element={<Referrers />} />
               <Route path="patients" element={<Patients />} />
-              <Route path="content" element={<Content />} />
+              <Route path="content" element={<Website />} />
               <Route path="analytics" element={<Analytics />} />
               <Route path="settings" element={<SettingsPage />} />
             </Routes>
@@ -174,7 +174,7 @@ function Shell({ user, onLogout, lang, setLang }) {
 function Gate({ lang, setLang }) {
   const [user, setUser] = useState(undefined);
   useEffect(() => {
-    document.title = lang === 'en' ? 'Dashboard | Dr. Ayman El Sudany' : 'لوحة التحكم | د. أيمن السوداني';
+    document.title = lang === 'en' ? 'Dashboard | Dr. Ayman El Sudany' : 'لوحة التحكم | د. أيمن السودانى';
     api.me().then((r) => setUser(r.user)).catch(() => setUser(null));
   }, [lang]);
   if (user === undefined) return <div className="min-h-screen bg-deep-950" />;
