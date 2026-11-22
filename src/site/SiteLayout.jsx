@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { SmoothScroll } from '@/lib/smooth';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
-import { WhatsAppFab } from './WhatsAppFab';
+import { ContactDock } from './ContactDock';
 import { ContentProvider } from '@/lib/content';
 
 export default function SiteLayout() {
@@ -14,7 +14,7 @@ export default function SiteLayout() {
         <Outlet />
       </main>
       <Footer />
-      <WhatsAppFab />
+      <ContactDock />
     </SmoothScroll>
     </ContentProvider>
   );

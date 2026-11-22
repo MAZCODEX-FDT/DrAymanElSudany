@@ -130,6 +130,9 @@ export const D = {
   // settings
   clinicInfo: { ar: 'بيانات العيادة', en: 'Clinic details' },
   settingsHint: { ar: 'لازم تكون مطابقة لصفحة Google بالحرف.', en: 'Must match the Google Business profile exactly.' },
+  f_lat: { ar: 'خط العرض (اختيارى)', en: 'Latitude (optional)' },
+  f_lng: { ar: 'خط الطول (اختيارى)', en: 'Longitude (optional)' },
+  f_latHint: { ar: 'من جوجل مابس: اضغط على المكان وانسخ الرقمين. بيستخدموا لما يبقى فى أكتر من فرع عشان زرار الاتصال يروح لأقرب فرع.', en: 'From Google Maps: tap the place and copy the two numbers. Used when there is more than one branch, so call buttons go to the nearest one.' },
   growth: { ar: 'جوجل والإحصائيات', en: 'Google and analytics' },
   growthHint: { ar: 'سيبهم فاضيين لحد ما الحسابات تتعمل. مفتاح Google Places بيتحط فى ملف config.php على السيرفر، مش هنا.', en: 'Leave empty until the accounts exist. The Google Places key goes in config.php on the server, not here.' },
   s_google_place_id: { ar: 'Place ID بتاع العيادة على جوجل', en: 'Clinic Google Place ID' },

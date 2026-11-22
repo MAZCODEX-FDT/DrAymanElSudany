@@ -417,7 +417,7 @@ function useTabs() {
       hint: d('w_branchesHint'),
       addLabel: 'addBranch',
       publicLink: '/about',
-      blank: { name_ar: '', name_en: '', address_ar: '', address_en: '', hours_ar: '', hours_en: '', phone: '', whatsapp: '', map_url: '', image: '', enabled: true },
+      blank: { name_ar: '', name_en: '', address_ar: '', address_en: '', hours_ar: '', hours_en: '', phone: '', whatsapp: '', map_url: '', lat: '', lng: '', image: '', enabled: true },
       thumb: (b) => b.image || <MapPin size={18} />,
       row: (b, lang) => ({ title: b[`name_${lang}`] || b.name_ar, sub: b[`address_${lang}`] || b.address_ar }),
       fields: [
@@ -427,6 +427,8 @@ function useTabs() {
         { key: 'phone', label: 's_phone', dir: 'ltr' },
         { key: 'whatsapp', label: 's_whatsapp', dir: 'ltr' },
         { key: 'map_url', label: 's_map_url', dir: 'ltr' },
+        { key: 'lat', label: 'f_lat', dir: 'ltr', hint: 'f_latHint' },
+        { key: 'lng', label: 'f_lng', dir: 'ltr' },
         { key: 'image', label: 'f_image', type: 'image' },
       ],
     },

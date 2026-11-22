@@ -23,6 +23,8 @@ export function normalize(raw) {
     phone: b.phone || '',
     whatsapp: b.whatsapp || '',
     map_url: b.map_url || '',
+    lat: parseFloat(b.lat) || null,
+    lng: parseFloat(b.lng) || null,
     image: b.image || '',
   }));
   const blocks = (raw.about || []).map((a) => ({ id: a.id, kind: a.kind, title: bi(a, 'title'), body: bi(a, 'body'), image: a.image || '' }));
