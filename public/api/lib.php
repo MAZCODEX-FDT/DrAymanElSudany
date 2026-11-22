@@ -21,8 +21,8 @@ const JSON_COLS = ['payload', 'content'];
 const BOOLS = ['report_sent', 'approved', 'published', 'enabled'];
 const INTS = ['id', 'cases_count', 'age', 'sort', 'rating'];
 const DATETIMES = ['created_at', 'responded_at'];
-const SETTING_KEYS = ['phone', 'whatsapp', 'email', 'website', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok', 'google_reviews', 'google_reviews_goal'];
-const PUBLIC_SETTING_KEYS = ['phone', 'whatsapp', 'email', 'website', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok'];
+const SETTING_KEYS = ['phone', 'whatsapp', 'email', 'website', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok', 'x', 'threads', 'snapchat', 'linkedin', 'telegram', 'whatsapp_channel', 'pinterest', 'vezeeta', 'google_reviews', 'google_reviews_goal'];
+const PUBLIC_SETTING_KEYS = ['phone', 'whatsapp', 'email', 'website', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok', 'x', 'threads', 'snapchat', 'linkedin', 'telegram', 'whatsapp_channel', 'pinterest', 'vezeeta'];
 
 function config(): array
 {

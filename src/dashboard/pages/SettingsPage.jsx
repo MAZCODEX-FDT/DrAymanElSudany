@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as api from '@/lib/api';
+import { SOCIAL_KEYS, SOCIAL_NAMES, SocialIcon } from '@/components/ui/SocialIcons';
 import { useD, Card, DField, DInput, Btn } from '../ui';
 
 const CLINIC = [
@@ -16,7 +17,7 @@ const CLINIC = [
   ['google_reviews', 'ltr'],
   ['google_reviews_goal', 'ltr'],
 ];
-const SOCIAL = ['facebook', 'instagram', 'youtube', 'tiktok'];
+const SOCIAL = SOCIAL_KEYS;
 
 export default function SettingsPage() {
   const d = useD();
@@ -64,7 +65,7 @@ export default function SettingsPage() {
       <Card title={d('social')}>
         <div className="grid gap-4 sm:grid-cols-2">
           {SOCIAL.map((k) => (
-            <DField key={k} label={k}>
+            <DField key={k} label={<span className="inline-flex items-center gap-2"><SocialIcon name={k} size={16} /> {SOCIAL_NAMES[k]}</span>}>
               <DInput dir="ltr" value={s[k] ?? ''} onChange={set(k)} placeholder="https://" />
             </DField>
           ))}
