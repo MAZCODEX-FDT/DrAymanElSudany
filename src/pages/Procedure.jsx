@@ -44,7 +44,7 @@ export default function Procedure() {
       { '@type': 'FAQPage', mainEntity: p.faqs.map((f) => ({ '@type': 'Question', name: L(f.q), acceptedAnswer: { '@type': 'Answer', text: L(f.a) } })) },
     ],
   };
-  const waText = lang === 'en' ? `Hello, I have a question about ${L(p.title)}.` : `السلام عليكم، عندي سؤال عن ${L(p.title)}.`;
+  const waText = lang === 'en' ? `Hello, I have a question about ${L(p.title)}.` : `السلام عليكم، عندى سؤال عن ${L(p.title)}.`;
   const others = procedures.filter((x) => x.slug !== p.slug).slice(0, 3);
 
   return (

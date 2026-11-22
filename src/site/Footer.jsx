@@ -61,7 +61,7 @@ export function Footer() {
           </div>
         </div>
         <div className="font-display pointer-events-none mt-20 select-none text-center text-[15vw] leading-none text-white/[.04]">
-          {lang === 'en' ? 'El Sudany' : 'السوداني'}
+          {lang === 'en' ? 'El Sudany' : 'السودانى'}
         </div>
         <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-linen/45 md:flex-row md:items-center md:justify-between">
           <p>

@@ -1,7 +1,7 @@
 // Demo data so the site and dashboard work without the PHP API (local preview, design review).
 // Names are fictional.
 
-const KEY = 'aes-demo-v2';
+const KEY = 'aes-demo-v3';
 
 function rng(seed) {
   let s = seed;
@@ -12,13 +12,13 @@ function rng(seed) {
 }
 
 const first = ['أحمد', 'محمد', 'محمود', 'مصطفى', 'هبة', 'منى', 'سامية', 'عادل', 'خالد', 'نادية', 'إبراهيم', 'فاطمة', 'سعيد', 'رانيا', 'حسن', 'ليلى', 'طارق', 'عبير', 'شريف', 'ياسمين'];
-const last = ['عبد الرحمن', 'السيد', 'فوزي', 'الشناوي', 'عبد الله', 'منصور', 'حسنين', 'رشاد', 'الجمال', 'عطية', 'زكي', 'سليمان'];
+const last = ['عبد الرحمن', 'السيد', 'فوزى', 'الشناوى', 'عبد الله', 'منصور', 'حسنين', 'رشاد', 'الجمال', 'عطية', 'زكى', 'سليمان'];
 const cities = ['العبور', 'الشروق', 'بدر', 'العاشر من رمضان', 'الزقازيق', 'بنها', 'مدينة نصر'];
-const reasons = ['كشف واستشارة', 'رأي تاني في قسطرة', 'متابعة بعد قسطرة', 'أعراض جلطة سابقة', 'صداع أو دوخة مستمرة'];
+const reasons = ['كشف واستشارة', 'رأى تانى فى قسطرة', 'متابعة بعد قسطرة', 'أعراض جلطة سابقة', 'صداع أو دوخة مستمرة'];
 const procs = ['diagnostic-cerebral-angiography', 'carotid-stenting', 'brain-aneurysm', 'avm', 'acute-stroke', 'chronic-subdural-hematoma'];
 const docs = [
   { name: 'د. وائل عبد الحميد', specialty: 'مخ وأعصاب', city: 'العبور' },
-  { name: 'د. سحر الدسوقي', specialty: 'باطنة', city: 'الزقازيق' },
+  { name: 'د. سحر الدسوقى', specialty: 'باطنة', city: 'الزقازيق' },
   { name: 'د. ممدوح فرج', specialty: 'مخ وأعصاب', city: 'بنها' },
   { name: 'د. إيمان رفعت', specialty: 'قلب', city: 'الشروق' },
   { name: 'د. هشام البنا', specialty: 'مخ وأعصاب', city: 'العاشر من رمضان' },
@@ -73,7 +73,7 @@ function seed() {
       type,
       name: type === 'referral' ? pick(docs).name : name(),
       phone: phone(),
-      payload: type === 'referral' ? { patient: name(), summary: 'ضيق في الشريان السباتي الأيمن 70% بالدوبلكس', urgency: pick(['routine', 'soon', 'urgent']) } : { reason: pick(reasons), relation: pick(['self', 'parent', 'other']), hasScans: r() < 0.6 },
+      payload: type === 'referral' ? { patient: name(), summary: 'ضيق فى الشريان السباتى الأيمن 70% بالدوبلكس', urgency: pick(['routine', 'soon', 'urgent']) } : { reason: pick(reasons), relation: pick(['self', 'parent', 'other']), hasScans: r() < 0.6 },
       label: type === 'referral' ? 'referring_doctor' : pick(['new', 'booking', 'cath_candidate', 'follow_up']),
       status: responded ? 'handled' : 'open',
       created_at: created.toISOString(),
@@ -93,7 +93,7 @@ function seed() {
       stage: stages[Math.min(5, Math.floor(r() * 6))],
       referring_doctor: r() < 0.5 ? pick(docs).name : '',
       next_follow_up: isoDate(day(Math.floor(r() * 14) - 3)),
-      notes: 'الأهل محتاجين شرح تاني للخطوات.',
+      notes: 'الأهل محتاجين شرح تانى للخطوات.',
       created_at: day(-Math.floor(r() * 40)).toISOString(),
     });
   }
@@ -115,7 +115,7 @@ function seed() {
       phone: phone(),
       age: 38 + Math.floor(r() * 35),
       city: pick(cities),
-      condition: pick(['ضيق الشريان السباتي', 'تمدد شريان بالمخ', 'جلطة سابقة', 'صداع مزمن', 'تشوه شرياني وريدي', 'نزيف مزمن تحت الأم الجافية']),
+      condition: pick(['ضيق الشريان السباتى', 'تمدد شريان بالمخ', 'جلطة سابقة', 'صداع مزمن', 'تشوه شريانى وريدى', 'نزيف مزمن تحت الأم الجافية']),
       summary: 'تمت مراجعة الأشعة. محتاج قسطرة تشخيصية لتحديد الخطوة الجاية. تم شرح الحالة للمريض وابنه.',
       last_visit: isoDate(day(-Math.floor(r() * 60))),
     });

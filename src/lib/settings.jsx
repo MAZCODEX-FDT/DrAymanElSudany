@@ -17,7 +17,7 @@ export function SettingsProvider({ children }) {
 export function whatsappHref(settings, lang, text) {
   const num = (settings.whatsapp || '').replace(/\D/g, '');
   if (!num) return withBase(lang === 'en' ? '/en/book' : '/book');
-  const msg = text || (lang === 'en' ? 'Hello, I would like to book a visit with Dr. Ayman El Sudany.' : 'السلام عليكم، عايز أحجز ميعاد مع د. أيمن السوداني.');
+  const msg = text || (lang === 'en' ? 'Hello, I would like to book a visit with Dr. Ayman El Sudany.' : 'السلام عليكم، عايز أحجز ميعاد مع د. أيمن السودانى.');
   const intl = num.startsWith('0') ? `20${num.slice(1)}` : num;
   return `https://wa.me/${intl}?text=${encodeURIComponent(msg)}`;
 }

@@ -78,7 +78,7 @@ function Shell({ user, onLogout, lang, setLang }) {
       <Link to="/dashboard" className="flex items-center gap-3 px-2">
         <LogoMark light className="h-9 w-9" />
         <span className="leading-tight">
-          <span className="font-display block text-[15px]">{lang === 'en' ? 'Dr. Ayman El Sudany' : 'د. أيمن السوداني'}</span>
+          <span className="font-display block text-[15px]">{lang === 'en' ? 'Dr. Ayman El Sudany' : 'د. أيمن السودانى'}</span>
           <span className="block text-[11px] text-linen/50">{d('title')}</span>
         </span>
       </Link>
@@ -174,7 +174,7 @@ function Shell({ user, onLogout, lang, setLang }) {
 function Gate({ lang, setLang }) {
   const [user, setUser] = useState(undefined);
   useEffect(() => {
-    document.title = lang === 'en' ? 'Dashboard | Dr. Ayman El Sudany' : 'لوحة التحكم | د. أيمن السوداني';
+    document.title = lang === 'en' ? 'Dashboard | Dr. Ayman El Sudany' : 'لوحة التحكم | د. أيمن السودانى';
     api.me().then((r) => setUser(r.user)).catch(() => setUser(null));
   }, [lang]);
   if (user === undefined) return <div className="min-h-screen bg-deep-950" />;

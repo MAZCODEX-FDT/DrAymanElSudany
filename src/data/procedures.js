@@ -8,58 +8,58 @@ export const procedures = [
     icon: 'diagnostic',
     title: { ar: 'القسطرة المخية التشخيصية', en: 'Diagnostic Cerebral Angiography' },
     short: {
-      ar: 'صورة دقيقة لشرايين المخ من جوه، عشان نعرف بالظبط فيه إيه قبل أي قرار علاج.',
+      ar: 'صورة دقيقة لشرايين المخ من جوه، عشان نعرف بالظبط فيه إيه قبل أى قرار علاج.',
       en: 'A precise view of the brain’s arteries from the inside, so we know exactly what is there before any treatment decision.',
     },
     whatIs: {
-      ar: 'القسطرة التشخيصية فحص بيتعمل عن طريق أنبوب رفيع جدًا بيدخل من شريان في الفخذ أو الرسغ، وبيوصل لشرايين الرقبة والمخ. بنحقن صبغة وبناخد صور أشعة متتابعة بتوضح شكل الشرايين ومسار الدم بتفاصيل مش بتظهر في الرنين أو المقطعية.',
+      ar: 'القسطرة التشخيصية فحص بيتعمل عن طريق أنبوب رفيع جدًا بيدخل من شريان فى الفخذ أو الرسغ، وبيوصل لشرايين الرقبة والمخ. بنحقن صبغة وبناخد صور أشعة متتابعة بتوضح شكل الشرايين ومسار الدم بتفاصيل مش بتظهر فى الرنين أو المقطعية.',
       en: 'Diagnostic angiography uses a very thin tube introduced through an artery in the groin or wrist and guided to the arteries of the neck and brain. Contrast dye is injected while a series of X-ray images map the arteries and blood flow in detail that MRI or CT may not show.',
     },
     whoFor: {
-      ar: ['لو الرنين أو المقطعية أظهروا اشتباه في تمدد أو تشوه في الشرايين', 'قبل تحديد هل الحالة محتاجة دعامة أو علاج بالقسطرة', 'لتقييم ضيق في الشريان السباتي أو شرايين المخ', 'للمتابعة بعد علاج سابق بالقسطرة'],
+      ar: ['لو الرنين أو المقطعية أظهروا اشتباه فى تمدد أو تشوه فى الشرايين', 'قبل تحديد هل الحالة محتاجة دعامة أو علاج بالقسطرة', 'لتقييم ضيق فى الشريان السباتى أو شرايين المخ', 'للمتابعة بعد علاج سابق بالقسطرة'],
       en: ['When MRI or CT suggests an aneurysm or vascular malformation', 'Before deciding whether a stent or endovascular treatment is needed', 'To assess narrowing of the carotid or brain arteries', 'For follow-up after a previous endovascular treatment'],
     },
     steps: {
       before: { ar: 'تحاليل دم بسيطة ومراجعة الأدوية، خصوصًا السيولة والسكر، وصيام كام ساعة قبل الإجراء.', en: 'Simple blood tests, a review of medications (especially blood thinners and diabetes medicines), and a few hours of fasting.' },
-      during: { ar: 'تخدير موضعي في مكان الدخول، والمريض غالبًا صاحي ومرتاح. الإجراء عادة بياخد من نص ساعة لساعة.', en: 'Local anesthesia at the access site; the patient is usually awake and comfortable. It typically takes 30 to 60 minutes.' },
-      after: { ar: 'راحة بضع ساعات تحت الملاحظة، وغالبًا الخروج في نفس اليوم أو تاني يوم، مع شرح النتيجة لحضرتك وللأهل.', en: 'A few hours of rest under observation, usually going home the same or next day, with the results explained to you and your family.' },
+      during: { ar: 'تخدير موضعى فى مكان الدخول، والمريض غالبًا صاحى ومرتاح. الإجراء عادة بياخد من نص ساعة لساعة.', en: 'Local anesthesia at the access site; the patient is usually awake and comfortable. It typically takes 30 to 60 minutes.' },
+      after: { ar: 'راحة بضع ساعات تحت الملاحظة، وغالبًا الخروج فى نفس اليوم أو تانى يوم، مع شرح النتيجة لحضرتك وللأهل.', en: 'A few hours of rest under observation, usually going home the same or next day, with the results explained to you and your family.' },
     },
     risky: {
-      ar: 'القسطرة التشخيصية من الإجراءات الآمنة لما بتتعمل في مكان مجهز وعلى إيد متخصص، ومضاعفاتها قليلة. بنشرح لحضرتك قبلها كل احتمال بصراحة، وبنقيّم الحالة كويس عشان نتأكد إنها فعلًا محتاجاها.',
+      ar: 'القسطرة التشخيصية من الإجراءات الآمنة لما بتتعمل فى مكان مجهز وعلى إيد متخصص، ومضاعفاتها قليلة. بنشرح لحضرتك قبلها كل احتمال بصراحة، وبنقيّم الحالة كويس عشان نتأكد إنها فعلًا محتاجاها.',
       en: 'Diagnostic angiography is considered a safe procedure when performed in an equipped center by a specialist, and complications are uncommon. We explain every possibility honestly beforehand and assess the case carefully to make sure it is truly needed.',
     },
     costFactors: {
-      ar: ['المستشفى أو المركز اللي هيتعمل فيه الإجراء', 'نوع الصبغة والأدوات المستخدمة', 'مدة الإقامة بعد الإجراء', 'هل هيتعمل علاج في نفس الجلسة'],
+      ar: ['المستشفى أو المركز اللى هيتعمل فيه الإجراء', 'نوع الصبغة والأدوات المستخدمة', 'مدة الإقامة بعد الإجراء', 'هل هيتعمل علاج فى نفس الجلسة'],
       en: ['The hospital or center where it is performed', 'The type of contrast and tools used', 'Length of stay after the procedure', 'Whether treatment is done in the same session'],
     },
     faqs: [
-      { q: { ar: 'هل القسطرة التشخيصية بتوجع؟', en: 'Is diagnostic angiography painful?' }, a: { ar: 'غالبًا لأ. بيتعمل تخدير موضعي، وممكن حضرتك تحس بدفا بسيط لحظة الصبغة.', en: 'Usually not. Local anesthesia is used, and you may feel brief warmth when the dye is injected.' } },
-      { q: { ar: 'ليه محتاج قسطرة لو عملت رنين؟', en: 'Why angiography if I already had an MRI?' }, a: { ar: 'الرنين بيدي صورة عامة، والقسطرة بتدي تفاصيل الشرايين اللي بنبني عليها قرار العلاج.', en: 'MRI gives a general picture; angiography gives the arterial detail a treatment decision depends on.' } },
+      { q: { ar: 'هل القسطرة التشخيصية بتوجع؟', en: 'Is diagnostic angiography painful?' }, a: { ar: 'غالبًا لأ. بيتعمل تخدير موضعى، وممكن حضرتك تحس بدفا بسيط لحظة الصبغة.', en: 'Usually not. Local anesthesia is used, and you may feel brief warmth when the dye is injected.' } },
+      { q: { ar: 'ليه محتاج قسطرة لو عملت رنين؟', en: 'Why angiography if I already had an MRI?' }, a: { ar: 'الرنين بيدى صورة عامة، والقسطرة بتدى تفاصيل الشرايين اللى بنبنى عليها قرار العلاج.', en: 'MRI gives a general picture; angiography gives the arterial detail a treatment decision depends on.' } },
     ],
   },
   {
     slug: 'carotid-stenting',
     icon: 'carotid',
-    title: { ar: 'دعامة الشريان السباتي', en: 'Carotid Artery Stenting' },
+    title: { ar: 'دعامة الشريان السباتى', en: 'Carotid Artery Stenting' },
     short: {
-      ar: 'فتح الضيق في شريان الرقبة اللي بيغذي المخ، بدون جراحة مفتوحة.',
+      ar: 'فتح الضيق فى شريان الرقبة اللى بيغذى المخ، بدون جراحة مفتوحة.',
       en: 'Opening a narrowing in the neck artery that supplies the brain, without open surgery.',
     },
     whatIs: {
-      ar: 'الشريان السباتي هو الشريان الرئيسي في الرقبة اللي بيوصّل الدم للمخ. لما يحصل فيه ضيق بسبب ترسبات، ممكن نركّب دعامة معدنية دقيقة عن طريق القسطرة بتفتح الشريان وتحسّن وصول الدم، ومعاها فلتر حماية أثناء الإجراء.',
+      ar: 'الشريان السباتى هو الشريان الرئيسى فى الرقبة اللى بيوصّل الدم للمخ. لما يحصل فيه ضيق بسبب ترسبات، ممكن نركّب دعامة معدنية دقيقة عن طريق القسطرة بتفتح الشريان وتحسّن وصول الدم، ومعاها فلتر حماية أثناء الإجراء.',
       en: 'The carotid artery is the main neck artery carrying blood to the brain. When plaque narrows it, a fine metal stent can be placed by catheter to open the artery and improve blood flow, with a protection filter used during the procedure.',
     },
     whoFor: {
-      ar: ['ضيق ملحوظ في الشريان السباتي ظهر في الدوبلكس أو الأشعة', 'بعد جلطة أو نوبة إقفار عابرة بسبب الضيق', 'لما الجراحة المفتوحة مش الاختيار الأنسب للحالة'],
+      ar: ['ضيق ملحوظ فى الشريان السباتى ظهر فى الدوبلكس أو الأشعة', 'بعد جلطة أو نوبة إقفار عابرة بسبب الضيق', 'لما الجراحة المفتوحة مش الاختيار الأنسب للحالة'],
       en: ['Significant carotid narrowing shown on Doppler or imaging', 'After a stroke or transient ischemic attack caused by the narrowing', 'When open surgery is not the most suitable option'],
     },
     steps: {
       before: { ar: 'تقييم كامل بالأشعة، وبدء أدوية مضادة للصفايح قبلها بأيام حسب تعليمات الدكتور.', en: 'Full imaging assessment and starting antiplatelet medication days before, as instructed.' },
       during: { ar: 'دخول من شريان الفخذ أو الرسغ، فلتر حماية، ثم توسيع الضيق وتركيب الدعامة.', en: 'Access via the groin or wrist, a protection filter, then widening the narrowing and placing the stent.' },
-      after: { ar: 'ملاحظة يوم تقريبًا، واستمرار الأدوية، ومتابعة بالدوبلكس في مواعيد محددة.', en: 'About a day of observation, continued medication, and scheduled Doppler follow-up.' },
+      after: { ar: 'ملاحظة يوم تقريبًا، واستمرار الأدوية، ومتابعة بالدوبلكس فى مواعيد محددة.', en: 'About a day of observation, continued medication, and scheduled Doppler follow-up.' },
     },
     risky: {
-      ar: 'زي أي إجراء على شرايين المخ ليه نسبة مخاطر، وبنقارنها بخطر ترك الضيق من غير علاج. القرار بيتاخد بعد شرح كامل ليك ولأهلك، ومش كل ضيق محتاج دعامة.',
+      ar: 'زى أى إجراء على شرايين المخ ليه نسبة مخاطر، وبنقارنها بخطر ترك الضيق من غير علاج. القرار بيتاخد بعد شرح كامل ليك ولأهلك، ومش كل ضيق محتاج دعامة.',
       en: 'Like any procedure on brain arteries it carries some risk, which we weigh against the risk of leaving the narrowing untreated. The decision is made after a full explanation to you and your family, and not every narrowing needs a stent.',
     },
     costFactors: {
@@ -68,7 +68,7 @@ export const procedures = [
     },
     faqs: [
       { q: { ar: 'هل الدعامة بتتشال بعد كده؟', en: 'Is the stent removed later?' }, a: { ar: 'لأ، الدعامة بتفضل مكانها وبتبقى جزء من جدار الشريان.', en: 'No. The stent stays in place and becomes part of the artery wall.' } },
-      { q: { ar: 'هل ممكن أعيش طبيعي بعدها؟', en: 'Can I live normally afterwards?' }, a: { ar: 'أغلب المرضى بيرجعوا لحياتهم بعد فترة قصيرة، مع الالتزام بالأدوية والمتابعة.', en: 'Most patients return to their routine after a short period, with medication and follow-up.' } },
+      { q: { ar: 'هل ممكن أعيش طبيعى بعدها؟', en: 'Can I live normally afterwards?' }, a: { ar: 'أغلب المرضى بيرجعوا لحياتهم بعد فترة قصيرة، مع الالتزام بالأدوية والمتابعة.', en: 'Most patients return to their routine after a short period, with medication and follow-up.' } },
     ],
   },
   {
@@ -76,24 +76,24 @@ export const procedures = [
     icon: 'aneurysm',
     title: { ar: 'تمدد شرايين المخ', en: 'Brain Aneurysm Treatment' },
     short: {
-      ar: 'علاج الانتفاخ في جدار شريان المخ من جوه الشريان، من غير فتح الجمجمة.',
+      ar: 'علاج الانتفاخ فى جدار شريان المخ من جوه الشريان، من غير فتح الجمجمة.',
       en: 'Treating a bulge in a brain artery wall from inside the vessel, without opening the skull.',
     },
     whatIs: {
-      ar: 'التمدد هو منطقة ضعيفة في جدار شريان بالمخ بتنتفخ زي البالونة الصغيرة. بالقسطرة ممكن نقفل التمدد من جوه باستخدام ملفات دقيقة (Coils) أو دعامات خاصة بتحوّل مسار الدم بعيد عنه.',
+      ar: 'التمدد هو منطقة ضعيفة فى جدار شريان بالمخ بتنتفخ زى البالونة الصغيرة. بالقسطرة ممكن نقفل التمدد من جوه باستخدام ملفات دقيقة (Coils) أو دعامات خاصة بتحوّل مسار الدم بعيد عنه.',
       en: 'An aneurysm is a weak spot in a brain artery wall that bulges like a small balloon. By catheter, it can be closed from within using fine coils or special flow-diverting stents.',
     },
     whoFor: {
-      ar: ['تمدد اكتُشف بالصدفة في رنين أو مقطعية وحجمه أو شكله محتاج تدخل', 'بعد نزيف من تمدد', 'متابعة تمدد معروف'],
+      ar: ['تمدد اكتُشف بالصدفة فى رنين أو مقطعية وحجمه أو شكله محتاج تدخل', 'بعد نزيف من تمدد', 'متابعة تمدد معروف'],
       en: ['An aneurysm found incidentally whose size or shape needs treatment', 'After bleeding from an aneurysm', 'Monitoring a known aneurysm'],
     },
     steps: {
       before: { ar: 'قسطرة تشخيصية لتحديد الحجم والشكل بدقة، ومناقشة الاختيارات كلها.', en: 'Diagnostic angiography to define size and shape precisely, and a discussion of all options.' },
-      during: { ar: 'تحت تخدير كلي غالبًا، بنوصل للتمدد ونقفله بالملفات أو الدعامة المناسبة.', en: 'Usually under general anesthesia, the aneurysm is reached and closed with coils or a suitable stent.' },
-      after: { ar: 'ملاحظة في المستشفى، ثم متابعة بالأشعة في مواعيد محددة للتأكد من القفل.', en: 'Observation in hospital, then scheduled imaging to confirm closure.' },
+      during: { ar: 'تحت تخدير كلى غالبًا، بنوصل للتمدد ونقفله بالملفات أو الدعامة المناسبة.', en: 'Usually under general anesthesia, the aneurysm is reached and closed with coils or a suitable stent.' },
+      after: { ar: 'ملاحظة فى المستشفى، ثم متابعة بالأشعة فى مواعيد محددة للتأكد من القفل.', en: 'Observation in hospital, then scheduled imaging to confirm closure.' },
     },
     risky: {
-      ar: 'مش كل تمدد محتاج علاج فوري؛ بعضها بيتابَع بس. لما يكون التدخل مطلوب، بنشرح لحضرتك الفرق بين الخطر لو اتعالج والخطر لو اتساب، بالأرقام وبهدوء.',
+      ar: 'مش كل تمدد محتاج علاج فورى؛ بعضها بيتابَع بس. لما يكون التدخل مطلوب، بنشرح لحضرتك الفرق بين الخطر لو اتعالج والخطر لو اتساب، بالأرقام وبهدوء.',
       en: 'Not every aneurysm needs immediate treatment; some are only monitored. When treatment is advised, we calmly explain the risk of treating versus not treating.',
     },
     costFactors: {
@@ -107,13 +107,13 @@ export const procedures = [
   {
     slug: 'avm',
     icon: 'avm',
-    title: { ar: 'التشوه الشرياني الوريدي', en: 'Arteriovenous Malformation (AVM)' },
+    title: { ar: 'التشوه الشريانى الوريدى', en: 'Arteriovenous Malformation (AVM)' },
     short: {
-      ar: 'قفل الوصلات غير الطبيعية بين الشرايين والأوردة في المخ من جوه الأوعية.',
+      ar: 'قفل الوصلات غير الطبيعية بين الشرايين والأوردة فى المخ من جوه الأوعية.',
       en: 'Closing abnormal connections between arteries and veins in the brain from inside the vessels.',
     },
     whatIs: {
-      ar: 'التشوه الشرياني الوريدي هو تشابك غير طبيعي بين الشرايين والأوردة من غير الشعيرات اللي المفروض تكون بينهم. ممكن نعالجه بالقسطرة عن طريق حقن مادة لاصقة طبية بتقفل الأوعية غير الطبيعية، لوحده أو مع علاجات تانية.',
+      ar: 'التشوه الشريانى الوريدى هو تشابك غير طبيعى بين الشرايين والأوردة من غير الشعيرات اللى المفروض تكون بينهم. ممكن نعالجه بالقسطرة عن طريق حقن مادة لاصقة طبية بتقفل الأوعية غير الطبيعية، لوحده أو مع علاجات تانية.',
       en: 'An AVM is an abnormal tangle where arteries connect directly to veins without the normal capillaries between them. It can be treated by catheter with a medical glue that seals the abnormal vessels, alone or alongside other treatments.',
     },
     whoFor: {
@@ -122,8 +122,8 @@ export const procedures = [
     },
     steps: {
       before: { ar: 'قسطرة تشخيصية لرسم خريطة التشوه بالتفصيل، وتحديد عدد الجلسات المتوقعة.', en: 'Diagnostic angiography to map the AVM in detail and plan the expected number of sessions.' },
-      during: { ar: 'تحت تخدير كلي، بنوصل لأوعية التشوه ونقفلها تدريجيًا.', en: 'Under general anesthesia, the AVM vessels are reached and closed in stages.' },
-      after: { ar: 'ملاحظة في المستشفى، وأحيانًا جلسات تانية، ومتابعة بالأشعة.', en: 'Hospital observation, sometimes further sessions, and imaging follow-up.' },
+      during: { ar: 'تحت تخدير كلى، بنوصل لأوعية التشوه ونقفلها تدريجيًا.', en: 'Under general anesthesia, the AVM vessels are reached and closed in stages.' },
+      after: { ar: 'ملاحظة فى المستشفى، وأحيانًا جلسات تانية، ومتابعة بالأشعة.', en: 'Hospital observation, sometimes further sessions, and imaging follow-up.' },
     },
     risky: {
       ar: 'علاج التشوهات بيتخطط له حالة بحالة. بنشرح لحضرتك كل الاختيارات، ومميزات وعيوب كل واحد، وأحيانًا الأنسب هو المتابعة.',
@@ -134,7 +134,7 @@ export const procedures = [
       en: ['Size of the AVM and number of sessions', 'Amount and type of material used', 'Hospital and anesthesia'],
     },
     faqs: [
-      { q: { ar: 'هل التشوه بيتعالج في جلسة واحدة؟', en: 'Is an AVM treated in one session?' }, a: { ar: 'أحيانًا، لكن كتير من الحالات بتحتاج أكتر من جلسة حسب الحجم.', en: 'Sometimes, but many cases need more than one session depending on size.' } },
+      { q: { ar: 'هل التشوه بيتعالج فى جلسة واحدة؟', en: 'Is an AVM treated in one session?' }, a: { ar: 'أحيانًا، لكن كتير من الحالات بتحتاج أكتر من جلسة حسب الحجم.', en: 'Sometimes, but many cases need more than one session depending on size.' } },
     ],
   },
   {
@@ -142,33 +142,33 @@ export const procedures = [
     icon: 'stroke',
     title: { ar: 'جلطة المخ الحادة', en: 'Acute Ischemic Stroke' },
     short: {
-      ar: 'سحب الجلطة من شريان المخ بالقسطرة في الساعات الأولى، لأن كل دقيقة فارقة.',
+      ar: 'سحب الجلطة من شريان المخ بالقسطرة فى الساعات الأولى، لأن كل دقيقة فارقة.',
       en: 'Removing a clot from a brain artery by catheter in the first hours, because every minute matters.',
     },
     whatIs: {
-      ar: 'جلطة المخ بتحصل لما شريان في المخ يتقفل فجأة. في حالات مناسبة، ممكن نسحب الجلطة بالقسطرة (Thrombectomy) ونرجّع الدم للمخ. الوقت هنا أهم عامل، عشان كده لازم المريض يوصل للطوارئ بأسرع ما يمكن.',
+      ar: 'جلطة المخ بتحصل لما شريان فى المخ يتقفل فجأة. فى حالات مناسبة، ممكن نسحب الجلطة بالقسطرة (Thrombectomy) ونرجّع الدم للمخ. الوقت هنا أهم عامل، عشان كده لازم المريض يوصل للطوارئ بأسرع ما يمكن.',
       en: 'An ischemic stroke happens when a brain artery is suddenly blocked. In suitable cases the clot can be removed by catheter (thrombectomy) to restore blood flow. Time is the most important factor, so the patient must reach emergency care as fast as possible.',
     },
     whoFor: {
-      ar: ['جلطة بسبب انسداد شريان كبير في المخ', 'وصول المريض خلال الوقت المناسب من بداية الأعراض', 'حسب تقييم الأشعة في الطوارئ'],
+      ar: ['جلطة بسبب انسداد شريان كبير فى المخ', 'وصول المريض خلال الوقت المناسب من بداية الأعراض', 'حسب تقييم الأشعة فى الطوارئ'],
       en: ['Stroke caused by a large-vessel blockage', 'Arrival within a suitable time window from symptom onset', 'Based on emergency imaging assessment'],
     },
     steps: {
-      before: { ar: 'تقييم سريع في الطوارئ بأشعة المخ والشرايين لتحديد مكان الانسداد.', en: 'Rapid emergency assessment with brain and vessel imaging to locate the blockage.' },
+      before: { ar: 'تقييم سريع فى الطوارئ بأشعة المخ والشرايين لتحديد مكان الانسداد.', en: 'Rapid emergency assessment with brain and vessel imaging to locate the blockage.' },
       during: { ar: 'الوصول للجلطة بالقسطرة وسحبها بأدوات مخصصة.', en: 'Reaching the clot by catheter and retrieving it with dedicated devices.' },
       after: { ar: 'رعاية مركزة ومتابعة دقيقة، ثم خطة تأهيل ووقاية من التكرار.', en: 'Intensive care and close monitoring, then rehabilitation and a plan to prevent recurrence.' },
     },
     risky: {
-      ar: 'جلطة المخ نفسها هي الخطر الأكبر. القرار بيتاخد بسرعة بعد تقييم الأشعة، وبنشرح للأهل كل خطوة حتى في وقت الطوارئ.',
+      ar: 'جلطة المخ نفسها هى الخطر الأكبر. القرار بيتاخد بسرعة بعد تقييم الأشعة، وبنشرح للأهل كل خطوة حتى فى وقت الطوارئ.',
       en: 'The stroke itself is the greatest danger. The decision is made quickly after imaging, and we explain each step to the family even in an emergency.',
     },
     costFactors: {
-      ar: ['الأدوات المستخدمة في سحب الجلطة', 'مدة الرعاية المركزة والإقامة', 'المستشفى'],
+      ar: ['الأدوات المستخدمة فى سحب الجلطة', 'مدة الرعاية المركزة والإقامة', 'المستشفى'],
       en: ['Devices used to retrieve the clot', 'Length of intensive care and stay', 'The hospital'],
     },
     faqs: [
-      { q: { ar: 'إيه أعراض جلطة المخ اللي متتأجلش؟', en: 'Which stroke symptoms cannot wait?' }, a: { ar: 'ميل في الوش، ضعف أو تنميل في دراع أو رجل، تقل أو لخبطة في الكلام، أو فقدان مفاجئ للنظر. ساعتها روح أقرب طوارئ فورًا.', en: 'Face drooping, weakness or numbness in an arm or leg, slurred or confused speech, or sudden loss of vision. Go to the nearest emergency room immediately.' } },
-      { q: { ar: 'هل جلطة المخ ليها علاج؟', en: 'Is there treatment for stroke?' }, a: { ar: 'أيوه، فيه علاجات بتفرق جدًا لو بدأت بدري، منها الأدوية المذيبة وسحب الجلطة بالقسطرة في الحالات المناسبة.', en: 'Yes. Treatments make a real difference when started early, including clot-dissolving medicine and catheter clot removal in suitable cases.' } },
+      { q: { ar: 'إيه أعراض جلطة المخ اللى متتأجلش؟', en: 'Which stroke symptoms cannot wait?' }, a: { ar: 'ميل فى الوش، ضعف أو تنميل فى دراع أو رجل، تقل أو لخبطة فى الكلام، أو فقدان مفاجئ للنظر. ساعتها روح أقرب طوارئ فورًا.', en: 'Face drooping, weakness or numbness in an arm or leg, slurred or confused speech, or sudden loss of vision. Go to the nearest emergency room immediately.' } },
+      { q: { ar: 'هل جلطة المخ ليها علاج؟', en: 'Is there treatment for stroke?' }, a: { ar: 'أيوه، فيه علاجات بتفرق جدًا لو بدأت بدرى، منها الأدوية المذيبة وسحب الجلطة بالقسطرة فى الحالات المناسبة.', en: 'Yes. Treatments make a real difference when started early, including clot-dissolving medicine and catheter clot removal in suitable cases.' } },
     ],
   },
   {
@@ -176,15 +176,15 @@ export const procedures = [
     icon: 'subdural',
     title: { ar: 'النزيف المزمن تحت الأم الجافية', en: 'Chronic Subdural Hematoma (MMA Embolization)' },
     short: {
-      ar: 'قفل الشريان المغذي للنزيف المزمن بالقسطرة، لتقليل فرصة رجوعه.',
+      ar: 'قفل الشريان المغذى للنزيف المزمن بالقسطرة، لتقليل فرصة رجوعه.',
       en: 'Closing the artery that feeds a chronic subdural bleed by catheter, to reduce the chance of recurrence.',
     },
     whatIs: {
-      ar: 'النزيف المزمن تحت الأم الجافية بيحصل غالبًا عند كبار السن بعد خبطة بسيطة، وبيتجمع ببطء. بالقسطرة ممكن نقفل الشريان السحائي الأوسط اللي بيغذي الغشاء حوالين النزيف، لوحده أو مع الجراحة، لتقليل فرص التكرار.',
+      ar: 'النزيف المزمن تحت الأم الجافية بيحصل غالبًا عند كبار السن بعد خبطة بسيطة، وبيتجمع ببطء. بالقسطرة ممكن نقفل الشريان السحائى الأوسط اللى بيغذى الغشاء حوالين النزيف، لوحده أو مع الجراحة، لتقليل فرص التكرار.',
       en: 'A chronic subdural hematoma often occurs in older adults after a minor head bump and collects slowly. By catheter, the middle meningeal artery feeding the membrane around it can be closed, alone or with surgery, to lower the chance of recurrence.',
     },
     whoFor: {
-      ar: ['كبار السن بعد خبطة بسيطة وظهور صداع أو تغير في الوعي', 'نزيف رجع بعد جراحة سابقة', 'مرضى على أدوية سيولة'],
+      ar: ['كبار السن بعد خبطة بسيطة وظهور صداع أو تغير فى الوعى', 'نزيف رجع بعد جراحة سابقة', 'مرضى على أدوية سيولة'],
       en: ['Older adults with headache or changes in alertness after a minor bump', 'A bleed that returned after surgery', 'Patients on blood thinners'],
     },
     steps: {
@@ -201,7 +201,7 @@ export const procedures = [
       en: ['Whether it is done alone or with surgery', 'The material used', 'Hospital and length of stay'],
     },
     faqs: [
-      { q: { ar: 'هل ده مناسب لسن كبير؟', en: 'Is it suitable for an elderly parent?' }, a: { ar: 'غالبًا أيوه، وده من أسباب اختياره في كبار السن، لكن القرار بعد تقييم الحالة.', en: 'Often yes, which is one reason it is chosen for older adults, but the decision follows an assessment.' } },
+      { q: { ar: 'هل ده مناسب لسن كبير؟', en: 'Is it suitable for an elderly parent?' }, a: { ar: 'غالبًا أيوه، وده من أسباب اختياره فى كبار السن، لكن القرار بعد تقييم الحالة.', en: 'Often yes, which is one reason it is chosen for older adults, but the decision follows an assessment.' } },
     ],
   },
 ];
