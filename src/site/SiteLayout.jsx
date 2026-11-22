@@ -3,9 +3,11 @@ import { SmoothScroll } from '@/lib/smooth';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { WhatsAppFab } from './WhatsAppFab';
+import { ContentProvider } from '@/lib/content';
 
 export default function SiteLayout() {
   return (
+    <ContentProvider>
     <SmoothScroll>
       <Navbar />
       <main>
@@ -14,5 +16,6 @@ export default function SiteLayout() {
       <Footer />
       <WhatsAppFab />
     </SmoothScroll>
+    </ContentProvider>
   );
 }

@@ -14,6 +14,20 @@ if ($expected === '' || str_starts_with($expected, 'CHANGE_ME') || !hash_equals(
 
 $pdo = db();
 $pdo->exec(file_get_contents(__DIR__ . '/schema.sql'));
+// Fill empty website-content tables with the default content (procedures, FAQs, branches, about, images).
+$seeded = [];
+$seedFile = __DIR__ . '/seed.json';
+if (is_file($seedFile)) {
+    $seed = json_decode((string) file_get_contents($seedFile), true) ?: [];
+    foreach (CONTENT as $r) {
+        if (!empty($seed[$r]) && (int) $pdo->query('SELECT COUNT(*) FROM ' . q($r))->fetchColumn() === 0) {
+            foreach ($seed[$r] as $row) {
+                insert_row($r, filter_fields($r, $row));
+            }
+            $seeded[] = $r . ' (' . count($seed[$r]) . ')';
+        }
+    }
+}
 $hasUser = (int) $pdo->query('SELECT COUNT(*) FROM users')->fetchColumn() > 0;
 $msg = '';
 
@@ -31,7 +45,7 @@ if (!$hasUser && $_SERVER['REQUEST_METHOD'] === 'POST') {
 $t = htmlspecialchars($token, ENT_QUOTES);
 $m = htmlspecialchars($msg, ENT_QUOTES);
 echo "<!doctype html><meta name=viewport content='width=device-width'><body style='font-family:system-ui;max-width:420px;margin:60px auto;padding:0 16px'>";
-echo "<h2>Clinic setup</h2><p>Tables are ready.</p>" . ($m ? "<p><b>$m</b></p>" : '');
+echo "<h2>Clinic setup</h2><p>Tables are ready.</p>" . ($seeded ? '<p>Default content added: ' . htmlspecialchars(implode(', ', $seeded)) . '</p>' : '') . ($m ? "<p><b>$m</b></p>" : '');
 if ($hasUser) {
     echo "<p>An admin user exists. <b>Delete api/setup.php from the server now</b>, then sign in at <a href='/dashboard'>/dashboard</a>.</p>";
 } else {

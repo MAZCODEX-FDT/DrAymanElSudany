@@ -1,7 +1,8 @@
 // Demo data so the site and dashboard work without the PHP API (local preview, design review).
-// Names are fictional.
+// Names are fictional. Website content (procedures, FAQs, branches, about, images) starts from the site defaults.
+import { seedContent } from '@/data/seed';
 
-const KEY = 'aes-demo-v3';
+const KEY = 'aes-demo-v4';
 
 function rng(seed) {
   let s = seed;
@@ -131,7 +132,15 @@ function seed() {
     }
   }
 
+  const site = seedContent();
+  const withIds = (rows) => rows.map((r) => ({ id: id++, created_at: now.toISOString(), ...r }));
+
   return {
+    procedures: withIds(site.procedures),
+    branches: withIds(site.branches),
+    about: withIds(site.about),
+    media: withIds(site.media),
+    faqs: withIds(site.faqs),
     appointments,
     leads,
     cases,
@@ -139,7 +148,6 @@ function seed() {
     patients,
     events,
     testimonials: [],
-    faqs: [],
     settings: {
       phone: '',
       whatsapp: '',

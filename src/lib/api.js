@@ -48,9 +48,14 @@ async function call(method, r, opts, demoFn) {
 const now = () => new Date().toISOString();
 
 // ---------- resources (dashboard) ----------
-export const RESOURCES = ['appointments', 'leads', 'cases', 'referrers', 'patients', 'testimonials', 'faqs', 'events'];
+export const RESOURCES = ['appointments', 'leads', 'cases', 'referrers', 'patients', 'testimonials', 'faqs', 'events', 'procedures', 'branches', 'about', 'media'];
+const CONTENT = ['procedures', 'faqs', 'branches', 'about', 'media'];
+const bySort = (a, b) => (a.sort ?? 0) - (b.sort ?? 0) || a.id - b.id;
 
-export const list = (r) => call('GET', r, {}, () => [...(db()[r] || [])]);
+export const list = (r) => call('GET', r, {}, () => {
+  const rows = [...(db()[r] || [])];
+  return CONTENT.includes(r) ? rows.sort(bySort) : rows;
+});
 
 export const create = (r, item) =>
   call('POST', r, { body: item }, () => {
@@ -92,6 +97,55 @@ export const submitLead = (lead) =>
     save();
     return { ok: true };
   });
+
+/** Everything the public site shows from the Website section of the dashboard (enabled rows only). */
+export const publicContent = () =>
+  call('GET', 'public-content', {}, () => {
+    const out = {};
+    for (const r of CONTENT) {
+      const flag = r === 'faqs' ? 'published' : 'enabled';
+      out[r] = (db()[r] || []).filter((x) => x[flag] !== false).sort(bySort);
+    }
+    return out;
+  });
+
+/** Upload an image. Live: stored on the server under /uploads. Demo: kept in the browser as a compressed data URL. */
+export async function upload(file) {
+  if (mode !== 'demo') {
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch(`${BASE}?r=upload`, { method: 'POST', credentials: 'same-origin', body: fd });
+      const type = res.headers.get('content-type') || '';
+      if (!type.includes('application/json')) throw Object.assign(new Error('API unavailable'), { unavailable: true });
+      const data = await res.json();
+      if (!res.ok) throw Object.assign(new Error(data.error || 'Upload failed'), { status: res.status });
+      setMode('live');
+      return data.url;
+    } catch (e) {
+      if (!(e.unavailable || e instanceof TypeError)) throw e;
+      setMode('demo');
+    }
+  }
+  return compressToDataUrl(file);
+}
+
+function compressToDataUrl(file, max = 1400) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const s = Math.min(1, max / Math.max(img.width, img.height));
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.width * s);
+      c.height = Math.round(img.height * s);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(img.src);
+      resolve(c.toDataURL('image/webp', 0.8));
+    };
+    img.onerror = () => reject(new Error('not an image'));
+    img.src = URL.createObjectURL(file);
+  });
+}
 
 export const publicFaqs = () => call('GET', 'public-faqs', {}, () => db().faqs.filter((f) => f.published !== false));
 export const publicTestimonials = () => call('GET', 'public-testimonials', {}, () => db().testimonials.filter((t) => t.approved));

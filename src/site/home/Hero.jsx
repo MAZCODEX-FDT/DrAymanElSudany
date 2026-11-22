@@ -7,7 +7,7 @@ import { useLang } from '@/i18n';
 import { useSettings, whatsappHref } from '@/lib/settings';
 import { track } from '@/lib/api';
 import { prefersReducedMotion } from '@/lib/smooth';
-import { withBase } from '@/lib/cn';
+import { useContent, imgSrc } from '@/lib/content';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { LogoMark, RING, PATH } from '@/components/ui/Logo';
@@ -28,10 +28,12 @@ function useWide() {
 }
 
 export function Hero() {
-  const { t, to, lang, dir } = useLang();
+  const { t, L, to, lang, dir } = useLang();
   const settings = useSettings();
   const root = useRef(null);
   const wide = useWide();
+  const { media } = useContent();
+  const heroPhoto = media.hero_doctor;
   const [photo, setPhoto] = useState(true);
   const words = t('hero.title').split(' ');
 
@@ -99,8 +101,8 @@ export function Hero() {
         <div className="relative mx-auto w-full max-w-[420px] lg:col-span-5">
           <div className="h-arch relative aspect-[4/5] overflow-hidden rounded-t-full rounded-b-[2rem] border border-white/10 bg-gradient-to-b from-calm/40 via-deep to-deep-900">
             <div className="h-arch-inner absolute inset-0 scale-110">
-              {photo ? (
-                <img src={withBase("/images/dr-ayman.webp")} alt={t('brand.fullName')} onError={() => setPhoto(false)} className="h-full w-full object-cover object-top" />
+              {heroPhoto && photo ? (
+                <img src={imgSrc(heroPhoto.url)} alt={L(heroPhoto.alt) || t('brand.fullName')} onError={() => setPhoto(false)} className="h-full w-full object-cover object-top" />
               ) : (
                 <div className="grid h-full place-items-center">
                   <svg viewBox="0 0 100 100" className="w-2/3 overflow-visible" aria-hidden>

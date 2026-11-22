@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import { Plus, CalendarClock, Stethoscope, GripVertical } from 'lucide-react';
 import { useLang } from '@/i18n';
-import { procedures, getProcedure } from '@/data/procedures';
+import { useProcedures } from '../useResource';
 import { useResource } from '../useResource';
 import { useD, Drawer, DField, DInput, DSelect, DTextarea, Btn, fmtDate, todayIso } from '../ui';
 import { cn } from '@/lib/cn';
 
 export const STAGES = ['candidate', 'explained', 'deciding', 'scheduled', 'done', 'follow_up'];
 const stageTone = { candidate: 'bg-amber', explained: 'bg-calm', deciding: 'bg-[#8FB6C9]', scheduled: 'bg-deep', done: 'bg-[#4f8f69]', follow_up: 'bg-slate' };
-const blank = { patient_name: '', phone: '', procedure: procedures[0].slug, stage: 'candidate', referring_doctor: '', next_follow_up: todayIso(), notes: '' };
+const blank = { patient_name: '', phone: '', procedure: 'diagnostic-cerebral-angiography', stage: 'candidate', referring_doctor: '', next_follow_up: todayIso(), notes: '' };
 
 /** Cath pipeline: every candidate case is tracked by name with a follow-up date (strategy p.8). */
 export default function Cases() {
   const d = useD();
+  const { list: procedures, get: getProcedure } = useProcedures();
   const { lang, L } = useLang();
   const { items, create, update, remove } = useResource('cases');
   const [edit, setEdit] = useState(null);
@@ -75,7 +76,7 @@ export default function Cases() {
                         <p className="font-medium text-deep">{c.patient_name}</p>
                         <GripVertical size={15} className="text-slate/40" />
                       </div>
-                      <p className="mt-1 text-xs text-calm">{L(getProcedure(c.procedure)?.title)}</p>
+                      <p className="mt-1 text-xs text-calm">{L(getProcedure(c.procedure)?.title) || c.procedure}</p>
                       <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
                         {c.next_follow_up && (
                           <span className={cn('inline-flex items-center gap-1 rounded-full px-2 py-0.5', due ? 'bg-amber/15 text-[#8a5a1e]' : 'bg-deep/5 text-slate')}>

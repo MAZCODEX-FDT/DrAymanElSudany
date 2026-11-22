@@ -35,8 +35,8 @@ export const strings = {
       en: 'Precision in every step. Calm in every explanation.',
     },
     sub: {
-      ar: 'لشرق القاهرة والشرقية: بنشرح لحضرتك ولأهلك الحالة بهدوء وبلغة بسيطة قبل أى قرار، وبنرد عليك بسرعة.',
-      en: 'For East Cairo and Sharqia: we explain the condition calmly and simply to you and your family before any decision, and we reply quickly.',
+      ar: 'بنشرح لحضرتك ولأهلك الحالة بهدوء وبلغة بسيطة قبل أى قرار، وبنرد عليك بسرعة.',
+      en: 'We explain the condition calmly and simply to you and your family before any decision, and we reply quickly.',
     },
     scroll: { ar: 'انزل', en: 'Scroll' },
     cardTitle: { ar: 'كلام المرضى', en: 'In patients’ words' },
