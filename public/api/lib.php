@@ -145,11 +145,12 @@ function filter_fields(string $r, array $in): array
         } elseif (in_array($col, ['lat', 'lng'], true)) {
             $v = is_numeric($v) ? (string) round((float) $v, 6) : '';
         } elseif (in_array($col, ['next_follow_up', 'last_referral', 'last_visit', 'date', 'published_on'], true)) {
-            $v = $v ? substr((string) $v, 0, 10) : null;
+            $d = substr((string) $v, 0, 10);
+            $v = preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $d, $m) && checkdate((int) $m[2], (int) $m[3], (int) $m[1]) ? $d : null;
         } elseif (in_array($col, INTS, true)) {
             $v = ($v === '' || $v === null) ? null : (int) $v;
         } elseif (is_string($v)) {
-            $v = mb_substr(trim($v), 0, 5000);
+            $v = mb_substr(trim($v), 0, str_starts_with($col, 'body_') ? 60000 : 5000);
         } elseif (!is_scalar($v) && $v !== null) {
             $v = null;
         }

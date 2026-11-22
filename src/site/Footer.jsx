@@ -16,7 +16,7 @@ export function Footer() {
     : [{ id: 0, name: { ar: '', en: '' }, address: { ar: s.address_ar, en: s.address_en }, hours: { ar: s.hours_ar, en: s.hours_en }, map_url: s.map_url, phone: '' }];
   const year = new Date().getFullYear();
   return (
-    <footer className="bg-deep-glow on-dark relative overflow-hidden text-linen">
+    <footer className="bg-deep-glow on-dark relative overflow-hidden text-linen print:hidden">
       <div className="mx-auto max-w-7xl px-6 pb-10 pt-20">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-4">
@@ -25,17 +25,17 @@ export function Footer() {
           </div>
           <div className="md:col-span-3">
             <p className="eyebrow mb-5">{t('nav.procedures')}</p>
-            <ul className="space-y-3">
+            <ul className="space-y-0.5">
               {procedures.slice(0, 7).map((p) => (
                 <li key={p.slug}>
-                  <Link to={to(`/procedures/${p.slug}`)} className="text-linen/70 transition-colors hover:text-amber-soft">
+                  <Link to={to(`/procedures/${p.slug}`)} className="inline-flex min-h-11 items-center text-linen/75 transition-colors hover:text-amber-soft">
                     {L(p.title)}
                   </Link>
                 </li>
               ))}
               {procedures.length > 7 && (
                 <li>
-                  <Link to={to('/procedures')} className="text-amber-soft hover:underline">
+                  <Link to={to('/procedures')} className="inline-flex min-h-11 items-center text-amber-soft hover:underline">
                     {t('procedures.all')}
                   </Link>
                 </li>
@@ -44,10 +44,10 @@ export function Footer() {
           </div>
           <div className="md:col-span-2">
             <p className="eyebrow mb-5">{t('nav.menu')}</p>
-            <ul className="space-y-3">
-              {[['/about', 'nav.about'], ['/for-doctors', 'nav.doctors'], ['/faq', 'nav.faq'], ['/contact', 'nav.contact'], ['/book', 'nav.book']].map(([h, k]) => (
+            <ul className="space-y-0.5">
+              {[['/about', 'nav.about'], ['/before-your-visit', 'nav.visit'], ['/articles', 'nav.articles'], ['/for-doctors', 'nav.doctors'], ['/faq', 'nav.faq'], ['/contact', 'nav.contact'], ['/book', 'nav.book']].map(([h, k]) => (
                 <li key={h}>
-                  <Link to={to(h)} className="text-linen/70 transition-colors hover:text-amber-soft">
+                  <Link to={to(h)} className="inline-flex min-h-11 items-center text-linen/75 transition-colors hover:text-amber-soft">
                     {t(k)}
                   </Link>
                 </li>
@@ -59,7 +59,7 @@ export function Footer() {
             {places.map((b) => (
               <div key={b.id} className="space-y-2">
                 {L(b.name) && <p className="font-medium text-linen">{L(b.name)}</p>}
-                <a href={b.map_url || '#'} onClick={() => track('map')} target="_blank" rel="noopener" className="flex gap-3 text-linen/70 hover:text-linen">
+                <a href={b.map_url || '#'} onClick={() => track('map')} target="_blank" rel="noopener" className="flex min-h-11 gap-3 py-2 text-linen/75 hover:text-linen">
                   <MapPin size={18} className="mt-1 shrink-0 text-amber" /> {L(b.address)}
                 </a>
                 {L(b.hours) && (
@@ -74,7 +74,7 @@ export function Footer() {
                 <Phone size={18} className="mt-1 shrink-0 text-amber" /> {s.phone}
               </a>
             )}
-            <a href={whatsappHref(s, lang)} onClick={() => track('whatsapp')} target="_blank" rel="noopener" className="inline-block text-amber-soft underline-offset-4 hover:underline">
+            <a href={whatsappHref(s, lang)} onClick={() => track('whatsapp')} target="_blank" rel="noopener" className="inline-flex min-h-11 items-center text-amber-soft underline-offset-4 hover:underline">
               {t('cta.whatsapp')}
             </a>
             {SOCIAL_KEYS.some((k) => s[k]) && (
@@ -91,7 +91,7 @@ export function Footer() {
         <div className="pointer-events-none relative mt-16 h-[18vw] max-h-64 select-none overflow-hidden" aria-hidden>
           <Emblem variant="tonal" weight={1.2} className="absolute start-1/2 top-0 w-[46vw] max-w-[640px] -translate-x-1/2 rtl:translate-x-1/2" />
         </div>
-        <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-linen/45 md:flex-row md:items-center md:justify-between">
+        <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-linen/65 md:flex-row md:items-center md:justify-between">
           <p>
             © {year} {t('brand.fullName')}. {t('footer.rights')}.
           </p>

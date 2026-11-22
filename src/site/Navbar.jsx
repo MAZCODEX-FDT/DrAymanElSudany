@@ -55,7 +55,7 @@ export function Navbar() {
 
   return (
     <>
-      <header ref={bar} className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
+      <header ref={bar} className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 print:hidden">
         <nav
           className={cn(
             'mx-auto flex max-w-7xl items-center justify-between rounded-full px-4 py-2.5 transition-all duration-500 sm:px-6',

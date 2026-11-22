@@ -45,7 +45,7 @@ export default function Faq() {
     () => ({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }),
     [faqs]
   );
-  const chip = (active) => cn('shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm transition-all', active ? 'border-deep bg-deep text-linen' : 'border-deep/15 bg-white text-deep hover:border-deep/40');
+  const chip = (active) => cn('shrink-0 whitespace-nowrap rounded-full border px-4 py-2.5 min-h-11 text-sm transition-all', active ? 'border-deep bg-deep text-linen' : 'border-deep/15 bg-white text-deep hover:border-deep/40');
 
   return (
     <>

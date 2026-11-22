@@ -17,7 +17,7 @@ export default function Contact() {
   const site = (s.website || '').replace(/^https?:\/\//, '').replace(/\/$/, '');
 
   const cards = [
-    { key: 'whatsapp', icon: <WhatsAppIcon size={24} />, label: t('contact.whatsapp'), hint: t('contact.whatsappHint'), value: s.whatsapp || t('contact.openChat'), href: whatsappHref(s, lang), ext: !!s.whatsapp, onClick: () => track('whatsapp'), tone: 'bg-[#1f9d55] text-white' },
+    { key: 'whatsapp', icon: <WhatsAppIcon size={24} />, label: t('contact.whatsapp'), hint: t('contact.whatsappHint'), value: s.whatsapp || t('contact.openChat'), href: whatsappHref(s, lang), ext: !!s.whatsapp, onClick: () => track('whatsapp'), tone: 'bg-[#178245] text-white' },
     s.phone && { key: 'call', icon: <Phone size={22} />, label: t('contact.call'), hint: t('contact.callHint'), value: s.phone, href: `tel:${s.phone.replace(/\s/g, '')}`, onClick: () => track('call'), tone: 'bg-deep text-linen' },
     s.email && { key: 'email', icon: <Mail size={22} />, label: t('contact.email'), hint: t('contact.emailHint'), value: s.email, href: `mailto:${s.email}`, tone: 'bg-amber text-deep-900' },
     s.website && { key: 'website', icon: <Globe size={22} />, label: t('contact.website'), hint: t('contact.websiteHint'), value: site, href: s.website, ext: true, tone: 'bg-calm text-linen' },

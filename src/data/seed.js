@@ -1,3 +1,4 @@
+import { defaultArticles } from './articles.js';
 // Default website content in database shape. Used to fill the demo data and, through
 // scripts/seed-content.mjs → api/seed.json, the MySQL tables the first time setup.php runs.
 // After that everything here is edited from the dashboard (Website section).
@@ -60,5 +61,5 @@ export function seedContent() {
 
   const media = MEDIA_SLOTS.map((m, i) => ({ slot: m.slot, url: '', alt_ar: 'د. أيمن حسن السودانى', alt_en: 'Dr. Ayman Hassan El Sudany', enabled: true, sort: i + 1 }));
 
-  return { procedures: procs, faqs, branches, about: aboutRows, media };
+  return { procedures: procs, faqs, branches, about: aboutRows, media, articles: defaultArticles };
 }

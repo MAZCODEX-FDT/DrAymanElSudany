@@ -33,6 +33,23 @@ export default function Analytics() {
   }, [recent]);
   const max = pages[0]?.[1] || 1;
 
+  // Bookings and referrals by the page the visit started on, and by where the visitor came from.
+  const { items: leads } = useResource('leads');
+  const sources = useMemo(() => {
+    const land = {};
+    const from = {};
+    leads
+      .filter((l) => new Date(l.created_at) > since && l.payload && l.payload.landing)
+      .forEach((l) => {
+        const p = l.payload;
+        land[p.landing] = (land[p.landing] || 0) + 1;
+        const src = p.utm_source || p.referrer || 'direct';
+        from[src] = (from[src] || 0) + 1;
+      });
+    const top = (m) => Object.entries(m).sort((a, b) => b[1] - a[1]).slice(0, 8);
+    return { land: top(land), from: top(from) };
+  }, [leads, since]);
+
   return (
     <div className="space-y-6">
       <h1 className="font-display text-3xl text-deep">{d('analytics')}</h1>
@@ -75,6 +92,29 @@ export default function Analytics() {
             ))}
           </ul>
         </Card>
+      </div>
+      <div className="grid gap-6 lg:grid-cols-2">
+        {[
+          ['leadsByLanding', sources.land],
+          ['leadsBySource', sources.from],
+        ].map(([k, rows]) => (
+          <Card key={k} title={d(k)}>
+            {rows.length ? (
+              <ul className="space-y-3">
+                {rows.map(([p, n]) => (
+                  <li key={p} className="flex justify-between gap-4 text-sm">
+                    <span className="truncate text-ink/80" dir="ltr">
+                      {p}
+                    </span>
+                    <span className="font-mono text-slate">{n}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-sm text-slate">{d('leadsSourceEmpty')}</p>
+            )}
+          </Card>
+        ))}
       </div>
     </div>
   );

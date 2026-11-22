@@ -125,7 +125,7 @@ export default function Procedure() {
                 <ul className="mt-6 space-y-3">
                   {list(p.costFactors).map((c, i) => (
                     <li key={c} className="flex items-center gap-4 rounded-2xl border border-deep/10 bg-white p-5 text-ink/80">
-                      <span className="font-mono text-sm text-amber">{String(i + 1).padStart(2, '0')}</span> {c}
+                      <span className="font-mono text-sm text-amber-ink">{String(i + 1).padStart(2, '0')}</span> {c}
                     </li>
                   ))}
                 </ul>
@@ -147,7 +147,7 @@ export default function Procedure() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex items-end justify-between">
             <h2 className="font-display text-3xl text-deep">{t('procedures.others')}</h2>
-            <Link to={to('/procedures')} className="inline-flex items-center gap-2 text-calm hover:text-deep">
+            <Link to={to('/procedures')} className="inline-flex min-h-11 items-center gap-2 text-calm-ink hover:text-deep">
               {t('procedures.all')} <ArrowForward size={16} />
             </Link>
           </div>

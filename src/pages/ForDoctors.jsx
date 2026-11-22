@@ -9,6 +9,7 @@ import { ProcedureIcon } from '@/components/ui/ProcedureIcon';
 import { CheckCircle2, PhoneCall, FileCheck2, Undo2 } from 'lucide-react';
 import { useLang } from '@/i18n';
 import { submitLead, track } from '@/lib/api';
+import { attribution, trackLead } from '@/lib/analytics';
 import { Seo } from '@/site/Seo';
 import { PageHero } from '@/site/PageHero';
 import { useContent, imgSrc } from '@/lib/content';
@@ -40,9 +41,10 @@ export default function ForDoctors() {
         type: 'referral',
         name: f.docName,
         phone: f.docPhone,
-        payload: { specialty: f.docSpecialty, city: f.docCity, patient: f.patientName, patientPhone: f.patientPhone, summary: f.summary, urgency: f.urgency, lang },
+        payload: { specialty: f.docSpecialty, city: f.docCity, patient: f.patientName, patientPhone: f.patientPhone, summary: f.summary, urgency: f.urgency, lang, ...attribution() },
       });
       track('form');
+      trackLead('referral');
       try {
         localStorage.setItem('aes-referrer', JSON.stringify({ docName: f.docName, docSpecialty: f.docSpecialty, docPhone: f.docPhone, docCity: f.docCity }));
       } catch {

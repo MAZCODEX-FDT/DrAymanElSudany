@@ -31,7 +31,7 @@ export function DoctorIntro() {
         <div className="lg:col-span-7">
           <p className="eyebrow mb-5">{L(intro.title) || t('about.eyebrow')}</p>
           <h2 className="font-display text-4xl leading-tight text-deep sm:text-5xl">{t('brand.fullName')}</h2>
-          <p className="mt-2 text-lg text-calm">{t('brand.tagline')}</p>
+          <p className="mt-2 text-lg text-calm-ink">{t('brand.tagline')}</p>
           <p className="mt-8 whitespace-pre-line text-lg leading-loose text-ink/80">{L(intro.body)}</p>
           {about.statement && L(about.statement.body) && (
             <blockquote className="mt-8 flex gap-4 rounded-3xl bg-white p-6 text-ink/75">

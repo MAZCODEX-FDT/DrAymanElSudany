@@ -1,8 +1,3 @@
-import { useLang } from '@/i18n';
-import { useSettings, whatsappHref } from '@/lib/settings';
-import { track } from '@/lib/api';
-import Magnet from '@/components/reactbits/Magnet';
-
 export function WhatsAppIcon({ size = 24 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -11,30 +6,3 @@ export function WhatsAppIcon({ size = 24 }) {
   );
 }
 
-/** Sticky WhatsApp button on every public page (plan requirement), with click tracking. */
-export function WhatsAppFab() {
-  const { t, lang } = useLang();
-  const settings = useSettings();
-  return (
-    <div className="fixed bottom-5 end-5 z-40 sm:bottom-8 sm:end-8">
-      <Magnet padding={60} magnetStrength={3}>
-        <a
-          href={whatsappHref(settings, lang)}
-          target="_blank"
-          rel="noopener"
-          onClick={() => track('whatsapp')}
-          aria-label={t('cta.whatsapp')}
-          className="group flex items-center gap-3 rounded-full bg-amber p-4 text-white shadow-lg transition-all hover:pe-6"
-        >
-          <span className="relative">
-            <span className="absolute inset-0 animate-ping rounded-full bg-white/30" />
-            <WhatsAppIcon size={26} />
-          </span>
-          <span className="hidden max-w-0 overflow-hidden whitespace-nowrap text-sm font-medium transition-all duration-500 group-hover:max-w-40 sm:inline">
-            {t('cta.whatsapp')}
-          </span>
-        </a>
-      </Magnet>
-    </div>
-  );
-}

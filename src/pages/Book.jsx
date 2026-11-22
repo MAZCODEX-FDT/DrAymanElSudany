@@ -4,6 +4,8 @@ import { useLang } from '@/i18n';
 import { useSettings, whatsappHref } from '@/lib/settings';
 import { useContent, imgSrc } from '@/lib/content';
 import { submitLead, track } from '@/lib/api';
+import { attribution, trackLead } from '@/lib/analytics';
+import { Link } from 'react-router-dom';
 import { Seo } from '@/site/Seo';
 import { PageHero } from '@/site/PageHero';
 import { Button } from '@/components/ui/Button';
@@ -11,7 +13,8 @@ import { Field, Input, Select, Textarea, Segmented } from '@/components/ui/Form'
 import { WhatsAppIcon } from '@/site/WhatsAppFab';
 
 export default function Book() {
-  const { t, L, lang } = useLang();
+  const { t, L, lang, to } = useLang();
+  const en = lang === 'en';
   const s = useSettings();
   const { branches, media } = useContent();
   const places = branches.length
@@ -21,12 +24,24 @@ export default function Book() {
   const [state, setState] = useState('idle');
   const set = (k) => (e) => setForm({ ...form, [k]: e?.target ? (e.target.type === 'checkbox' ? e.target.checked : e.target.value) : e });
 
+  const waSummary = [
+    en ? 'New booking request from the website' : 'طلب حجز جديد من الموقع',
+    `${t('book.name')}: ${form.name}`,
+    `${t('book.phone')}: ${form.phone}`,
+    form.reason && `${t('book.reason')}: ${form.reason}`,
+    form.preferred && `${t('book.preferred')}: ${form.preferred}`,
+    form.notes && `${en ? 'Notes' : 'ملاحظات'}: ${form.notes}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
+
   const submit = async (e) => {
     e.preventDefault();
     setState('sending');
     try {
-      await submitLead({ type: 'booking', name: form.name, phone: form.phone, payload: { relation: form.relation, reason: form.reason, preferred: form.preferred, notes: form.notes, hasScans: form.hasScans, lang } });
+      await submitLead({ type: 'booking', name: form.name, phone: form.phone, payload: { relation: form.relation, reason: form.reason, preferred: form.preferred, notes: form.notes, hasScans: form.hasScans, lang, ...attribution() } });
       track('form');
+      trackLead('booking', form.reason);
       setState('done');
     } catch {
       setState('error');
@@ -45,6 +60,19 @@ export default function Book() {
                 <div className="py-16 text-center">
                   <CheckCircle2 size={56} className="mx-auto text-calm" />
                   <p className="font-display mt-6 text-2xl text-deep">{t('book.success')}</p>
+                  {s.whatsapp && (
+                    <>
+                      <p className="mx-auto mt-4 max-w-md text-ink/70">{en ? 'Want a faster reply? Send the same details to the clinic on WhatsApp.' : 'عايز رد أسرع؟ ابعت نفس التفاصيل للعيادة على واتساب.'}</p>
+                      <Button className="mt-6" href={whatsappHref(s, lang, waSummary)} target="_blank" rel="noopener" onClick={() => track('whatsapp')}>
+                        <WhatsAppIcon size={18} /> {en ? 'Send on WhatsApp' : 'ابعتها على واتساب'}
+                      </Button>
+                    </>
+                  )}
+                  <p className="mt-8">
+                    <Link to={to('/before-your-visit')} className="inline-flex min-h-11 items-center font-medium text-deep underline underline-offset-4">
+                      {en ? 'Before your visit: what to bring and how to prepare' : 'قبل زيارتك: تجيب معاك إيه وتجهز إزاى'}
+                    </Link>
+                  </p>
                 </div>
               ) : (
                 <form onSubmit={submit} className="grid gap-6 sm:grid-cols-2">

@@ -3,7 +3,7 @@
 import { seedContent } from '@/data/seed';
 import { STOCK_SLOTS, STOCK_GALLERY, STOCK_BRANCH, STOCK_NOTE } from '@/data/stock';
 
-const KEY = 'aes-demo-v7';
+const KEY = 'aes-demo-v8';
 
 function rng(seed) {
   let s = seed;
@@ -146,6 +146,7 @@ function seed() {
       ...STOCK_GALLERY.map((url, i) => ({ slot: 'gallery', url, alt_ar: STOCK_NOTE.ar, alt_en: STOCK_NOTE.en, enabled: true, sort: 20 + i })),
     ]),
     faqs: withIds(site.faqs),
+    articles: withIds((site.articles || []).map((a, i) => ({ ...a, image: STOCK_GALLERY[(i + 2) % STOCK_GALLERY.length] }))),
     appointments,
     leads,
     cases,

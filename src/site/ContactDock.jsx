@@ -87,14 +87,14 @@ export function ContactDock() {
   return (
     <>
       {/* desktop */}
-      <div className="fixed bottom-8 end-8 z-40 hidden flex-col items-end gap-3 sm:flex">
+      <div className="fixed bottom-8 end-8 z-40 hidden flex-col items-end gap-3 sm:flex print:hidden">
         {hasPhone && (
           <a href={needsPick ? '#' : tel(phone)} onClick={onTap('call')} aria-label={t('cta.call')} className="group flex min-h-14 items-center gap-3 rounded-full bg-deep p-4 text-linen shadow-lg transition-all hover:pe-6">
             <Phone size={22} />
             <span className="max-w-0 overflow-hidden whitespace-nowrap text-sm font-medium transition-all duration-500 group-hover:max-w-40">{t('cta.call')}</span>
           </a>
         )}
-        <a href={needsPick ? '#' : wa} {...(needsPick ? {} : ext(wa))} onClick={onTap('whatsapp')} aria-label={t('cta.whatsapp')} className="group flex min-h-14 items-center gap-3 rounded-full bg-[#1f9d55] p-4 text-white shadow-lg transition-all hover:pe-6">
+        <a href={needsPick ? '#' : wa} {...(needsPick ? {} : ext(wa))} onClick={onTap('whatsapp')} aria-label={t('cta.whatsapp')} className="group flex min-h-14 items-center gap-3 rounded-full bg-[#178245] p-4 text-white shadow-lg transition-all hover:pe-6">
           <span className="relative">
             <span className="absolute inset-0 animate-ping rounded-full bg-white/30 motion-reduce:hidden" />
             <WhatsAppIcon size={26} />
@@ -104,10 +104,10 @@ export function ContactDock() {
       </div>
 
       {/* mobile */}
-      <div className="h-[calc(4.5rem+env(safe-area-inset-bottom))] sm:hidden" aria-hidden />
-      <nav aria-label={en ? 'Contact the clinic' : 'تواصل مع العيادة'} className="fixed inset-x-0 bottom-0 z-40 border-t border-deep/10 bg-white/95 px-3 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] backdrop-blur sm:hidden">
+      <div className="h-[calc(4.5rem+env(safe-area-inset-bottom))] sm:hidden print:hidden" aria-hidden />
+      <nav aria-label={en ? 'Contact the clinic' : 'تواصل مع العيادة'} className="fixed inset-x-0 bottom-0 z-40 border-t border-deep/10 bg-white/95 px-3 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] backdrop-blur sm:hidden print:hidden">
         <div className="flex gap-2">
-          <a href={needsPick ? '#' : wa} {...(needsPick ? {} : ext(wa))} onClick={onTap('whatsapp')} className="flex min-h-14 flex-1 items-center justify-center gap-2 rounded-2xl bg-[#1f9d55] text-[15px] font-semibold text-white">
+          <a href={needsPick ? '#' : wa} {...(needsPick ? {} : ext(wa))} onClick={onTap('whatsapp')} className="flex min-h-14 flex-1 items-center justify-center gap-2 rounded-2xl bg-[#178245] text-[15px] font-semibold text-white">
             <WhatsAppIcon size={22} /> {en ? 'WhatsApp' : 'واتساب'}
           </a>
           {hasPhone && (

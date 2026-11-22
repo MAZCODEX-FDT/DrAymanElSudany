@@ -1,12 +1,14 @@
 // Writes dist/sitemap.xml and dist/robots.txt with absolute URLs after `vite build`.
 // Set SITE_URL (e.g. SITE_URL=https://drayman-elsudany.com npm run build).
 import { writeFileSync } from 'node:fs';
-import { procedures } from '../src/data/procedures.js';
+import { seedContent } from '../src/data/seed.js';
 
 const site = (process.env.SITE_URL || 'https://example.com').replace(/\/$/, '');
 if (!process.env.SITE_URL) console.warn('[seo-files] SITE_URL not set; using https://example.com. Set it before the production build.');
 
-const paths = ['/', '/about', '/procedures', ...procedures.map((p) => `/procedures/${p.slug}`), '/for-doctors', '/faq', '/contact', '/book'];
+// Static copy for hosts without PHP (GitHub Pages). On Bluehost, /sitemap.xml is served live by api/sitemap.php from the database.
+const { procedures, articles } = seedContent();
+const paths = ['/', '/about', '/procedures', ...procedures.map((p) => `/procedures/${p.slug}`), '/for-doctors', '/faq', '/contact', '/book', '/before-your-visit', '/articles', ...articles.map((a) => `/articles/${a.slug}`)];
 const today = new Date().toISOString().slice(0, 10);
 const url = (p) => {
   const ar = `${site}${p}`;

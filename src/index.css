@@ -15,6 +15,8 @@
   --color-ink: #121521;         /* Ink: body text */
   --color-amber: #f26a2e;       /* Pulse Orange: the accent and CTAs */
   --color-amber-soft: #ffa27a;  /* orange for small text on Neuro Blue */
+  --color-calm-ink: #1a56c4;    /* Signal Blue darkened for small text on light (AA 5.6:1 on Cloud) */
+  --color-amber-ink: #c2491a;   /* Pulse Orange darkened for small text on white (AA) */
 
   --font-display-ar: "Cairo", system-ui, sans-serif;
   --font-body-ar: "Tajawal", system-ui, sans-serif;
@@ -113,7 +115,7 @@ html.lenis body {
   font-size: 0.75rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-calm);
+  color: var(--color-calm-ink);
 }
 .on-dark .eyebrow,
 .eyebrow.on-dark {
@@ -146,5 +148,11 @@ html[dir="rtl"] .flip-x {
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
   }
 }

@@ -5,14 +5,15 @@ import { cn } from '@/lib/cn';
 // shadcn / 21st.dev style button with a sliding sheen on hover.
 const variants = {
   primary: 'bg-deep text-white hover:bg-deep-700',
-  amber: 'bg-amber text-white hover:bg-[#e05a20]',
+  // Navy text on Pulse Orange: 5:1 contrast (white on this orange is only 3:1).
+  amber: 'bg-amber text-deep-950 hover:bg-[#ff8a55]',
   light: 'bg-white text-deep hover:bg-mist',
   outline: 'border border-deep/20 text-deep hover:border-deep/50 hover:bg-deep/5',
   ghostDark: 'border border-white/15 text-linen hover:border-white/35 hover:bg-white/5',
   ghost: 'text-deep hover:bg-deep/5',
 };
 const sizes = {
-  sm: 'h-9 px-4 text-sm',
+  sm: 'h-11 px-4 text-sm',
   md: 'h-12 px-6 text-[15px]',
   lg: 'h-14 px-8 text-base',
 };

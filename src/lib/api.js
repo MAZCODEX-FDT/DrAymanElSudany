@@ -1,6 +1,7 @@
 // Data layer. Talks to the PHP API in /api (Bluehost). If the API is not reachable
 // (local preview, design review) it falls back to demo data kept in localStorage.
 import { db, save, nextId, GOOGLE_SAMPLE } from './demo';
+import { trackAction } from './analytics';
 
 const FORCE_DEMO = import.meta.env.VITE_DEMO === '1';
 const BASE = import.meta.env.VITE_API_BASE || '/api/index.php';
@@ -48,8 +49,8 @@ async function call(method, r, opts, demoFn) {
 const now = () => new Date().toISOString();
 
 // ---------- resources (dashboard) ----------
-export const RESOURCES = ['appointments', 'leads', 'cases', 'referrers', 'patients', 'testimonials', 'faqs', 'events', 'procedures', 'branches', 'about', 'media'];
-const CONTENT = ['procedures', 'faqs', 'branches', 'about', 'media'];
+export const RESOURCES = ['appointments', 'leads', 'cases', 'referrers', 'patients', 'testimonials', 'faqs', 'events', 'procedures', 'branches', 'about', 'media', 'articles'];
+const CONTENT = ['procedures', 'faqs', 'branches', 'about', 'media', 'articles'];
 const bySort = (a, b) => (a.sort ?? 0) - (b.sort ?? 0) || a.id - b.id;
 
 export const list = (r) => call('GET', r, {}, () => {
@@ -157,11 +158,7 @@ export const publicTestimonials = () => call('GET', 'public-testimonials', {}, (
 
 /** Click tracking (WhatsApp, call, map, form). Fire and forget. */
 export function track(type, page = window.location.pathname) {
-  try {
-    if (typeof window.gtag === 'function') window.gtag('event', `click_${type}`, { page_path: page });
-  } catch {
-    /* analytics optional */
-  }
+  trackAction(type, page);
   call('POST', 'event', { body: { type, page } }, () => {
     db().events.push({ id: nextId(), type, page, created_at: now() });
     save();
