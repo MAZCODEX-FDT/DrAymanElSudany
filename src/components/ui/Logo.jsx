@@ -1,35 +1,27 @@
 import { cn } from '@/lib/cn';
 import { useLang } from '@/i18n';
 
-// Brand v2 emblem: three brain contours closing in on an orange dot (the exact point).
-// Geometry copied from branding/v2/logos/emblem-*.svg (viewBox 0 0 200 200).
-export const BRAIN =
-  'M38,108 C30,66 62,34 102,34 C144,32 176,58 174,94 C178,122 158,142 134,142 C128,158 108,162 98,150 C84,160 56,154 46,138 C38,130 36,120 38,108 Z';
-export const CONTOURS = [
-  { transform: 'translate(0 0) scale(1)', width: 12 },
-  { transform: 'translate(31.2 29.4) scale(0.7)', width: 17.14 },
-  { transform: 'translate(62.4 58.8) scale(0.4)', width: 30 },
-];
-export const DOT = { cx: 104, cy: 98, r: 11.4 };
+// Logo option A (branding/v3/logos, master files): the mark joins the أ of Ayman (tall stroke, orange point) to the س of
+// El Sudany (rising teeth and bowl). The name is set in Reem Kufi (logo only); the footer uses the outlined master lockup.
+export const MARK_VIEWBOX = '0 0 750 1000';
+export const MARK_PATH =
+  'M 501.12 743.20 C 483.13 1041.94 98.86 1069.53 0.00 761.33 L 36.25 755.29 C 138.97 960.73 422.96 942.60 429.00 712.99 L 429.00 501.51 L 501.51 465.26 L 501.51 676.74 L 549.85 676.74 L 549.85 344.41 L 622.36 308.16 L 622.36 676.74 L 670.69 676.74 L 670.69 175.23 L 743.20 138.97 L 743.20 743.20 L 501.12 743.20 Z';
+export const MARK_DOT = { cx: 706.95, cy: 42.3, r: 42.3 };
 
 const PALETTES = {
-  color: ['#1B2D8F', '#2E7BEF', '#1B2D8F'],
-  reverse: ['#FFFFFF', '#7FB2FF', '#FFFFFF'],
+  color: ['#1B2D8F', '#F26A2E'],
+  reverse: ['#FFFFFF', '#F26A2E'],
   // Tonal version used huge and cropped on Neuro Blue backgrounds.
-  tonal: ['#2C44BC', '#2C44BC', '#2C44BC'],
+  tonal: ['#2C44BC', '#F26A2E'],
 };
 
-/** The emblem. variant: color | reverse | tonal. `weight` thickens the strokes for the large cropped graphic. */
-export function Emblem({ variant = 'color', weight = 1, className, dotClassName, ...props }) {
-  const colors = PALETTES[variant] ?? PALETTES.color;
+/** The mark. variant: color | reverse | tonal. */
+export function Emblem({ variant = 'color', weight, className, dotClassName, ...props }) { // eslint-disable-line no-unused-vars
+  const [glyph, dot] = PALETTES[variant] ?? PALETTES.color;
   return (
-    <svg viewBox="0 0 200 200" className={className} aria-hidden {...props}>
-      <g fill="none" strokeLinecap="round" strokeLinejoin="round">
-        {CONTOURS.map((c, i) => (
-          <path key={i} className="emblem-contour" d={BRAIN} transform={c.transform} stroke={colors[i]} strokeWidth={c.width * weight} />
-        ))}
-      </g>
-      <circle className={dotClassName} cx={DOT.cx} cy={DOT.cy} r={DOT.r * (weight > 1 ? 1.2 : 1)} fill="#F26A2E" />
+    <svg viewBox={MARK_VIEWBOX} className={className} aria-hidden {...props}>
+      <path className="emblem-contour" d={MARK_PATH} fill={glyph} />
+      <circle className={dotClassName} cx={MARK_DOT.cx} cy={MARK_DOT.cy} r={MARK_DOT.r} fill={dot} />
     </svg>
   );
 }
@@ -38,26 +30,52 @@ export function LogoMark({ className, light }) {
   return <Emblem variant={light ? 'reverse' : 'color'} className={cn('h-10 w-10', className)} />;
 }
 
-/** Horizontal lockup: emblem + "Dr. Ayman" (bold) "El Sudany" (light). Never "Sudany" alone. */
+const KUFI = { fontFamily: '"Reem Kufi", Cairo, sans-serif' };
+const OUTFIT = { fontFamily: 'Outfit, sans-serif' };
+
+/** Header lockup: mark + the name in the page language + specialty line. Never "Sudany" alone. */
 export function Logo({ light, className }) {
   const { lang } = useLang();
+  const name = light ? 'text-white' : 'text-deep';
+  const sub = light ? 'text-amber-soft' : 'text-amber-ink';
   return (
-    <span className={cn('inline-flex items-center gap-3', className)}>
-      <LogoMark light={light} className="h-11 w-11" />
-      <span className="leading-tight">
+    // Always composed left-to-right like the master lockup: mark on the left, name on the right.
+    <span className={cn('inline-flex items-center gap-2.5', className)} dir="ltr">
+      <LogoMark light={light} className="h-11 w-9 shrink-0" />
+      <span className={cn('leading-tight', lang === 'en' ? 'text-left' : 'text-right')}>
         {lang === 'en' ? (
-          <span className={cn('block text-[18px] tracking-tight', light ? 'text-white' : 'text-deep')} style={{ fontFamily: 'Outfit, sans-serif' }}>
-            <b className="font-bold">Dr. Ayman</b> <span className="font-light">El Sudany</span>
-          </span>
+          <>
+            <span className={cn('block text-[19px] font-semibold tracking-tight', name)} style={OUTFIT}>
+              Dr. Ayman El Sudany
+            </span>
+            <span className={cn('block text-[10px] tracking-[0.16em]', light ? 'text-linen/70' : 'text-slate')} style={OUTFIT}>
+              Neurology &amp; Neuro-Intervention
+            </span>
+          </>
         ) : (
-          <span className={cn('block text-[18px]', light ? 'text-white' : 'text-deep')} style={{ fontFamily: 'Cairo, sans-serif' }}>
-            <b className="font-bold">د. أيمن</b> <span className="font-normal">السودانى</span>
-          </span>
+          <>
+            <span className={cn('block text-[22px] font-bold leading-none', name)} style={KUFI}>
+              د. أيمن السودانى
+            </span>
+            <span className={cn('mt-1 block text-[12px] font-medium', sub)} style={KUFI}>
+              مخ وأعصاب وقسطرة المخ
+            </span>
+          </>
         )}
-        <span className={cn('block text-[9.5px] uppercase tracking-[0.22em]', light ? 'text-[#7FB2FF]' : 'text-calm')} style={{ fontFamily: 'Outfit, sans-serif' }}>
-          Neurology · Neuro-intervention
-        </span>
       </span>
     </span>
+  );
+}
+
+/** Full bilingual lockup (option A master file, text outlined). */
+export function LogoFull({ light, className }) {
+  return (
+    <img
+      src={`${import.meta.env.BASE_URL}brand/logo-horizontal-${light ? 'reverse' : 'color'}.svg`}
+      alt="د. أيمن السودانى · Dr. Ayman El Sudany"
+      width="1615"
+      height="668"
+      className={cn('h-auto w-72', className)}
+    />
   );
 }
