@@ -1,25 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand tokens: first proposal from the brand guide (Nov 2026), pending the doctor's approval.
-     Change colours and fonts here only. */
-  --color-deep: #0f3b57;        /* Deep Current: primary, headers, buttons */
-  --color-deep-700: #164a6a;    /* Deep Glow start */
-  --color-deep-900: #0a2a3f;    /* Deep Glow end */
-  --color-deep-950: #071e2e;    /* darkest surface (dashboard) */
-  --color-calm: #2f6f8f;        /* Calm Blue: secondary, the path line */
-  --color-linen: #f5f1ea;       /* main light background */
-  --color-mist: #d7e5ec;        /* cool panels */
-  --color-sand: #e9ddcb;        /* warm panels */
-  --color-slate: #6b7c86;       /* captions */
-  --color-ink: #13222d;         /* body text on light */
-  --color-amber: #d99a4e;       /* Amber Signal: the one warm accent, never body text on light */
-  --color-amber-soft: #ebc08c;  /* amber for small text on dark */
+  /* Brand v2 tokens (Nov 2026 proposal, pending final review). Flat colours only, no gradients.
+     Token names are kept from v1 so the components did not change; the values are v2. */
+  --color-deep: #1b2d8f;        /* Neuro Blue: primary, headers, dark sections */
+  --color-deep-700: #2238a8;    /* tonal Neuro Blue (emblem bands, hover) */
+  --color-deep-900: #16247a;    /* darker Neuro Blue */
+  --color-deep-950: #111c62;    /* darkest surface (dashboard) */
+  --color-calm: #2e7bef;        /* Signal Blue: secondary, links, highlights */
+  --color-linen: #ececec;       /* Cloud: main light background */
+  --color-mist: #dce5fa;        /* Mist: cool panels */
+  --color-sand: #fce3d6;        /* Peach: warm panels */
+  --color-slate: #5b6275;       /* Slate: captions */
+  --color-ink: #121521;         /* Ink: body text */
+  --color-amber: #f26a2e;       /* Pulse Orange: the accent and CTAs */
+  --color-amber-soft: #ffa27a;  /* orange for small text on Neuro Blue */
 
   --font-display-ar: "Cairo", system-ui, sans-serif;
   --font-body-ar: "Tajawal", system-ui, sans-serif;
-  --font-serif: "DM Serif Display", Georgia, serif;
-  --font-sans: "DM Sans", "Tajawal", system-ui, sans-serif;
+  --font-serif: "Outfit", system-ui, sans-serif;
+  --font-sans: "Outfit", "Tajawal", system-ui, sans-serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -41,7 +41,7 @@
   }
   ::selection {
     background: var(--color-amber);
-    color: var(--color-deep-900);
+    color: #fff;
   }
   :focus-visible {
     outline: 2px solid var(--color-amber);
@@ -50,20 +50,20 @@
   }
 }
 
-/* Display type: Cairo for Arabic, DM Serif Display for English */
+/* Display type: Cairo for Arabic, Outfit Bold for English */
 .font-display {
   font-family: var(--font-display-ar);
   font-weight: 700;
   letter-spacing: -0.01em;
 }
 html[dir="ltr"] .font-display {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.02em;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 .font-accent {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-weight: 300;
 }
 html[dir="rtl"] .font-accent {
   font-family: var(--font-display-ar);
@@ -88,32 +88,26 @@ html.lenis body {
 
 /* Utilities */
 .glass {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 .bg-deep-glow {
-  background: radial-gradient(120% 90% at 20% 0%, #164a6a 0%, #0f3b57 45%, #0a2a3f 100%);
+  background: var(--color-deep); /* v2: flat Neuro Blue */
 }
 .hairline {
   border-color: rgba(255, 255, 255, 0.08);
 }
 .grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
+  content: none; /* v2 is flat: no texture */
 }
 .text-balance {
   text-wrap: balance;
 }
 .amber-rule {
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-amber), transparent);
+  background: var(--color-amber);
 }
 .eyebrow {
   font-size: 0.75rem;

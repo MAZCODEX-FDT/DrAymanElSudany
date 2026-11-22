@@ -89,7 +89,7 @@ export default function ForDoctors() {
                   <span className="mb-2 block text-sm font-medium text-deep/80">{t('refer.urgency')}</span>
                   <Segmented name="urgency" value={f.urgency} onChange={set('urgency')} options={[['routine', t('refer.routine')], ['soon', t('refer.soon')], ['urgent', t('refer.urgent')]]} />
                 </div>
-                {state === 'error' && <p className="text-sm text-[#9a5b12] sm:col-span-2">{t('book.error')}</p>}
+                {state === 'error' && <p className="text-sm text-[#B8461A] sm:col-span-2">{t('book.error')}</p>}
                 <Button type="submit" size="lg" className="sm:col-span-2 sm:justify-self-start" disabled={state === 'sending'}>
                   {state === 'sending' ? t('cta.sending') : t('cta.refer')}
                 </Button>

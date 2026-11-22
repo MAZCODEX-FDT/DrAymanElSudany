@@ -23,20 +23,21 @@ const THEMES = {
 
 // Brand themes (added for this site).
 THEMES.deep = {
-  surface: 'rgba(255, 255, 255, 0.035)',
-  border: 'rgba(255, 255, 255, 0.09)',
-  shadow: '0 30px 60px -30px rgba(0, 0, 0, 0.55)',
-  light: '#ebc08c',
-  fill: 0.55,
-  edge: 1
+  // Brand v2 is flat: solid tonal surface, no spotlight glow.
+  surface: '#2238A8',
+  border: 'rgba(255, 255, 255, 0.08)',
+  shadow: 'none',
+  light: '#FFA27A',
+  fill: 0,
+  edge: 0
 };
 THEMES.linen = {
-  surface: '#fbf9f5',
-  border: 'rgba(15, 59, 87, 0.1)',
-  shadow: '0 1px 2px rgba(15, 59, 87, 0.04), 0 24px 50px -28px rgba(15, 59, 87, 0.3)',
-  light: '#2f6f8f',
-  fill: 0.22,
-  edge: 0.8
+  surface: '#ffffff',
+  border: 'rgba(27, 45, 143, 0.08)',
+  shadow: 'none',
+  light: '#2E7BEF',
+  fill: 0,
+  edge: 0
 };
 
 const SHAPES = ['circle', 'beam'];

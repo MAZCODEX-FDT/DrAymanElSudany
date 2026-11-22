@@ -8,7 +8,7 @@ import { useProcedures } from '../useResource';
 import { useResource } from '../useResource';
 import { useD, Card, Kpi, Pill, fmtDate, todayIso } from '../ui';
 
-export const CHART = ['#0F3B57', '#2F6F8F', '#D99A4E', '#8FB6C9', '#C9B79A', '#6B7C86'];
+export const CHART = ['#1B2D8F', '#2E7BEF', '#F26A2E', '#9DBBF7', '#F7B596', '#5B6275'];
 
 function dayKey(d) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -87,22 +87,12 @@ export default function Overview() {
           <div className="h-72" dir="ltr">
             <ResponsiveContainer>
               <AreaChart data={series} margin={{ left: -20, right: 8, top: 8 }}>
-                <defs>
-                  <linearGradient id="gv" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#0F3B57" stopOpacity={0.35} />
-                    <stop offset="100%" stopColor="#0F3B57" stopOpacity={0} />
-                  </linearGradient>
-                  <linearGradient id="gc" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#D99A4E" stopOpacity={0.3} />
-                    <stop offset="100%" stopColor="#D99A4E" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid stroke="#0F3B57" strokeOpacity={0.06} vertical={false} />
-                <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#6B7C86' }} tickLine={false} axisLine={false} interval={4} />
-                <YAxis tick={{ fontSize: 11, fill: '#6B7C86' }} tickLine={false} axisLine={false} allowDecimals={false} />
+                <CartesianGrid stroke="#1B2D8F" strokeOpacity={0.06} vertical={false} />
+                <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#5B6275' }} tickLine={false} axisLine={false} interval={4} />
+                <YAxis tick={{ fontSize: 11, fill: '#5B6275' }} tickLine={false} axisLine={false} allowDecimals={false} />
                 <Tooltip contentStyle={{ borderRadius: 14, border: '1px solid rgba(15,59,87,.1)', fontSize: 13 }} />
-                <Area type="monotone" dataKey="clicks" name={d('analytics')} stroke="#D99A4E" strokeWidth={2} fill="url(#gc)" />
-                <Area type="monotone" dataKey="visits" name={d('st_completed')} stroke="#0F3B57" strokeWidth={2.2} fill="url(#gv)" />
+                <Area type="monotone" dataKey="clicks" name={d('analytics')} stroke="#F26A2E" strokeWidth={2} fill="#F26A2E" fillOpacity={0.08} />
+                <Area type="monotone" dataKey="visits" name={d('st_completed')} stroke="#1B2D8F" strokeWidth={2.2} fill="#1B2D8F" fillOpacity={0.08} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -122,7 +112,7 @@ export default function Overview() {
           </div>
           <ul className="mt-4 grid grid-cols-2 gap-2 text-sm">
             {sources.map((s, i) => (
-              <li key={s.name} className="flex items-center gap-2 rounded-xl bg-[#f7f4ee] px-3 py-2 text-ink/75">
+              <li key={s.name} className="flex items-center gap-2 rounded-xl bg-[#F6F6F8] px-3 py-2 text-ink/75">
                 <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: CHART[i % CHART.length] }} />
                 <span className="flex-1 truncate">{s.name}</span>
                 <span className="font-mono text-slate">{s.value}</span>
@@ -137,7 +127,7 @@ export default function Overview() {
           <ul className="scroll-thin max-h-80 space-y-2 overflow-y-auto">
             {schedule.length === 0 && <li className="text-sm text-slate">{d('empty')}</li>}
             {schedule.map((a) => (
-              <li key={a.id} className="flex items-center gap-3 rounded-2xl bg-[#f7f4ee] px-4 py-3">
+              <li key={a.id} className="flex items-center gap-3 rounded-2xl bg-[#F6F6F8] px-4 py-3">
                 <span className="font-mono text-sm text-deep" dir="ltr">{a.time}</span>
                 <span className="flex-1 truncate text-sm">{a.patient_name}</span>
                 <Pill tone={a.status}>{d(`st_${a.status}`)}</Pill>
@@ -152,7 +142,7 @@ export default function Overview() {
               <li key={c.id} className="rounded-2xl border border-amber/30 bg-amber/5 px-4 py-3">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-sm font-medium text-deep">{c.patient_name}</span>
-                  <span className="text-xs text-[#8a5a1e]">{fmtDate(c.next_follow_up, lang)}</span>
+                  <span className="text-xs text-[#B8461A]">{fmtDate(c.next_follow_up, lang)}</span>
                 </div>
                 <p className="mt-1 text-xs text-slate">
                   {L(getProcedure(c.procedure)?.title) || c.procedure} · {d(`sg_${c.stage}`)}
@@ -168,7 +158,7 @@ export default function Overview() {
               <span className="text-slate">/ {goal}</span>
             </div>
             <div className="mt-4 h-2.5 overflow-hidden rounded-full bg-deep/5">
-              <div className="h-full rounded-full bg-gradient-to-r from-calm to-amber transition-all duration-1000" style={{ width: `${Math.min(100, (reviews / goal) * 100)}%` }} />
+              <div className="h-full rounded-full bg-amber transition-all duration-1000" style={{ width: `${Math.min(100, (reviews / goal) * 100)}%` }} />
             </div>
           </Card>
           <Card title={d('funnel')}>

@@ -24,7 +24,7 @@ Physician / MedicalProcedure / FAQPage schema. **All medical copy in `src/data/`
 | API | Plain PHP 8.1+ with PDO + MySQL/MariaDB in `public/api/` (runs on Bluehost shared hosting) |
 
 Brand tokens (colours, fonts) live in one place: the `@theme` block in `src/index.css`.
-They follow the brand guide v1 proposal (Deep Current `#0F3B57`, Amber Signal `#D99A4E`, Cairo/Tajawal, DM Serif Display/DM Sans)
+They follow brand guide v2 (Neuro Blue `#1B2D8F`, Signal Blue `#2E7BEF`, Pulse Orange `#F26A2E`, flat colours only; Outfit for English, Cairo/Tajawal for Arabic)
 and are pending the doctor's approval.
 
 ## Local development

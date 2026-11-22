@@ -101,7 +101,7 @@ export default function Procedure() {
             <section id="steps" ref={steps} className="scroll-mt-28">
               <h2 className="font-display text-3xl text-deep">{t('procedures.steps')}</h2>
               <div className="relative mt-10 space-y-10 ps-12">
-                <span className="step-line absolute start-[19px] top-2 h-[calc(100%-1rem)] w-px origin-top bg-gradient-to-b from-amber to-calm" />
+                <span className="step-line absolute start-[19px] top-2 h-[calc(100%-1rem)] w-px origin-top bg-calm/40" />
                 {['before', 'during', 'after'].map((k, i) => (
                   <div key={k} className="step-item relative">
                     <span className="absolute -start-12 top-0 grid h-10 w-10 place-items-center rounded-full border-2 border-amber bg-linen font-mono text-sm text-deep">{i + 1}</span>

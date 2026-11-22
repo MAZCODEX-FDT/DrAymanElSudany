@@ -24,7 +24,7 @@ export function WhatsAppFab() {
           rel="noopener"
           onClick={() => track('whatsapp')}
           aria-label={t('cta.whatsapp')}
-          className="group flex items-center gap-3 rounded-full bg-[#1f9d55] p-4 text-white shadow-[0_18px_40px_-12px_rgba(31,157,85,.7)] transition-all hover:pe-6"
+          className="group flex items-center gap-3 rounded-full bg-amber p-4 text-white shadow-lg transition-all hover:pe-6"
         >
           <span className="relative">
             <span className="absolute inset-0 animate-ping rounded-full bg-white/30" />

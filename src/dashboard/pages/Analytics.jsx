@@ -46,9 +46,9 @@ export default function Analytics() {
           <div className="h-80" dir="ltr">
             <ResponsiveContainer>
               <BarChart data={byDay} margin={{ left: -20, right: 8 }}>
-                <CartesianGrid stroke="#0F3B57" strokeOpacity={0.06} vertical={false} />
-                <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#6B7C86' }} tickLine={false} axisLine={false} interval={4} />
-                <YAxis tick={{ fontSize: 11, fill: '#6B7C86' }} tickLine={false} axisLine={false} allowDecimals={false} />
+                <CartesianGrid stroke="#1B2D8F" strokeOpacity={0.06} vertical={false} />
+                <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#5B6275' }} tickLine={false} axisLine={false} interval={4} />
+                <YAxis tick={{ fontSize: 11, fill: '#5B6275' }} tickLine={false} axisLine={false} allowDecimals={false} />
                 <Tooltip contentStyle={{ borderRadius: 14, fontSize: 13 }} cursor={{ fill: 'rgba(15,59,87,.04)' }} />
                 <Legend wrapperStyle={{ fontSize: 12 }} />
                 {TYPES.map((t, i) => (
