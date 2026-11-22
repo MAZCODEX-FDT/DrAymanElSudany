@@ -96,8 +96,8 @@ const baseProcedures = [
       after: { ar: 'ملاحظة فى المستشفى، ثم متابعة بالأشعة فى مواعيد محددة للتأكد من القفل.', en: 'Observation in hospital, then scheduled imaging to confirm closure.' },
     },
     risky: {
-      ar: 'مش كل تمدد محتاج علاج فورى؛ بعضها بيتابَع بس. لما يكون التدخل مطلوب، بنشرح لحضرتك الفرق بين الخطر لو اتعالج والخطر لو اتساب، بالأرقام وبهدوء.',
-      en: 'Not every aneurysm needs immediate treatment; some are only monitored. When treatment is advised, we calmly explain the risk of treating versus not treating.',
+      ar: 'مش كل تمدد محتاج علاج فورى؛ بعضها بيتابَع بس. لما يكون التدخل مطلوب، بنشرح لحضرتك الفرق بين الخطر لو اتعالج والخطر لو اتساب، بالأرقام وبالتفصيل.',
+      en: 'Not every aneurysm needs immediate treatment; some are only monitored. When treatment is advised, we carefully explain the risk of treating versus not treating.',
     },
     costFactors: {
       ar: ['عدد الملفات أو نوع الدعامة', 'حجم ومكان التمدد', 'المستشفى ومدة الإقامة والتخدير'],

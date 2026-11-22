@@ -34,7 +34,7 @@ export const personas = [
     key: 'family',
     tab: { ar: 'ابن أو بنت المريض', en: 'The son or daughter' },
     fear: { ar: 'إن القسطرة خطيرة على سن كبير', en: 'That a catheter procedure is dangerous at an older age' },
-    message: { ar: 'هنشرحلك الحالة بهدوء قبل أى قرار، ونرد على كل أسئلة العيلة.', en: 'We will explain the condition calmly before any decision, and answer every family question.' },
+    message: { ar: 'هنشرحلك الحالة بوضوح قبل أى قرار، ونرد على كل أسئلة العيلة.', en: 'We will explain the condition clearly before any decision, and answer every family question.' },
     points: {
       ar: ['ملخص مكتوب تقدر توريه للعيلة', 'مكالمة متابعة بعد 3 أيام', 'شرح بلغة بسيطة من غير مصطلحات'],
       en: ['A written summary to share with the family', 'A follow-up call after three days', 'Plain language, no jargon'],
