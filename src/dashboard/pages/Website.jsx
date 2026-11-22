@@ -4,6 +4,7 @@ import { useLang } from '@/i18n';
 import * as api from '@/lib/api';
 import { imgSrc } from '@/lib/content';
 import { MEDIA_SLOTS, ABOUT_KINDS } from '@/data/seed';
+import { STOCK_SLOTS, STOCK_GALLERY, STOCK_NOTE } from '@/data/stock';
 import { ProcedureIcon } from '@/components/ui/ProcedureIcon';
 import { cn, withBase } from '@/lib/cn';
 import { useResource } from '../useResource';
@@ -177,7 +178,7 @@ function tidy(item, fields) {
 }
 
 // ---------- generic list editor ----------
-function Collection({ resource, flag = 'enabled', sortable = true, blank, fields, title, hint, row, thumb, addLabel, publicLink }) {
+function Collection({ resource, flag = 'enabled', sortable = true, blank, fields, title, hint, row, thumb, addLabel, publicLink, tools }) {
   const d = useD();
   const { lang } = useLang();
   const { items, loading, create, update, remove, reload } = useResource(resource);
@@ -228,6 +229,7 @@ function Collection({ resource, flag = 'enabled', sortable = true, blank, fields
       title={title}
       action={
         <div className="flex gap-2">
+          {tools?.({ items, create, update, reload })}
           {publicLink && (
             <a href={withBase(publicLink)} target="_blank" rel="noopener" className="inline-flex h-10 items-center gap-2 rounded-xl px-3 text-sm text-deep hover:bg-deep/5">
               <ExternalLink size={15} /> <span className="hidden sm:inline">{d('viewOnSite')}</span>
@@ -332,6 +334,35 @@ function Collection({ resource, flag = 'enabled', sortable = true, blank, fields
   );
 }
 
+/** Fills empty image places with stock photos so the site can be previewed before real photos exist. */
+function StockButton({ items, create, update, reload }) {
+  const d = useD();
+  const [busy, setBusy] = useState(false);
+  const empty = MEDIA_SLOTS.filter((s) => !items.some((m) => m.slot === s.slot && m.url));
+  const noGallery = !items.some((m) => m.slot === 'gallery' && m.url);
+  if (!empty.length && !noGallery) return null;
+  const fill = async () => {
+    setBusy(true);
+    try {
+      const alt = { alt_ar: STOCK_NOTE.ar, alt_en: STOCK_NOTE.en };
+      for (const s of empty) {
+        const row = items.find((m) => m.slot === s.slot);
+        if (row) await update(row.id, { url: STOCK_SLOTS[s.slot], ...alt });
+        else await create({ slot: s.slot, url: STOCK_SLOTS[s.slot], ...alt, enabled: true, sort: 1 });
+      }
+      if (noGallery) for (const [i, url] of STOCK_GALLERY.entries()) await create({ slot: 'gallery', url, ...alt, enabled: true, sort: 20 + i });
+      await reload();
+    } finally {
+      setBusy(false);
+    }
+  };
+  return (
+    <Btn variant="outline" onClick={fill} disabled={busy} title={d('stockHint')}>
+      <Images size={15} /> {busy ? d('uploading') : d('useStock')}
+    </Btn>
+  );
+}
+
 // ---------- tabs ----------
 const bi = (ar = '', en = '') => ({ ar, en });
 const kindLabel = { intro: bi('مقدمة', 'Intro'), statement: bi('جملة مميزة', 'Statement'), highlight: bi('رقم / إنجاز', 'Highlight'), section: bi('فقرة', 'Section'), step: bi('خطوة فى الكشف', 'Visit step'), credential: bi('شهادة / مؤهل', 'Credential') };
@@ -422,6 +453,7 @@ function useTabs() {
       addLabel: 'addImage',
       blank: { slot: 'gallery', url: '', alt_ar: '', alt_en: '', enabled: true },
       thumb: (m) => m.url || '',
+      tools: (api) => <StockButton {...api} />,
       row: (m, lang) => ({ title: slotLabel(m.slot, lang), sub: m.url ? m[`alt_${lang}`] || m.alt_ar : d('noImageYet') }),
       fields: [
         { key: 'slot', label: 'f_slot', type: 'select', options: [...MEDIA_SLOTS.map((s) => ({ value: s.slot, label: { ar: s.ar, en: s.en } })), { value: 'gallery', label: bi('معرض صور العيادة (صفحة «عن الدكتور»)', 'Clinic gallery (About page)') }] },
@@ -435,12 +467,13 @@ function useTabs() {
       sortable: false,
       title: d('testimonials'),
       hint: d('testimonialsHint'),
-      blank: { quote_ar: '', quote_en: '', author: '', source: 'Vezeeta', approved: false },
-      row: (t, lang) => ({ title: `«${t[`quote_${lang}`] || t.quote_ar}»`, sub: [t.author, t.source].filter(Boolean).join(' · ') }),
+      blank: { quote_ar: '', quote_en: '', author: '', source: 'Vezeeta', rating: 5, approved: false },
+      row: (t, lang) => ({ title: `«${t[`quote_${lang}`] || t.quote_ar}»`, sub: ['★'.repeat(Number(t.rating) || 5), t.author, t.source].filter(Boolean).join(' · ') }),
       fields: [
         { key: 'quote', label: 'f_quote', type: 'area', bi: true },
         { key: 'author', label: 'author' },
         { key: 'source', label: 'source' },
+        { key: 'rating', label: 'f_rating', type: 'select', options: [5, 4, 3, 2, 1].map((n) => ({ value: n, label: '★'.repeat(n) })) },
       ],
     },
   };

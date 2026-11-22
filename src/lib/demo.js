@@ -1,8 +1,9 @@
 // Demo data so the site and dashboard work without the PHP API (local preview, design review).
 // Names are fictional. Website content (procedures, FAQs, branches, about, images) starts from the site defaults.
 import { seedContent } from '@/data/seed';
+import { STOCK_SLOTS, STOCK_GALLERY, STOCK_BRANCH, STOCK_NOTE } from '@/data/stock';
 
-const KEY = 'aes-demo-v5';
+const KEY = 'aes-demo-v6';
 
 function rng(seed) {
   let s = seed;
@@ -137,9 +138,13 @@ function seed() {
 
   return {
     procedures: withIds(site.procedures),
-    branches: withIds(site.branches),
+    branches: withIds(site.branches.map((b) => ({ ...b, image: STOCK_BRANCH }))),
     about: withIds(site.about),
-    media: withIds(site.media),
+    // Demo preview uses stock photos; the real site starts empty until the clinic uploads its own.
+    media: withIds([
+      ...site.media.map((m) => ({ ...m, url: STOCK_SLOTS[m.slot] || '', alt_ar: STOCK_NOTE.ar, alt_en: STOCK_NOTE.en })),
+      ...STOCK_GALLERY.map((url, i) => ({ slot: 'gallery', url, alt_ar: STOCK_NOTE.ar, alt_en: STOCK_NOTE.en, enabled: true, sort: 20 + i })),
+    ]),
     faqs: withIds(site.faqs),
     appointments,
     leads,
@@ -147,7 +152,15 @@ function seed() {
     referrers,
     patients,
     events,
-    testimonials: [],
+    // Sample reviews for the demo only (source says so). Real ones are added and approved in the dashboard.
+    testimonials: withIds([
+      ['دكتور محترم جدًا، سمعنى للآخر وشرحلى أنا وولادى الحالة بالتفصيل قبل أى قرار.', 'A very respectful doctor. He listened to the end and explained everything to me and my children before any decision.', 'م. ع.', 5],
+      ['أحسن حاجة إنه قال بصراحة إن والدى مش محتاج قسطرة، وكتب لنا خطة متابعة واضحة.', 'The best thing was that he honestly said my father did not need a catheter, and wrote us a clear follow-up plan.', 'س. ح.', 5],
+      ['مستمع جيد جدًا، وبيرد على الواتساب بسرعة لما بنبعت الأشعة.', 'A very good listener, and he replies quickly on WhatsApp when we send scans.', 'أ. م.', 5],
+      ['الكشف كان منظم والدكتور خد وقته معانا ومحسسناش إننا مستعجلين.', 'The visit was organised and the doctor took his time with us; we never felt rushed.', 'ن. ك.', 4],
+      ['شرح القسطرة بالرسومات وبلغة بسيطة، أمى فهمت كل حاجة.', 'He explained the procedure with drawings in simple words; my mother understood everything.', 'ه. ر.', 5],
+      ['متابعة ممتازة بعد الإجراء، كان بيسأل علينا بنفسه.', 'Excellent follow-up after the procedure; he checked on us himself.', 'ك. ف.', 5],
+    ].map(([quote_ar, quote_en, author, rating]) => ({ quote_ar, quote_en, author, source: 'مثال للمعاينة · Demo sample', rating, approved: true }))),
     settings: {
       phone: '',
       whatsapp: '',

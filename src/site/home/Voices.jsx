@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Quote } from 'lucide-react';
+import { Quote, Star } from 'lucide-react';
+import { useSettings } from '@/lib/settings';
+import { Button } from '@/components/ui/Button';
 import { useLang } from '@/i18n';
 import { publicTestimonials } from '@/lib/api';
 import CountUp from '@/components/reactbits/CountUp';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { Marquee } from '@/components/ui/Marquee';
 
 /** Real review statistics, plus quotes the clinic approves in the dashboard. */
 export function Voices() {
   const { t, lang } = useLang();
   const [quotes, setQuotes] = useState([]);
+  const [all, setAll] = useState(false);
+  const s = useSettings();
   useEffect(() => {
     publicTestimonials().then(setQuotes).catch(() => {});
   }, []);
@@ -33,17 +36,41 @@ export function Voices() {
         <p className="mt-10 text-sm text-linen/40">{t('voices.source')}</p>
       </div>
       {quotes.length > 0 && (
-        <Marquee speed={55} className="mt-20">
-          {quotes.map((q) => (
-            <figure key={q.id} className="glass w-[340px] shrink-0 rounded-3xl p-7 sm:w-[420px]">
-              <Quote size={22} className="text-amber" />
-              <blockquote className="mt-4 text-lg leading-relaxed text-linen/85">{lang === 'en' && q.quote_en ? q.quote_en : q.quote_ar}</blockquote>
-              <figcaption className="mt-5 text-sm text-linen/50">
-                {q.author} {q.source && `· ${q.source}`}
-              </figcaption>
-            </figure>
-          ))}
-        </Marquee>
+        <div className="mx-auto mt-20 max-w-7xl px-6">
+          <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
+            {(all ? quotes : quotes.slice(0, 6)).map((q) => (
+              <figure key={q.id} className="mb-5 break-inside-avoid rounded-3xl bg-white p-7 text-ink">
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-0.5 text-amber" aria-label={`${Number(q.rating) || 5}/5`}>
+                    {[1, 2, 3, 4, 5].map((n) => (
+                      <Star key={n} size={16} fill="currentColor" className={n > (Number(q.rating) || 5) ? 'opacity-25' : ''} />
+                    ))}
+                  </div>
+                  <Quote size={22} className="text-calm/40" />
+                </div>
+                <blockquote className="mt-5 text-lg leading-relaxed text-ink/85">{lang === 'en' && q.quote_en ? q.quote_en : q.quote_ar}</blockquote>
+                <figcaption className="mt-5 flex items-center gap-3 text-sm text-slate">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-mist font-medium text-deep">{(q.author || '؟').trim().charAt(0)}</span>
+                  <span>
+                    {q.author} {q.source && <span className="block text-xs">{q.source}</span>}
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {quotes.length > 6 && !all && (
+              <Button variant="ghostDark" onClick={() => setAll(true)}>
+                {lang === 'en' ? `All reviews (${quotes.length})` : `كل التقييمات (${quotes.length})`}
+              </Button>
+            )}
+            {s.review_url && (
+              <Button href={s.review_url} target="_blank" rel="noopener" variant="amber">
+                <Star size={16} /> {lang === 'en' ? 'Leave a Google review' : 'اكتب تقييمك على جوجل'}
+              </Button>
+            )}
+          </div>
+        </div>
       )}
     </section>
   );

@@ -38,9 +38,9 @@ export function ClosingCta() {
   const s = useSettings();
   return (
     <section className="bg-linen px-4 pb-24 pt-10 sm:px-6">
-      <div className="bg-deep-glow on-dark grain relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] px-8 py-20 text-center text-linen sm:px-16 sm:py-28">
+      <div className="bg-deep-glow on-dark grain relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] px-5 py-20 text-center text-linen sm:px-16 sm:py-28">
         <p className="eyebrow mb-6">{t('book.eyebrow')}</p>
-        <h2 className="font-display mx-auto max-w-4xl text-4xl leading-tight sm:text-6xl">
+        <h2 className="font-display mx-auto whitespace-nowrap text-[clamp(1.15rem,5.4vw,3.6rem)] leading-tight">
           {t('book.title')}
         </h2>
         <p className="mx-auto mt-7 max-w-2xl text-lg text-linen/70">{t('book.sub')}</p>
