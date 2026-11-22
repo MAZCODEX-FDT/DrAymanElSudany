@@ -5,7 +5,7 @@ import { LangProvider, useLang } from '@/i18n';
 import * as api from '@/lib/api';
 import { resetDemo } from '@/lib/demo';
 import { LogoMark } from '@/components/ui/Logo';
-import { cn } from '@/lib/cn';
+import { cn, withBase } from '@/lib/cn';
 import { useD, Btn, DInput, DField } from './ui';
 import Overview from './pages/Overview';
 
@@ -103,7 +103,7 @@ function Shell({ user, onLogout, lang, setLang }) {
         ))}
       </nav>
       <div className="space-y-1 border-t border-white/10 pt-4">
-        <a href={lang === 'en' ? '/en' : '/'} target="_blank" rel="noopener" className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-linen/55 hover:text-linen">
+        <a href={withBase(lang === 'en' ? '/en' : '/')} target="_blank" rel="noopener" className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-linen/55 hover:text-linen">
           <ExternalLink size={17} /> {d('viewSite')}
         </a>
         <button onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-linen/55 hover:text-linen">
