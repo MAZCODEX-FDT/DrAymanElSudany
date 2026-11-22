@@ -15,11 +15,11 @@ function printSummary(p, settings) {
   if (!w) return;
   w.document.write(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>ملخص الحالة - ${esc(p.name)}</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Tajawal:wght@400;500&display=swap" rel="stylesheet">
-  <style>body{font-family:Tajawal,sans-serif;color:#13222D;margin:0;padding:48px;background:#fff}h1{font-family:Cairo;color:#0F3B57;margin:0;font-size:26px}
-  .top{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #0F3B57;padding-bottom:18px}.dot{width:12px;height:12px;border-radius:50%;background:#D99A4E;display:inline-block;margin-inline-start:8px}
-  .muted{color:#6B7C86;font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0}.box{background:#F5F1EA;border-radius:12px;padding:12px 14px}
-  h2{font-family:Cairo;color:#0F3B57;font-size:18px;margin:28px 0 10px}.lines{border:1px solid #D7E5EC;border-radius:12px;padding:16px;min-height:120px;line-height:2}
-  footer{margin-top:40px;border-top:1px solid #D7E5EC;padding-top:14px;display:flex;justify-content:space-between}@media print{body{padding:24px}}</style></head><body>
+  <style>body{font-family:Tajawal,sans-serif;color:#121521;margin:0;padding:48px;background:#fff}h1{font-family:Cairo;color:#1B2D8F;margin:0;font-size:26px}
+  .top{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #1B2D8F;padding-bottom:18px}.dot{width:12px;height:12px;border-radius:50%;background:#F26A2E;display:inline-block;margin-inline-start:8px}
+  .muted{color:#5B6275;font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0}.box{background:#FFFFFF;border-radius:12px;padding:12px 14px}
+  h2{font-family:Cairo;color:#1B2D8F;font-size:18px;margin:28px 0 10px}.lines{border:1px solid #DCE5FA;border-radius:12px;padding:16px;min-height:120px;line-height:2}
+  footer{margin-top:40px;border-top:1px solid #DCE5FA;padding-top:14px;display:flex;justify-content:space-between}@media print{body{padding:24px}}</style></head><body>
   <div class="top"><div><h1>د. أيمن حسن السودانى<span class="dot"></span></h1><div class="muted">مخ وأعصاب · قسطرة المخ · مدينة العبور</div></div><div class="muted">ملخص الحالة<br>${esc(fmtDate(todayIso(), 'ar'))}</div></div>
   <div class="grid"><div class="box"><div class="muted">الاسم</div>${esc(p.name)}</div><div class="box"><div class="muted">السن</div>${esc(p.age)}</div><div class="box"><div class="muted">المدينة</div>${esc(p.city)}</div></div>
   <h2>الحالة</h2><div class="lines">${esc(p.condition)}</div>

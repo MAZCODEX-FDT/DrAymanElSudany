@@ -68,10 +68,10 @@ export default function Book() {
                     <Textarea value={form.notes} onChange={set('notes')} />
                   </Field>
                   <label className="flex items-center gap-3 text-ink/75 sm:col-span-2">
-                    <input type="checkbox" checked={form.hasScans} onChange={set('hasScans')} className="h-5 w-5 accent-[#0f3b57]" />
+                    <input type="checkbox" checked={form.hasScans} onChange={set('hasScans')} className="h-5 w-5 accent-[#1B2D8F]" />
                     {t('book.hasScans')}
                   </label>
-                  {state === 'error' && <p className="text-sm text-[#9a5b12] sm:col-span-2">{t('book.error')}</p>}
+                  {state === 'error' && <p className="text-sm text-[#B8461A] sm:col-span-2">{t('book.error')}</p>}
                   <div className="flex flex-wrap gap-3 sm:col-span-2">
                     <Button type="submit" size="lg" disabled={state === 'sending'}>
                       {state === 'sending' ? t('cta.sending') : t('cta.send')}

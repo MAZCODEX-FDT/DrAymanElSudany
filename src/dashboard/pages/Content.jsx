@@ -31,7 +31,7 @@ function Section({ resource, title, hint, icon: Icon, blank, fields, renderItem,
       ) : (
         <ul className="space-y-2">
           {items.map((it) => (
-            <li key={it.id} className="flex items-start gap-3 rounded-2xl bg-[#f7f4ee] p-4">
+            <li key={it.id} className="flex items-start gap-3 rounded-2xl bg-[#F6F6F8] p-4">
               <div className="flex-1">{renderItem(it)}</div>
               <Pill tone={it[flag] ? 'handled' : 'cancelled'}>{d(flag)}</Pill>
               <button onClick={() => setEdit({ ...it })} className="rounded-lg p-1.5 text-slate hover:bg-deep/5" aria-label={d('edit')}>

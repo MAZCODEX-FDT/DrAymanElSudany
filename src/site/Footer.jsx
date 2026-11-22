@@ -4,7 +4,7 @@ import { useLang } from '@/i18n';
 import { useSettings, whatsappHref, telHref } from '@/lib/settings';
 import { track } from '@/lib/api';
 import { procedures } from '@/data/procedures';
-import { Logo } from '@/components/ui/Logo';
+import { Logo, Emblem } from '@/components/ui/Logo';
 
 export function Footer() {
   const { t, L, to, lang } = useLang();
@@ -60,8 +60,8 @@ export function Footer() {
             </a>
           </div>
         </div>
-        <div className="font-display pointer-events-none mt-20 select-none text-center text-[15vw] leading-none text-white/[.04]">
-          {lang === 'en' ? 'El Sudany' : 'السودانى'}
+        <div className="pointer-events-none relative mt-16 h-[18vw] max-h-64 select-none overflow-hidden" aria-hidden>
+          <Emblem variant="tonal" weight={1.2} className="absolute start-1/2 top-0 w-[46vw] max-w-[640px] -translate-x-1/2 rtl:translate-x-1/2" />
         </div>
         <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-linen/45 md:flex-row md:items-center md:justify-between">
           <p>

@@ -82,7 +82,7 @@ export default function InboxPage() {
             <ul className="scroll-thin max-h-[70vh] overflow-y-auto">
               {rows.map((l) => (
                 <li key={l.id}>
-                  <button onClick={() => setSel(l.id)} className={cn('w-full rounded-2xl px-4 py-3.5 text-start transition-colors', cur?.id === l.id ? 'bg-mist/60' : 'hover:bg-[#f7f4ee]')}>
+                  <button onClick={() => setSel(l.id)} className={cn('w-full rounded-2xl px-4 py-3.5 text-start transition-colors', cur?.id === l.id ? 'bg-mist/60' : 'hover:bg-[#F6F6F8]')}>
                     <div className="flex items-center gap-2">
                       {l.status === 'open' && <span className="h-2 w-2 rounded-full bg-amber" />}
                       <span className="flex-1 truncate font-medium text-deep">{l.name}</span>
@@ -120,7 +120,7 @@ export default function InboxPage() {
               {Object.entries(p)
                 .filter(([k, v]) => v !== '' && v != null && k !== 'lang')
                 .map(([k, v]) => (
-                  <div key={k} className={cn('rounded-2xl bg-[#f7f4ee] p-4', String(v).length > 40 && 'sm:col-span-2')}>
+                  <div key={k} className={cn('rounded-2xl bg-[#F6F6F8] p-4', String(v).length > 40 && 'sm:col-span-2')}>
                     <dt className="text-xs text-slate">{KEYS[k]?.[lang] || k}</dt>
                     <dd className="mt-1 text-sm text-ink">{typeof v === 'boolean' ? (v ? <FileImage size={16} className="text-calm" /> : '—') : VALUES[v]?.[lang] || String(v)}</dd>
                   </div>

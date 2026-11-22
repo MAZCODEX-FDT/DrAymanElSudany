@@ -120,7 +120,7 @@ function Shell({ user, onLogout, lang, setLang }) {
   );
 
   return (
-    <div className="min-h-screen bg-[#f3efe7] text-ink">
+    <div className="min-h-screen bg-[#ECECEC] text-ink">
       <div className="fixed inset-y-0 start-0 hidden w-64 lg:block">{sidebar}</div>
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
@@ -129,14 +129,14 @@ function Shell({ user, onLogout, lang, setLang }) {
         </div>
       )}
       <div className="lg:ps-64">
-        <header className="sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-deep/[.06] bg-[#f3efe7]/85 px-4 py-3 backdrop-blur-xl sm:px-8">
+        <header className="sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-deep/[.06] bg-[#ECECEC]/85 px-4 py-3 backdrop-blur-xl sm:px-8">
           <button onClick={() => setOpen(true)} className="grid h-10 w-10 place-items-center rounded-xl hover:bg-deep/5 lg:hidden">
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
           <p className="text-sm text-slate">{new Date().toLocaleDateString(lang === 'en' ? 'en-GB' : 'ar-EG-u-nu-latn', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
           {demo && (
             <div className="flex items-center gap-2">
-              <span title={d('demoHint')} className="inline-flex items-center gap-1.5 rounded-full bg-amber/15 px-3 py-1.5 text-xs font-medium text-[#8a5a1e]">
+              <span title={d('demoHint')} className="inline-flex items-center gap-1.5 rounded-full bg-amber/15 px-3 py-1.5 text-xs font-medium text-[#B8461A]">
                 <Database size={13} /> {d('demo')}
               </span>
               <button

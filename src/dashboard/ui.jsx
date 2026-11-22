@@ -25,7 +25,7 @@ export function Card({ title, action, children, className }) {
 }
 
 export function Kpi({ icon: Icon, label, value, hint, tone = 'deep' }) {
-  const tones = { deep: 'bg-deep text-linen', amber: 'bg-amber/15 text-[#8a5a1e]', calm: 'bg-mist text-deep', sand: 'bg-sand text-deep' };
+  const tones = { deep: 'bg-deep text-linen', amber: 'bg-amber/15 text-[#B8461A]', calm: 'bg-mist text-deep', sand: 'bg-sand text-deep' };
   return (
     <div className="group relative overflow-hidden rounded-3xl border border-deep/[.07] bg-white p-5 transition-all duration-500 hover:-translate-y-0.5 hover:shadow-[0_24px_50px_-30px_rgba(15,59,87,.45)]">
       <div className="flex items-start justify-between">
@@ -43,13 +43,13 @@ export function Kpi({ icon: Icon, label, value, hint, tone = 'deep' }) {
 }
 
 export const pillTones = {
-  requested: 'bg-amber/15 text-[#8a5a1e]',
+  requested: 'bg-amber/15 text-[#B8461A]',
   confirmed: 'bg-mist text-deep',
   arrived: 'bg-calm/15 text-calm',
   completed: 'bg-[#e3efe7] text-[#2f6b49]',
-  no_show: 'bg-sand text-[#7a5a3a]',
+  no_show: 'bg-sand text-[#5B6275]',
   cancelled: 'bg-slate/10 text-slate',
-  open: 'bg-amber/15 text-[#8a5a1e]',
+  open: 'bg-amber/15 text-[#B8461A]',
   handled: 'bg-[#e3efe7] text-[#2f6b49]',
 };
 export function Pill({ tone, children, className }) {

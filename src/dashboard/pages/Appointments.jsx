@@ -123,7 +123,7 @@ export default function Appointments() {
               </thead>
               <tbody>
                 {rows.map((a) => (
-                  <tr key={a.id} className="group border-b border-deep/[.05] transition-colors hover:bg-[#f7f4ee]">
+                  <tr key={a.id} className="group border-b border-deep/[.05] transition-colors hover:bg-[#F6F6F8]">
                     <td className="px-3 py-3 text-slate">{fmtDate(a.date, lang)}</td>
                     <td className="px-3 py-3 font-mono text-deep" dir="ltr">
                       {a.time}

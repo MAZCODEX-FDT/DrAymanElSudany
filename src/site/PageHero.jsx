@@ -17,8 +17,8 @@ export function PageHero({ eyebrow, title, sub, children, className }) {
   return (
     <section ref={root} className={cn('bg-deep-glow on-dark grain relative overflow-hidden pb-20 pt-40 text-linen sm:pb-28 sm:pt-48', className)}>
       <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-40" viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden>
-        <path className="ph-line" d="M-20 520C260 500 380 330 620 300s420-60 560-190 300-110 300-110" fill="none" stroke="#2F6F8F" strokeWidth="1.5" strokeDasharray="1400" />
-        <path className="ph-line" d="M-20 560C300 540 420 380 660 350s420-70 560-200 300-120 300-120" fill="none" stroke="#D99A4E" strokeOpacity=".5" strokeWidth="1" strokeDasharray="1400" />
+        <path className="ph-line" d="M-20 520C260 500 380 330 620 300s420-60 560-190 300-110 300-110" fill="none" stroke="#2E7BEF" strokeWidth="1.5" strokeDasharray="1400" />
+        <path className="ph-line" d="M-20 560C300 540 420 380 660 350s420-70 560-200 300-120 300-120" fill="none" stroke="#F26A2E" strokeOpacity=".5" strokeWidth="1" strokeDasharray="1400" />
       </svg>
       <div className="relative mx-auto max-w-7xl px-6">
         {eyebrow && <p className="eyebrow ph-fade mb-6">{eyebrow}</p>}

@@ -7,7 +7,7 @@ import { useD, Drawer, DField, DInput, DSelect, DTextarea, Btn, fmtDate, todayIs
 import { cn } from '@/lib/cn';
 
 export const STAGES = ['candidate', 'explained', 'deciding', 'scheduled', 'done', 'follow_up'];
-const stageTone = { candidate: 'bg-amber', explained: 'bg-calm', deciding: 'bg-[#8FB6C9]', scheduled: 'bg-deep', done: 'bg-[#4f8f69]', follow_up: 'bg-slate' };
+const stageTone = { candidate: 'bg-amber', explained: 'bg-calm', deciding: 'bg-[#9DBBF7]', scheduled: 'bg-deep', done: 'bg-[#4f8f69]', follow_up: 'bg-slate' };
 const blank = { patient_name: '', phone: '', procedure: procedures[0].slug, stage: 'candidate', referring_doctor: '', next_follow_up: todayIso(), notes: '' };
 
 /** Cath pipeline: every candidate case is tracked by name with a follow-up date (strategy p.8). */
@@ -78,7 +78,7 @@ export default function Cases() {
                       <p className="mt-1 text-xs text-calm">{L(getProcedure(c.procedure)?.title)}</p>
                       <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
                         {c.next_follow_up && (
-                          <span className={cn('inline-flex items-center gap-1 rounded-full px-2 py-0.5', due ? 'bg-amber/15 text-[#8a5a1e]' : 'bg-deep/5 text-slate')}>
+                          <span className={cn('inline-flex items-center gap-1 rounded-full px-2 py-0.5', due ? 'bg-amber/15 text-[#B8461A]' : 'bg-deep/5 text-slate')}>
                             <CalendarClock size={11} /> {fmtDate(c.next_follow_up, lang)}
                           </span>
                         )}

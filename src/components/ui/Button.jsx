@@ -4,9 +4,9 @@ import { cn } from '@/lib/cn';
 
 // shadcn / 21st.dev style button with a sliding sheen on hover.
 const variants = {
-  primary: 'bg-deep text-linen hover:bg-deep-700 shadow-[0_10px_30px_-12px_rgba(15,59,87,.7)]',
-  amber: 'bg-amber text-deep-900 hover:bg-amber-soft shadow-[0_12px_34px_-12px_rgba(217,154,78,.8)]',
-  light: 'bg-linen text-deep-900 hover:bg-white',
+  primary: 'bg-deep text-white hover:bg-deep-700',
+  amber: 'bg-amber text-white hover:bg-[#e05a20]',
+  light: 'bg-white text-deep hover:bg-mist',
   outline: 'border border-deep/20 text-deep hover:border-deep/50 hover:bg-deep/5',
   ghostDark: 'border border-white/15 text-linen hover:border-white/35 hover:bg-white/5',
   ghost: 'text-deep hover:bg-deep/5',
