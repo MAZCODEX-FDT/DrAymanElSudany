@@ -10,6 +10,7 @@ const ProceduresIndex = lazy(() => import('@/pages/ProceduresIndex'));
 const Procedure = lazy(() => import('@/pages/Procedure'));
 const ForDoctors = lazy(() => import('@/pages/ForDoctors'));
 const Faq = lazy(() => import('@/pages/Faq'));
+const Contact = lazy(() => import('@/pages/Contact'));
 const Book = lazy(() => import('@/pages/Book'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 const Dashboard = lazy(() => import('@/dashboard/DashboardApp'));
@@ -25,6 +26,7 @@ function siteRoutes(prefix) {
       <Route path="procedures/:slug" element={<Procedure />} />
       <Route path="for-doctors" element={<ForDoctors />} />
       <Route path="faq" element={<Faq />} />
+      <Route path="contact" element={<Contact />} />
       <Route path="book" element={<Book />} />
       <Route path="*" element={<NotFound />} />
     </Route>

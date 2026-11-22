@@ -7,6 +7,7 @@ import { useLang } from '@/i18n';
 import { useSettings, whatsappHref } from '@/lib/settings';
 import { track } from '@/lib/api';
 import { prefersReducedMotion } from '@/lib/smooth';
+import { useContent, imgSrc } from '@/lib/content';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { LogoMark, Emblem } from '@/components/ui/Logo';
@@ -15,11 +16,13 @@ import Magnet from '@/components/reactbits/Magnet';
 
 
 export function Hero() {
-  const { t, to, lang, dir } = useLang();
+  const { t, L, to, lang, dir } = useLang();
   const settings = useSettings();
   const root = useRef(null);
   // The tagline reads as two beats: split after the comma / full stop so the second beat sits on its own line.
   const [lineA, lineB] = splitTagline(t('hero.title'));
+  // Banner photo: Website > Images > hero_doctor. Without one, the column shows only the two cards.
+  const photo = useContent().media.hero_doctor;
 
   useGSAP(
     () => {
@@ -80,8 +83,9 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative hidden h-[420px] lg:col-span-5 lg:block">
-          <div className="h-chip absolute end-0 top-6 rounded-2xl bg-white px-5 py-4 text-ink">
+        <div className={photo ? 'relative mx-auto w-full max-w-[420px] lg:col-span-5' : 'relative hidden h-[420px] lg:col-span-5 lg:block'}>
+          {photo && <img src={imgSrc(photo.url)} alt={L(photo.alt) || t('brand.fullName')} className="aspect-[4/5] w-full rounded-[2rem] object-cover object-top" />}
+          <div className={`h-chip absolute top-6 ${photo ? '-end-4 hidden sm:block' : 'end-0'} rounded-2xl bg-white px-5 py-4 text-ink`}>
             <div className="flex items-center gap-1 text-amber">
               {[0, 1, 2, 3, 4].map((i) => (
                 <Star key={i} size={14} fill="currentColor" className={i === 4 ? 'opacity-40' : ''} />
@@ -92,7 +96,7 @@ export function Hero() {
             </p>
             <p className="text-xs text-slate">{lang === 'en' ? 'patient reviews' : 'تقييم من المرضى'}</p>
           </div>
-          <div className="h-chip absolute end-0 top-44 max-w-[250px] rounded-2xl bg-white px-5 py-4 text-ink">
+          <div className={`h-chip absolute top-44 ${photo ? '-end-4 hidden sm:block' : 'end-0'} max-w-[250px] rounded-2xl bg-white px-5 py-4 text-ink`}>
             <div className="flex items-center gap-2 text-xs font-medium text-calm">
               <LogoMark className="h-5 w-5" /> {t('hero.cardTitle')}
             </div>

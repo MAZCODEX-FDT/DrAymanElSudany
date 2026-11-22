@@ -4,7 +4,7 @@ import { CalendarClock, Inbox, Activity, Timer, MessageCircle, UserX } from 'luc
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, CartesianGrid } from 'recharts';
 import { useLang } from '@/i18n';
 import { useSettings } from '@/lib/settings';
-import { getProcedure } from '@/data/procedures';
+import { useProcedures } from '../useResource';
 import { useResource } from '../useResource';
 import { useD, Card, Kpi, Pill, fmtDate, todayIso } from '../ui';
 
@@ -16,6 +16,7 @@ function dayKey(d) {
 
 export default function Overview() {
   const d = useD();
+  const { get: getProcedure } = useProcedures();
   const { lang, L } = useLang();
   const settings = useSettings();
   const appts = useResource('appointments').items;
@@ -144,7 +145,7 @@ export default function Overview() {
                   <span className="text-xs text-[#B8461A]">{fmtDate(c.next_follow_up, lang)}</span>
                 </div>
                 <p className="mt-1 text-xs text-slate">
-                  {L(getProcedure(c.procedure)?.title)} · {d(`sg_${c.stage}`)}
+                  {L(getProcedure(c.procedure)?.title) || c.procedure} · {d(`sg_${c.stage}`)}
                 </p>
               </li>
             ))}

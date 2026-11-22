@@ -4,13 +4,15 @@ import { useLang } from '@/i18n';
 import { submitLead, track } from '@/lib/api';
 import { Seo } from '@/site/Seo';
 import { PageHero } from '@/site/PageHero';
+import { useContent } from '@/lib/content';
 import { Button } from '@/components/ui/Button';
 import { Field, Input, Textarea, Segmented } from '@/components/ui/Form';
 import SpotlightCard from '@/components/reactbits/SpotlightCard';
 import AnimatedContent from '@/components/reactbits/AnimatedContent';
 
 export default function ForDoctors() {
-  const { t, lang } = useLang();
+  const { t, L, lang } = useLang();
+  const { media } = useContent();
   const [f, setF] = useState({ docName: '', docSpecialty: '', docPhone: '', docCity: '', patientName: '', patientPhone: '', summary: '', urgency: 'routine' });
   const [state, setState] = useState('idle');
   const set = (k) => (e) => setF({ ...f, [k]: e?.target ? e.target.value : e });
@@ -38,7 +40,7 @@ export default function ForDoctors() {
   return (
     <>
       <Seo title={t('nav.doctors')} description={t('doctorsBand.sub')} />
-      <PageHero eyebrow={t('nav.doctors')} title={t('doctorsBand.title')} sub={t('doctorsBand.sub')} />
+      <PageHero eyebrow={t('nav.doctors')} title={t('doctorsBand.title')} sub={t('doctorsBand.sub')} image={media.for_doctors?.url} imageAlt={media.for_doctors ? L(media.for_doctors.alt) : ''} />
       <section className="bg-deep-900 on-dark py-16">
         <AnimatedContent stagger={0.12} className="mx-auto grid max-w-7xl gap-5 px-6 md:grid-cols-3">
           {promises.map(([Icon, label]) => (

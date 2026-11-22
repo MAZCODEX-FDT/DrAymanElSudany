@@ -42,6 +42,53 @@ const paths = {
       <path d="M24 30v12" />
     </>
   ),
+  intracranial: (
+    <>
+      <path d="M8 40c4-8 8-12 16-12s12-4 16-12" />
+      <rect x="17" y="23" width="14" height="7" rx="3.5" transform="rotate(-25 24 26.5)" />
+      <circle cx="40" cy="16" r="2.5" />
+    </>
+  ),
+  vertebral: (
+    <>
+      <path d="M17 44c0-10 2-20 7-32M31 44c0-10-2-20-7-32" />
+      <path d="M14 18h20M14 26h20M15 34h18" strokeDasharray="2 3" />
+    </>
+  ),
+  fistula: (
+    <>
+      <path d="M4 16h16c4 0 6 4 8 8s4 8 8 8h8" />
+      <path d="M4 32h10c3 0 5-2 7-5" />
+      <circle cx="24" cy="24" r="3" />
+    </>
+  ),
+  embolization: (
+    <>
+      <path d="M6 40 22 24" />
+      <circle cx="31" cy="17" r="11" />
+      <path d="M27 13l8 8M35 13l-8 8" />
+    </>
+  ),
+  venous: (
+    <>
+      <path d="M6 12c10 0 14 6 18 12s8 12 18 12" />
+      <path d="M6 20c8 0 11 4 14 8" strokeDasharray="2 4" />
+      <rect x="19" y="20" width="12" height="7" rx="3.5" transform="rotate(35 25 23.5)" />
+    </>
+  ),
+  spinal: (
+    <>
+      <path d="M24 4v40" />
+      <path d="M16 10h16M16 18h16M16 26h16M16 34h16" />
+      <path d="M30 6c6 6 6 30 0 36" />
+    </>
+  ),
+  vasospasm: (
+    <>
+      <path d="M4 24h10c3 0 4-3 6-3s3 6 4 6 2-6 4-6 3 3 6 3h10" />
+      <path d="M20 14l4-4 4 4M20 34l4 4 4-4" />
+    </>
+  ),
 };
 
 export function ProcedureIcon({ name, className = 'h-12 w-12' }) {

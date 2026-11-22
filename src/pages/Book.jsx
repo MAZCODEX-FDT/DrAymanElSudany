@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { MapPin, Clock, Phone, FileText, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { useLang } from '@/i18n';
-import { useSettings, whatsappHref, telHref } from '@/lib/settings';
+import { useSettings, whatsappHref } from '@/lib/settings';
+import { useContent, imgSrc } from '@/lib/content';
 import { submitLead, track } from '@/lib/api';
 import { Seo } from '@/site/Seo';
 import { PageHero } from '@/site/PageHero';
@@ -10,8 +11,12 @@ import { Field, Input, Select, Textarea, Segmented } from '@/components/ui/Form'
 import { WhatsAppIcon } from '@/site/WhatsAppFab';
 
 export default function Book() {
-  const { t, lang } = useLang();
+  const { t, L, lang } = useLang();
   const s = useSettings();
+  const { branches, media } = useContent();
+  const places = branches.length
+    ? branches
+    : [{ id: 0, name: { ar: '', en: '' }, address: { ar: s.address_ar, en: s.address_en }, hours: { ar: s.hours_ar, en: s.hours_en }, map_url: s.map_url, phone: '', image: '' }];
   const [form, setForm] = useState({ name: '', phone: '', relation: 'self', reason: '', preferred: '', notes: '', hasScans: false });
   const [state, setState] = useState('idle');
   const set = (k) => (e) => setForm({ ...form, [k]: e?.target ? (e.target.type === 'checkbox' ? e.target.checked : e.target.value) : e });
@@ -31,7 +36,7 @@ export default function Book() {
   return (
     <>
       <Seo title={t('nav.book')} description={t('book.sub')} />
-      <PageHero eyebrow={t('book.eyebrow')} title={t('book.title')} sub={t('book.sub')} />
+      <PageHero eyebrow={t('book.eyebrow')} title={t('book.title')} sub={t('book.sub')} image={media.book?.url} imageAlt={media.book ? L(media.book.alt) : ''} />
       <section className="bg-linen py-20 sm:py-28">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-12">
           <div className="lg:col-span-7">
@@ -88,36 +93,46 @@ export default function Book() {
             </p>
           </div>
           <aside className="space-y-5 lg:col-span-5">
-            <div className="rounded-[2rem] bg-deep p-8 text-linen">
-              <div className="space-y-6">
-                <a href={s.map_url || '#'} target="_blank" rel="noopener" onClick={() => track('map')} className="flex gap-4">
-                  <MapPin className="shrink-0 text-amber-soft" />
-                  <span>
-                    <span className="block text-sm text-linen/55">{t('book.address')}</span>
-                    {lang === 'en' ? s.address_en : s.address_ar}
-                  </span>
-                </a>
-                <div className="flex gap-4">
-                  <Clock className="shrink-0 text-amber-soft" />
-                  <span>
-                    <span className="block text-sm text-linen/55">{t('book.hours')}</span>
-                    {lang === 'en' ? s.hours_en : s.hours_ar}
-                  </span>
+            {places.map((b) => (
+              <div key={b.id} className="overflow-hidden rounded-[2rem] bg-deep text-linen">
+                {b.image && <img src={imgSrc(b.image)} alt={L(b.name)} loading="lazy" className="aspect-[16/9] w-full object-cover" />}
+                <div className="p-8">
+                  {L(b.name) && <p className="font-display mb-6 text-xl">{L(b.name)}</p>}
+                  <div className="space-y-6">
+                    <a href={b.map_url || '#'} target="_blank" rel="noopener" onClick={() => track('map')} className="flex gap-4">
+                      <MapPin className="shrink-0 text-amber-soft" />
+                      <span>
+                        <span className="block text-sm text-linen/55">{t('book.address')}</span>
+                        {L(b.address)}
+                      </span>
+                    </a>
+                    {L(b.hours) && (
+                      <div className="flex gap-4">
+                        <Clock className="shrink-0 text-amber-soft" />
+                        <span>
+                          <span className="block text-sm text-linen/55">{t('book.hours')}</span>
+                          {L(b.hours)}
+                        </span>
+                      </div>
+                    )}
+                    {(b.phone || s.phone) && (
+                      <a href={`tel:${(b.phone || s.phone).replace(/\s/g, '')}`} onClick={() => track('call')} className="flex gap-4">
+                        <Phone className="shrink-0 text-amber-soft" />
+                        <span>
+                          <span className="block text-sm text-linen/55">{t('cta.call')}</span>
+                          <span dir="ltr">{b.phone || s.phone}</span>
+                        </span>
+                      </a>
+                    )}
+                  </div>
+                  {b.map_url && (
+                    <Button href={b.map_url} target="_blank" rel="noopener" onClick={() => track('map')} variant="ghostDark" className="mt-8 w-full">
+                      {t('cta.map')}
+                    </Button>
+                  )}
                 </div>
-                {telHref(s) && (
-                  <a href={telHref(s)} onClick={() => track('call')} className="flex gap-4">
-                    <Phone className="shrink-0 text-amber-soft" />
-                    <span>
-                      <span className="block text-sm text-linen/55">{t('cta.call')}</span>
-                      <span dir="ltr">{s.phone}</span>
-                    </span>
-                  </a>
-                )}
               </div>
-              <Button href={s.map_url || '#'} target="_blank" rel="noopener" onClick={() => track('map')} variant="ghostDark" className="mt-8 w-full">
-                {t('cta.map')}
-              </Button>
-            </div>
+            ))}
             <div className="rounded-[2rem] border border-deep/10 bg-white p-8">
               <FileText className="text-calm" />
               <p className="font-display mt-5 text-lg text-deep">{t('book.bring')}</p>

@@ -1,5 +1,6 @@
 import { Seo } from '@/site/Seo';
 import { Hero } from '@/site/home/Hero';
+import { DoctorIntro } from '@/site/home/DoctorIntro';
 import { Proof } from '@/site/home/Proof';
 import { Manifesto } from '@/site/home/Manifesto';
 import { Procedures } from '@/site/home/Procedures';
@@ -15,6 +16,7 @@ export default function Home() {
     <>
       <Seo />
       <Hero />
+      <DoctorIntro />
       <Proof />
       <Manifesto />
       <Procedures />
