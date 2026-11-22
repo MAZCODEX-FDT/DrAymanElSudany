@@ -123,6 +123,10 @@ if ($r === 'settings' && $method === 'PUT') {
     out(settings_all());
 }
 
+if ($r === 'google-refresh' && $method === 'POST') {
+    out(google_reviews(true));
+}
+
 if ($r === 'upload' && $method === 'POST') {
     if (empty($_SERVER['HTTP_ORIGIN'])) {
         fail(403, 'origin required');

@@ -6,6 +6,7 @@ import { useLang } from '@/i18n';
 import { publicTestimonials } from '@/lib/api';
 import CountUp from '@/components/reactbits/CountUp';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { GoogleReviews } from './GoogleReviews';
 
 /** Real review statistics, plus quotes the clinic approves in the dashboard. */
 export function Voices() {
@@ -35,6 +36,7 @@ export function Voices() {
         </div>
         <p className="mt-10 text-sm text-linen/40">{t('voices.source')}</p>
       </div>
+      <GoogleReviews />
       {quotes.length > 0 && (
         <div className="mx-auto mt-20 max-w-7xl px-6">
           <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">

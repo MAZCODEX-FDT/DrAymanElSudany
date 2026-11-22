@@ -1,6 +1,6 @@
 // Data layer. Talks to the PHP API in /api (Bluehost). If the API is not reachable
 // (local preview, design review) it falls back to demo data kept in localStorage.
-import { db, save, nextId } from './demo';
+import { db, save, nextId, GOOGLE_SAMPLE } from './demo';
 
 const FORCE_DEMO = import.meta.env.VITE_DEMO === '1';
 const BASE = import.meta.env.VITE_API_BASE || '/api/index.php';
@@ -146,6 +146,11 @@ function compressToDataUrl(file, max = 1400) {
     img.src = URL.createObjectURL(file);
   });
 }
+
+/** Google rating and recent 4-5 star reviews. Live: the server asks Google Places and caches the answer for 12 hours. */
+export const publicGoogle = () => call('GET', 'public-google', {}, () => GOOGLE_SAMPLE);
+
+export const refreshGoogle = () => call('POST', 'google-refresh', {}, () => GOOGLE_SAMPLE);
 
 export const publicFaqs = () => call('GET', 'public-faqs', {}, () => db().faqs.filter((f) => f.published !== false));
 export const publicTestimonials = () => call('GET', 'public-testimonials', {}, () => db().testimonials.filter((t) => t.approved));
