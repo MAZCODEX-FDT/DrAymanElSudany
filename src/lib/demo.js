@@ -3,7 +3,7 @@
 import { seedContent } from '@/data/seed';
 import { STOCK_SLOTS, STOCK_GALLERY, STOCK_BRANCH, STOCK_NOTE } from '@/data/stock';
 
-const KEY = 'aes-demo-v6';
+const KEY = 'aes-demo-v7';
 
 function rng(seed) {
   let s = seed;
@@ -176,6 +176,13 @@ function seed() {
       instagram: 'https://instagram.com/',
       youtube: 'https://youtube.com/',
       tiktok: 'https://tiktok.com/',
+      x: 'https://x.com/',
+      threads: 'https://threads.net/',
+      snapchat: 'https://snapchat.com/',
+      linkedin: 'https://linkedin.com/',
+      telegram: 'https://t.me/',
+      whatsapp_channel: 'https://whatsapp.com/channel/',
+      vezeeta: 'https://vezeeta.com/',
       google_reviews: 4,
       google_reviews_goal: 35,
     },

@@ -78,9 +78,9 @@ export function Footer() {
               {t('cta.whatsapp')}
             </a>
             {SOCIAL_KEYS.some((k) => s[k]) && (
-              <div className="flex gap-2 pt-2">
+              <div className="flex flex-wrap gap-2 pt-2">
                 {SOCIAL_KEYS.filter((k) => s[k]).map((k) => (
-                  <a key={k} href={s[k]} target="_blank" rel="noopener" aria-label={SOCIAL_NAMES[k]} className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-linen/80 transition-colors hover:border-amber hover:bg-amber hover:text-deep-900">
+                  <a key={k} href={s[k]} target="_blank" rel="noopener" aria-label={SOCIAL_NAMES[k]} className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-linen/80 transition-colors hover:border-amber hover:bg-amber hover:text-deep-900">
                     <SocialIcon name={k} size={17} />
                   </a>
                 ))}
