@@ -11,18 +11,19 @@ const RESOURCES = [
     'faqs' => ['category_ar', 'category_en', 'q_ar', 'a_ar', 'q_en', 'a_en', 'published', 'sort'],
     'events' => ['type', 'page'],
     'procedures' => ['slug', 'icon', 'image', 'content', 'enabled', 'sort'],
-    'branches' => ['name_ar', 'name_en', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'phone', 'whatsapp', 'map_url', 'image', 'enabled', 'sort'],
+    'branches' => ['name_ar', 'name_en', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'phone', 'whatsapp', 'map_url', 'lat', 'lng', 'image', 'enabled', 'sort'],
+    'articles' => ['slug', 'category_ar', 'category_en', 'title_ar', 'title_en', 'excerpt_ar', 'excerpt_en', 'body_ar', 'body_en', 'image', 'published_on', 'enabled', 'sort'],
     'about' => ['kind', 'title_ar', 'title_en', 'body_ar', 'body_en', 'image', 'enabled', 'sort'],
     'media' => ['slot', 'url', 'alt_ar', 'alt_en', 'enabled', 'sort'],
 ];
 /** Website content shown publicly (only enabled rows), ordered by `sort`. */
-const CONTENT = ['procedures', 'faqs', 'branches', 'about', 'media'];
+const CONTENT = ['procedures', 'faqs', 'branches', 'about', 'media', 'articles'];
 const JSON_COLS = ['payload', 'content'];
 const BOOLS = ['report_sent', 'approved', 'published', 'enabled'];
 const INTS = ['id', 'cases_count', 'age', 'sort', 'rating'];
 const DATETIMES = ['created_at', 'responded_at'];
-const SETTING_KEYS = ['phone', 'whatsapp', 'email', 'website', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok', 'google_reviews', 'google_reviews_goal'];
-const PUBLIC_SETTING_KEYS = ['phone', 'whatsapp', 'email', 'website', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok'];
+const SETTING_KEYS = ['phone', 'whatsapp', 'email', 'website', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok', 'google_reviews', 'google_reviews_goal', 'google_place_id', 'ga_id', 'meta_pixel_id', 'gsc_verification'];
+const PUBLIC_SETTING_KEYS = ['phone', 'whatsapp', 'email', 'website', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok', 'ga_id', 'meta_pixel_id'];
 
 function config(): array
 {
@@ -141,7 +142,9 @@ function filter_fields(string $r, array $in): array
             $v = safe_url((string) $v);
         } elseif (in_array($col, DATETIMES, true)) {
             $v = $v ? gmdate('Y-m-d H:i:s', strtotime((string) $v)) : null;
-        } elseif (in_array($col, ['next_follow_up', 'last_referral', 'last_visit', 'date'], true)) {
+        } elseif (in_array($col, ['lat', 'lng'], true)) {
+            $v = is_numeric($v) ? (string) round((float) $v, 6) : '';
+        } elseif (in_array($col, ['next_follow_up', 'last_referral', 'last_visit', 'date', 'published_on'], true)) {
             $v = $v ? substr((string) $v, 0, 10) : null;
         } elseif (in_array($col, INTS, true)) {
             $v = ($v === '' || $v === null) ? null : (int) $v;
@@ -179,7 +182,9 @@ function settings_all(): array
     $rows = db()->query('SELECT k, v FROM settings')->fetchAll();
     $s = array_fill_keys(SETTING_KEYS, '');
     foreach ($rows as $row) {
-        $s[$row['k']] = $row['v'];
+        if (in_array($row['k'], SETTING_KEYS, true)) {
+            $s[$row['k']] = $row['v'];
+        }
     }
     return $s;
 }
@@ -267,4 +272,67 @@ function save_upload(array $f): string
     }
     @chmod("$dir/$name", 0644);
     return "/uploads/$sub/$name";
+}
+
+/**
+ * Google rating and reviews for the clinic's Google Business profile (Places API, New).
+ * Needs config.php 'google_places_key' and the Place ID in Settings. Cached for 12 hours in the settings table,
+ * so visitors never wait on Google and the key is never exposed to the browser.
+ */
+function google_reviews(bool $force = false): array
+{
+    $key = (string) (config()['google_places_key'] ?? '');
+    $s = settings_all();
+    $place = trim((string) ($s['google_place_id'] ?? ''));
+    $cache = json_decode((string) (db()->query("SELECT v FROM settings WHERE k = 'google_cache'")->fetchColumn() ?: ''), true);
+    $fresh = is_array($cache) && ($cache['place'] ?? '') === $place && (time() - (int) ($cache['at'] ?? 0)) < 12 * 3600;
+    if (($fresh && !$force) || $key === '' || $place === '') {
+        return is_array($cache) ? $cache['data'] ?? [] : [];
+    }
+    $data = [];
+    foreach (['ar', 'en'] as $lang) {
+        $ctx = stream_context_create(['http' => ['timeout' => 6, 'ignore_errors' => true, 'header' => "X-Goog-Api-Key: $key\r\nX-Goog-FieldMask: rating,userRatingCount,googleMapsUri,reviews\r\n"]]);
+        $raw = @file_get_contents('https://places.googleapis.com/v1/places/' . rawurlencode($place) . '?languageCode=' . $lang, false, $ctx);
+        $j = $raw ? json_decode($raw, true) : null;
+        if (!is_array($j) || isset($j['error'])) {
+            error_log('[clinic-api] google places: ' . substr((string) $raw, 0, 300));
+            return is_array($cache) ? $cache['data'] ?? [] : [];
+        }
+        $data['rating'] = (float) ($j['rating'] ?? 0);
+        $data['count'] = (int) ($j['userRatingCount'] ?? 0);
+        $data['url'] = (string) ($j['googleMapsUri'] ?? '');
+        $data['reviews_' . $lang] = array_values(array_map(fn ($r) => [
+            'author' => (string) ($r['authorAttribution']['displayName'] ?? ''),
+            'rating' => (int) ($r['rating'] ?? 0),
+            'text' => mb_substr(trim((string) ($r['text']['text'] ?? $r['originalText']['text'] ?? '')), 0, 600),
+            'when' => (string) ($r['relativePublishTimeDescription'] ?? ''),
+            'url' => (string) ($r['authorAttribution']['uri'] ?? ''),
+        ], array_filter($j['reviews'] ?? [], fn ($r) => (int) ($r['rating'] ?? 0) >= 4)));
+    }
+    db()->prepare("REPLACE INTO settings (k, v) VALUES ('google_cache', ?)")->execute([json_encode(['place' => $place, 'at' => time(), 'data' => $data], JSON_UNESCAPED_UNICODE)]);
+    return $data;
+}
+
+/** Optional: also push new bookings to the clinic's WhatsApp through the WhatsApp Business Cloud API (config 'whatsapp_cloud'). */
+function whatsapp_notify(array $params): void
+{
+    $w = config()['whatsapp_cloud'] ?? null;
+    if (!is_array($w) || empty($w['token']) || empty($w['phone_number_id']) || empty($w['to']) || empty($w['template'])) {
+        return;
+    }
+    $body = json_encode([
+        'messaging_product' => 'whatsapp',
+        'to' => $w['to'],
+        'type' => 'template',
+        'template' => [
+            'name' => $w['template'],
+            'language' => ['code' => $w['language'] ?? 'ar'],
+            'components' => [['type' => 'body', 'parameters' => array_map(fn ($p) => ['type' => 'text', 'text' => mb_substr((string) $p, 0, 200) ?: '-'], array_values($params))]],
+        ],
+    ], JSON_UNESCAPED_UNICODE);
+    $ctx = stream_context_create(['http' => ['method' => 'POST', 'timeout' => 6, 'ignore_errors' => true, 'header' => "Authorization: Bearer {$w['token']}\r\nContent-Type: application/json\r\n", 'content' => $body]]);
+    $res = @file_get_contents('https://graph.facebook.com/v21.0/' . rawurlencode($w['phone_number_id']) . '/messages', false, $ctx);
+    if ($res === false || str_contains((string) $res, '"error"')) {
+        error_log('[clinic-api] whatsapp notify failed: ' . substr((string) $res, 0, 300));
+    }
 }

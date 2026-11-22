@@ -44,6 +44,9 @@ switch ("$method $r") {
     case 'GET public-content':
         out(public_content());
 
+    case 'GET public-google':
+        out(google_reviews());
+
     case 'GET public-testimonials':
         $rows = db()->query('SELECT id, quote_ar, quote_en, author, source, rating FROM testimonials WHERE approved = 1 ORDER BY id DESC')->fetchAll();
         out(array_map('clean_row', $rows));
@@ -67,6 +70,7 @@ switch ("$method $r") {
             'status' => 'open',
         ]));
         notify($type === 'referral' ? 'تحويل حالة جديد' : 'طلب حجز جديد', "$name\n$phone\n" . json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+        whatsapp_notify([$type === 'referral' ? 'تحويل حالة' : 'حجز', $name, $phone, (string) ($payload['reason'] ?? $payload['summary'] ?? ''), (string) ($payload['preferred'] ?? '')]);
         out(['ok' => true, 'id' => $row['id']], 201);
 
     case 'POST event':
