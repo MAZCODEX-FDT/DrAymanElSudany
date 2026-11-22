@@ -33,11 +33,11 @@ export const strings = {
     eyebrow: { ar: 'مخ وأعصاب · قسطرة المخ', en: 'Neurology · Neuro-intervention' },
     title: {
       ar: 'دقة فى كل خطوة، وهدوء فى كل شرح',
-      en: 'Precision in every step. Calm in every explanation.',
+      en: 'Precision in every step. Clarity in every explanation.',
     },
     sub: {
       ar: 'بنشرح لحضرتك ولأهلك الحالة بهدوء وبلغة بسيطة قبل أى قرار، وبنرد عليك بسرعة.',
-      en: 'We explain the condition calmly and simply to you and your family before any decision, and we reply quickly.',
+      en: 'We explain the condition clearly and simply to you and your family before any decision, and we reply quickly.',
     },
     scroll: { ar: 'انزل', en: 'Scroll' },
     cardTitle: { ar: 'كلام المرضى', en: 'In patients’ words' },
