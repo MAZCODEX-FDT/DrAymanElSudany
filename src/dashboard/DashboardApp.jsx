@@ -14,7 +14,7 @@ const Cases = lazy(() => import('./pages/Cases'));
 const InboxPage = lazy(() => import('./pages/InboxPage'));
 const Referrers = lazy(() => import('./pages/Referrers'));
 const Patients = lazy(() => import('./pages/Patients'));
-const Content = lazy(() => import('./pages/Content'));
+const Website = lazy(() => import('./pages/Website'));
 const Analytics = lazy(() => import('./pages/Analytics'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 
@@ -25,7 +25,7 @@ const NAV = [
   ['inbox', 'inbox', Inbox],
   ['referrers', 'referrers', Stethoscope],
   ['patients', 'patients', Users],
-  ['content', 'content', FileText],
+  ['content', 'content', Globe],
   ['analytics', 'analytics', BarChart3],
   ['settings', 'settings', Settings],
 ];
@@ -160,7 +160,7 @@ function Shell({ user, onLogout, lang, setLang }) {
               <Route path="inbox" element={<InboxPage />} />
               <Route path="referrers" element={<Referrers />} />
               <Route path="patients" element={<Patients />} />
-              <Route path="content" element={<Content />} />
+              <Route path="content" element={<Website />} />
               <Route path="analytics" element={<Analytics />} />
               <Route path="settings" element={<SettingsPage />} />
             </Routes>

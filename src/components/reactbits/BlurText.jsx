@@ -159,6 +159,7 @@ const BlurText = ({
   text = '',
   delay = 200,
   className = '',
+  as: Tag = 'p',
   animateBy = 'words',
   direction = 'top',
   threshold = 0.1,
@@ -355,7 +356,7 @@ const BlurText = ({
 
   return (
     <MotionConfig reducedMotion="user">
-      <p
+      <Tag
         ref={ref}
         className={`blur-text flex flex-wrap ${trigger === 'click' ? 'cursor-pointer' : ''} ${className}`}
         style={{ color }}
@@ -374,7 +375,7 @@ const BlurText = ({
             {indices.map(renderPiece)}
           </span>
         ))}
-      </p>
+      </Tag>
     </MotionConfig>
   );
 };

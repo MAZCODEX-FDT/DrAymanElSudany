@@ -1,8 +1,11 @@
-// The six procedure pages from the site map (plan WE3).
+import { moreProcedures } from './procedures-more.js';
+
+// Default procedure pages: the six from the site map (plan WE3) plus eight added in Nov 2026 (procedures-more.js).
+// These seed the database; after setup they are edited from the dashboard (Website > Procedures).
 // DRAFT medical copy: every text here must be reviewed and approved by Dr. Ayman before launch.
 // Rules: no prices, no promise of results, no assumption about the reader's condition.
 
-export const procedures = [
+const baseProcedures = [
   {
     slug: 'diagnostic-cerebral-angiography',
     icon: 'diagnostic',
@@ -206,4 +209,5 @@ export const procedures = [
   },
 ];
 
+export const procedures = [...baseProcedures, ...moreProcedures];
 export const getProcedure = (slug) => procedures.find((p) => p.slug === slug);

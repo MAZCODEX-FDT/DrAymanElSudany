@@ -1,7 +1,8 @@
 // Demo data so the site and dashboard work without the PHP API (local preview, design review).
-// Names are fictional.
+// Names are fictional. Website content (procedures, FAQs, branches, about, images) starts from the site defaults.
+import { seedContent } from '@/data/seed';
 
-const KEY = 'aes-demo-v3';
+const KEY = 'aes-demo-v5';
 
 function rng(seed) {
   let s = seed;
@@ -131,7 +132,15 @@ function seed() {
     }
   }
 
+  const site = seedContent();
+  const withIds = (rows) => rows.map((r) => ({ id: id++, created_at: now.toISOString(), ...r }));
+
   return {
+    procedures: withIds(site.procedures),
+    branches: withIds(site.branches),
+    about: withIds(site.about),
+    media: withIds(site.media),
+    faqs: withIds(site.faqs),
     appointments,
     leads,
     cases,
@@ -139,20 +148,21 @@ function seed() {
     patients,
     events,
     testimonials: [],
-    faqs: [],
     settings: {
       phone: '',
       whatsapp: '',
+      email: 'clinic@example.com',
+      website: 'https://example.com',
       address_ar: 'مدينة العبور، [العنوان المعتمد]',
       address_en: 'Obour City, [approved address]',
       map_url: 'https://maps.google.com/?q=Obour+City',
       hours_ar: 'السبت إلى الخميس، 5 مساءً إلى 10 مساءً',
       hours_en: 'Saturday to Thursday, 5 PM to 10 PM',
       review_url: '',
-      facebook: '',
-      instagram: '',
-      youtube: '',
-      tiktok: '',
+      facebook: 'https://facebook.com/',
+      instagram: 'https://instagram.com/',
+      youtube: 'https://youtube.com/',
+      tiktok: 'https://tiktok.com/',
       google_reviews: 4,
       google_reviews_goal: 35,
     },

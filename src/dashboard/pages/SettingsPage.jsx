@@ -5,6 +5,8 @@ import { useD, Card, DField, DInput, Btn } from '../ui';
 const CLINIC = [
   ['phone', 'ltr'],
   ['whatsapp', 'ltr'],
+  ['email', 'ltr'],
+  ['website', 'ltr'],
   ['address_ar', 'rtl'],
   ['address_en', 'ltr'],
   ['hours_ar', 'rtl'],

@@ -13,9 +13,11 @@ $r = (string) ($_GET['r'] ?? '');
 $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
 
 // Writes must be JSON from this site (blocks simple cross-site form posts).
+// The one exception is the admin image upload, which is multipart and needs a signed-in session.
 if ($method !== 'GET') {
     $type = $_SERVER['CONTENT_TYPE'] ?? '';
-    if ($type !== '' && stripos($type, 'application/json') !== 0) {
+    $isUpload = $method === 'POST' && $r === 'upload' && stripos($type, 'multipart/form-data') === 0;
+    if ($type !== '' && !$isUpload && stripos($type, 'application/json') !== 0) {
         fail(415, 'json only');
     }
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
@@ -38,6 +40,9 @@ switch ("$method $r") {
     case 'GET public-faqs':
         $rows = db()->query('SELECT id, q_ar, a_ar, q_en, a_en FROM faqs WHERE published = 1 ORDER BY sort, id')->fetchAll();
         out(array_map('clean_row', $rows));
+
+    case 'GET public-content':
+        out(public_content());
 
     case 'GET public-testimonials':
         $rows = db()->query('SELECT id, quote_ar, quote_en, author, source FROM testimonials WHERE approved = 1 ORDER BY id DESC')->fetchAll();
@@ -114,6 +119,13 @@ if ($r === 'settings' && $method === 'PUT') {
     out(settings_all());
 }
 
+if ($r === 'upload' && $method === 'POST') {
+    if (empty($_SERVER['HTTP_ORIGIN'])) {
+        fail(403, 'origin required');
+    }
+    out(['url' => save_upload($_FILES['file'] ?? [])], 201);
+}
+
 if ($r === 'password' && $method === 'POST') {
     $b = body();
     $st = db()->prepare('SELECT password_hash FROM users WHERE id = ?');
@@ -135,7 +147,7 @@ if (!isset(RESOURCES[$r])) {
 
 switch ($method) {
     case 'GET':
-        $order = in_array($r, ['appointments'], true) ? '`date` DESC, `time`' : 'id DESC';
+        $order = in_array($r, ['appointments'], true) ? '`date` DESC, `time`' : (in_array($r, CONTENT, true) ? 'sort, id' : 'id DESC');
         $limit = $r === 'events' ? ' WHERE created_at > (UTC_TIMESTAMP() - INTERVAL 90 DAY)' : '';
         $rows = db()->query('SELECT * FROM ' . q($r) . $limit . ' ORDER BY ' . $order . ' LIMIT 5000')->fetchAll();
         out(array_map('clean_row', $rows));
