@@ -31,8 +31,8 @@ export const strings = {
   hero: {
     eyebrow: { ar: 'مخ وأعصاب · قسطرة المخ · العبور', en: 'Neurology · Neuro-intervention · Obour' },
     title: {
-      ar: 'دقة فى كل خطوة، وهدوء فى كل شرح',
-      en: 'Precision in every step. Calm in every explanation.',
+      ar: 'قسطرة المخ فى العبور، من غير مشوار القاهرة',
+      en: 'Brain catheterization in Obour, without the trip to Cairo',
     },
     sub: {
       ar: 'لشرق القاهرة والشرقية: بنشرح لحضرتك ولأهلك الحالة بهدوء وبلغة بسيطة قبل أى قرار، وبنرد عليك بسرعة.',
