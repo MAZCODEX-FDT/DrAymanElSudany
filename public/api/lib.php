@@ -8,7 +8,7 @@ const RESOURCES = [
     'referrers' => ['name', 'specialty', 'city', 'phone', 'cases_count', 'last_referral', 'report_sent'],
     'patients' => ['name', 'phone', 'age', 'city', 'condition', 'summary', 'last_visit'],
     'testimonials' => ['quote_ar', 'quote_en', 'author', 'source', 'approved'],
-    'faqs' => ['q_ar', 'a_ar', 'q_en', 'a_en', 'published', 'sort'],
+    'faqs' => ['category_ar', 'category_en', 'q_ar', 'a_ar', 'q_en', 'a_en', 'published', 'sort'],
     'events' => ['type', 'page'],
     'procedures' => ['slug', 'icon', 'image', 'content', 'enabled', 'sort'],
     'branches' => ['name_ar', 'name_en', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'phone', 'whatsapp', 'map_url', 'image', 'enabled', 'sort'],
@@ -21,8 +21,8 @@ const JSON_COLS = ['payload', 'content'];
 const BOOLS = ['report_sent', 'approved', 'published', 'enabled'];
 const INTS = ['id', 'cases_count', 'age', 'sort'];
 const DATETIMES = ['created_at', 'responded_at'];
-const SETTING_KEYS = ['phone', 'whatsapp', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok', 'google_reviews', 'google_reviews_goal'];
-const PUBLIC_SETTING_KEYS = ['phone', 'whatsapp', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok'];
+const SETTING_KEYS = ['phone', 'whatsapp', 'email', 'website', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok', 'google_reviews', 'google_reviews_goal'];
+const PUBLIC_SETTING_KEYS = ['phone', 'whatsapp', 'email', 'website', 'address_ar', 'address_en', 'hours_ar', 'hours_en', 'map_url', 'review_url', 'facebook', 'instagram', 'youtube', 'tiktok'];
 
 function config(): array
 {

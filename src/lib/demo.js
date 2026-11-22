@@ -2,7 +2,7 @@
 // Names are fictional. Website content (procedures, FAQs, branches, about, images) starts from the site defaults.
 import { seedContent } from '@/data/seed';
 
-const KEY = 'aes-demo-v4';
+const KEY = 'aes-demo-v5';
 
 function rng(seed) {
   let s = seed;
@@ -151,16 +151,18 @@ function seed() {
     settings: {
       phone: '',
       whatsapp: '',
+      email: 'clinic@example.com',
+      website: 'https://example.com',
       address_ar: 'مدينة العبور، [العنوان المعتمد]',
       address_en: 'Obour City, [approved address]',
       map_url: 'https://maps.google.com/?q=Obour+City',
       hours_ar: 'السبت إلى الخميس، 5 مساءً إلى 10 مساءً',
       hours_en: 'Saturday to Thursday, 5 PM to 10 PM',
       review_url: '',
-      facebook: '',
-      instagram: '',
-      youtube: '',
-      tiktok: '',
+      facebook: 'https://facebook.com/',
+      instagram: 'https://instagram.com/',
+      youtube: 'https://youtube.com/',
+      tiktok: 'https://tiktok.com/',
       google_reviews: 4,
       google_reviews_goal: 35,
     },

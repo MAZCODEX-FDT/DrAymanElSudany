@@ -5,5 +5,5 @@ import { useContent } from './content';
 export function useFaqs() {
   const { L, lang } = useLang();
   const { faqs } = useContent();
-  return faqs.map((f) => ({ id: f.id, q: L(f.q), a: L(f.a), lang }));
+  return faqs.map((f) => ({ id: f.id, category: L(f.category), q: L(f.q), a: L(f.a), lang }));
 }

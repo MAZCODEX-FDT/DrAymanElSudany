@@ -14,7 +14,7 @@ export const MEDIA_SLOTS = [
   { slot: 'book', ar: 'صورة صفحة الحجز', en: 'Booking page photo' },
 ];
 
-export const ABOUT_KINDS = ['intro', 'statement', 'highlight', 'section', 'credential'];
+export const ABOUT_KINDS = ['intro', 'statement', 'highlight', 'section', 'step', 'credential'];
 
 export function seedContent() {
   const procs = procedures.map((p, i) => ({
@@ -26,7 +26,7 @@ export function seedContent() {
     sort: i + 1,
   }));
 
-  const faqs = defaultFaqs.map((f, i) => ({ q_ar: f.q.ar, a_ar: f.a.ar, q_en: f.q.en, a_en: f.a.en, published: true, sort: i + 1 }));
+  const faqs = defaultFaqs.map((f, i) => ({ category_ar: f.category?.ar || '', category_en: f.category?.en || '', q_ar: f.q.ar, a_ar: f.a.ar, q_en: f.q.en, a_en: f.a.en, published: true, sort: i + 1 }));
 
   const branches = [
     {
@@ -53,7 +53,9 @@ export function seedContent() {
     row('highlight', 3, { ar: '715+', en: '715+' }, { ar: 'تقييم من المرضى على فيزيتا، بمتوسط 4.5', en: 'patient reviews on Vezeeta, averaging 4.5' }),
     row('highlight', 4, { ar: '58', en: '58' }, { ar: 'مرة اتكتب عنه «مستمع جيد»', en: 'reviews call him “a good listener”' }),
     row('highlight', 5, { ar: 'الأول', en: 'First' }, { ar: 'أول قسطرة مخية فى الشرقية، أكتوبر 2026', en: 'brain catheterization performed in Sharqia, October 2026' }),
-    ...about.credentials.map((c, i) => row('credential', 10 + i, c, none)),
+    ...about.sections.map((x, i) => row('section', 10 + i, x.title, x.body)),
+    ...about.steps.map((x, i) => row('step', 20 + i, x.title, x.body)),
+    ...about.credentials.map((c, i) => row('credential', 30 + i, c, none)),
   ];
 
   const media = MEDIA_SLOTS.map((m, i) => ({ slot: m.slot, url: '', alt_ar: 'د. أيمن حسن السودانى', alt_en: 'Dr. Ayman Hassan El Sudany', enabled: true, sort: i + 1 }));

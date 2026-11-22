@@ -14,6 +14,17 @@ if ($expected === '' || str_starts_with($expected, 'CHANGE_ME') || !hash_equals(
 
 $pdo = db();
 $pdo->exec(file_get_contents(__DIR__ . '/schema.sql'));
+// Columns added after the first release (CREATE TABLE IF NOT EXISTS does not add them to old tables).
+$addCols = ['faqs' => ['category_ar' => "VARCHAR(120) NOT NULL DEFAULT '' AFTER id", 'category_en' => "VARCHAR(120) NOT NULL DEFAULT '' AFTER category_ar"]];
+foreach ($addCols as $table => $cols) {
+    foreach ($cols as $col => $def) {
+        $st = $pdo->prepare('SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = ?');
+        $st->execute([$table, $col]);
+        if ((int) $st->fetchColumn() === 0) {
+            $pdo->exec('ALTER TABLE ' . q($table) . ' ADD COLUMN ' . q($col) . ' ' . $def);
+        }
+    }
+}
 // Fill empty website-content tables with the default content (procedures, FAQs, branches, about, images).
 $seeded = [];
 $seedFile = __DIR__ . '/seed.json';

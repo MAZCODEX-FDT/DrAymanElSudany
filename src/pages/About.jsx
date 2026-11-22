@@ -1,8 +1,10 @@
-import { Award, MapPin, Newspaper, Clock } from 'lucide-react';
+import { Award, Newspaper, ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useLang } from '@/i18n';
 import { press } from '@/data/content';
 import { useContent, imgSrc } from '@/lib/content';
-import { track } from '@/lib/api';
+import { BranchCards } from '@/site/BranchCards';
+import { ProcedureIcon } from '@/components/ui/ProcedureIcon';
 import { Seo } from '@/site/Seo';
 import { PageHero } from '@/site/PageHero';
 import { ClosingCta } from '@/site/home/ClosingCta';
@@ -12,8 +14,9 @@ import { cn } from '@/lib/cn';
 
 // Everything on this page except the press names comes from the dashboard (Website > About the doctor / Images / Branches).
 export default function About() {
-  const { t, L, lang } = useLang();
-  const { about, media, gallery, branches } = useContent();
+  const { t, L, lang, to } = useLang();
+  const { about, media, gallery, branches, procedures } = useContent();
+  const en = lang === 'en';
   const intro = about.intro ? L(about.intro.body) : '';
   const photo = media.about_doctor;
 
@@ -61,10 +64,57 @@ export default function About() {
         </section>
       ))}
 
+      {about.steps.length > 0 && (
+        <section className="bg-deep-glow on-dark grain relative overflow-hidden py-24 text-linen">
+          <div className="relative mx-auto max-w-7xl px-6">
+            <p className="eyebrow mb-4">{en ? 'Your visit' : 'الكشف'}</p>
+            <h2 className="font-display max-w-2xl text-3xl sm:text-4xl">{en ? 'How a visit with Dr. Ayman goes' : 'الكشف مع د. أيمن بيمشى إزاى'}</h2>
+            <AnimatedContent stagger={0.1} className={cn('mt-12 grid gap-5 sm:grid-cols-2', about.steps.length >= 4 && 'lg:grid-cols-4', about.steps.length === 3 && 'lg:grid-cols-3')}>
+              {about.steps.map((st, i) => (
+                <div key={st.id} className="rounded-3xl border border-white/10 bg-white/[.04] p-7">
+                  <span className="font-display text-4xl text-amber-soft">{String(i + 1).padStart(2, '0')}</span>
+                  <p className="font-display mt-6 text-xl">{L(st.title)}</p>
+                  <p className="mt-3 leading-relaxed text-linen/70">{L(st.body)}</p>
+                </div>
+              ))}
+            </AnimatedContent>
+          </div>
+        </section>
+      )}
+
+      {procedures.length > 0 && (
+        <section className="bg-linen py-24">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <p className="eyebrow mb-4">{t('nav.procedures')}</p>
+                <h2 className="font-display max-w-2xl text-3xl text-deep sm:text-4xl">{en ? 'What Dr. Ayman treats' : 'الحالات اللى د. أيمن بيتعامل معاها'}</h2>
+              </div>
+              <Link to={to('/procedures')} className="inline-flex items-center gap-2 font-medium text-calm hover:text-deep">
+                {t('procedures.all')} ({procedures.length}) <ArrowUpRight size={18} className="rtl:-scale-x-100" />
+              </Link>
+            </div>
+            <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {procedures.map((p) => (
+                <Link key={p.id} to={to(`/procedures/${p.slug}`)} className="group flex min-w-0 items-center gap-4 rounded-2xl border border-deep/10 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-deep/25">
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-mist text-deep">
+                    <ProcedureIcon name={p.icon} className="h-8 w-8" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate font-medium text-deep">{L(p.title)}</span>
+                    <span className="mt-0.5 block truncate text-sm text-slate">{L(p.short)}</span>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {about.credentials.length > 0 && (
         <section className="bg-sand/60 py-24">
           <div className="mx-auto max-w-7xl px-6">
-            <p className="eyebrow mb-8">{lang === 'en' ? 'Qualifications' : 'المؤهلات'}</p>
+            <p className="eyebrow mb-8">{en ? 'Qualifications' : 'المؤهلات'}</p>
             <ul className="grid gap-4 md:grid-cols-3">
               {about.credentials.map((c) => (
                 <li key={c.id} className="flex items-center gap-4 rounded-2xl border border-deep/10 bg-linen p-6 text-ink/75">
@@ -83,7 +133,7 @@ export default function About() {
       {gallery.length > 0 && (
         <section className="bg-linen py-24">
           <div className="mx-auto max-w-7xl px-6">
-            <p className="eyebrow mb-8">{lang === 'en' ? 'The clinic' : 'العيادة'}</p>
+            <p className="eyebrow mb-8">{en ? 'The clinic' : 'العيادة'}</p>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
               {gallery.map((g) => (
                 <img key={g.id} src={imgSrc(g.url)} alt={L(g.alt)} loading="lazy" className="aspect-square w-full rounded-3xl object-cover" />
@@ -96,25 +146,8 @@ export default function About() {
       {branches.length > 0 && (
         <section className="bg-white py-24">
           <div className="mx-auto max-w-7xl px-6">
-            <p className="eyebrow mb-8">{lang === 'en' ? 'Where to find us' : 'أماكن الكشف'}</p>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {branches.map((b) => (
-                <a key={b.id} href={b.map_url || '#'} target="_blank" rel="noopener" onClick={() => track('map')} className="group overflow-hidden rounded-3xl border border-deep/10 bg-linen transition-all hover:-translate-y-1">
-                  {b.image && <img src={imgSrc(b.image)} alt={L(b.name)} loading="lazy" className="aspect-[16/9] w-full object-cover" />}
-                  <div className="space-y-3 p-7">
-                    <p className="font-display text-xl text-deep">{L(b.name)}</p>
-                    <p className="flex gap-3 text-ink/75">
-                      <MapPin size={18} className="mt-1 shrink-0 text-amber" /> {L(b.address)}
-                    </p>
-                    {L(b.hours) && (
-                      <p className="flex gap-3 text-ink/75">
-                        <Clock size={18} className="mt-1 shrink-0 text-amber" /> {L(b.hours)}
-                      </p>
-                    )}
-                  </div>
-                </a>
-              ))}
-            </div>
+            <p className="eyebrow mb-8">{en ? 'Where to find us' : 'أماكن الكشف'}</p>
+            <BranchCards />
           </div>
         </section>
       )}

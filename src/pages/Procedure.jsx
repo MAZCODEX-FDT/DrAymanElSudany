@@ -21,7 +21,7 @@ export default function Procedure() {
   const { slug } = useParams();
   const { t, L, to, lang } = useLang();
   const s = useSettings();
-  const { procedures, ready } = useContent();
+  const { procedures, fresh } = useContent();
   const p = procedures.find((x) => x.slug === slug);
   const steps = useRef(null);
 
@@ -36,7 +36,7 @@ export default function Procedure() {
     { scope: steps, dependencies: [slug, lang] }
   );
 
-  if (!p) return ready ? <Navigate to={to('/procedures')} replace /> : <div className="min-h-screen bg-deep" />;
+  if (!p) return fresh ? <Navigate to={to('/procedures')} replace /> : <div className="min-h-screen bg-deep" />;
   const faqs = p.faqs || [];
   const steps3 = p.steps || {};
   const list = (v) => (L(v) || []).filter(Boolean);

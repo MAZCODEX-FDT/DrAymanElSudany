@@ -97,7 +97,7 @@ function QaField({ value, onChange }) {
   );
 }
 
-function Field({ f, item, setItem }) {
+function Field({ f, item, setItem, suggestions = {} }) {
   const d = useD();
   const { lang } = useLang();
   const label = d(f.label);
@@ -113,7 +113,7 @@ function Field({ f, item, setItem }) {
             </option>
           ))}
         </DSelect>
-        {f.hint && <span className="mt-1.5 block text-xs text-slate">{f.hint(getIn(item, f.key))}</span>}
+        {f.hint && <span className="mt-1.5 block text-xs text-slate">{typeof f.hint === 'function' ? f.hint(getIn(item, f.key)) : d(f.hint)}</span>}
       </DField>
     );
   }
@@ -132,10 +132,26 @@ function Field({ f, item, setItem }) {
             </DField>
           );
         }
-        const Comp = f.type === 'area' ? DTextarea : DInput;
+        if (f.type === 'area') {
+          return (
+            <DField key={path} label={lbl}>
+              <DTextarea rows={f.rows || 4} dir={dir} value={raw ?? ''} onChange={(e) => setItem(setIn(item, path, e.target.value))} />
+            </DField>
+          );
+        }
+        const opts = suggestions[path] || [];
+        const listId = opts.length ? `sg-${path.replace(/\W/g, '-')}` : undefined;
         return (
           <DField key={path} label={lbl}>
-            <Comp rows={f.rows || 4} dir={dir} value={raw ?? ''} onChange={(e) => setItem(setIn(item, path, e.target.value))} />
+            <DInput dir={dir} list={listId} value={raw ?? ''} onChange={(e) => setItem(setIn(item, path, e.target.value))} />
+            {listId && (
+              <datalist id={listId}>
+                {opts.map((o) => (
+                  <option key={o} value={o} />
+                ))}
+              </datalist>
+            )}
+            {f.hint && l !== 'en' && <span className="mt-1.5 block text-xs text-slate">{d(f.hint)}</span>}
           </DField>
         );
       })}
@@ -168,6 +184,16 @@ function Collection({ resource, flag = 'enabled', sortable = true, blank, fields
   const [edit, setEdit] = useState(null);
   const [confirmDel, setConfirmDel] = useState(null);
   const [saving, setSaving] = useState(false);
+  const suggestions = useMemo(() => {
+    const out = {};
+    for (const f of fields.filter((x) => x.suggest)) {
+      for (const l of f.bi ? ['ar', 'en'] : [null]) {
+        const path = l ? biPath(f.key, l) : f.key;
+        out[path] = [...new Set(items.map((it) => getIn(it, path)).filter(Boolean))];
+      }
+    }
+    return out;
+  }, [items, fields]);
   const sorted = useMemo(() => (sortable ? [...items].sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0) || a.id - b.id) : items), [items, sortable]);
 
   const save = async () => {
@@ -296,7 +322,7 @@ function Collection({ resource, flag = 'enabled', sortable = true, blank, fields
         {edit && (
           <>
             {fields.map((f) => (
-              <Field key={f.key} f={f} item={edit} setItem={setEdit} />
+              <Field key={f.key} f={f} item={edit} setItem={setEdit} suggestions={suggestions} />
             ))}
             <DToggle checked={!!edit[flag]} onChange={(v) => setEdit({ ...edit, [flag]: v })} label={d(flag === 'enabled' ? 'showOnSite' : flag)} />
           </>
@@ -308,7 +334,7 @@ function Collection({ resource, flag = 'enabled', sortable = true, blank, fields
 
 // ---------- tabs ----------
 const bi = (ar = '', en = '') => ({ ar, en });
-const kindLabel = { intro: bi('مقدمة', 'Intro'), statement: bi('جملة مميزة', 'Statement'), highlight: bi('رقم / إنجاز', 'Highlight'), section: bi('فقرة', 'Section'), credential: bi('شهادة / مؤهل', 'Credential') };
+const kindLabel = { intro: bi('مقدمة', 'Intro'), statement: bi('جملة مميزة', 'Statement'), highlight: bi('رقم / إنجاز', 'Highlight'), section: bi('فقرة', 'Section'), step: bi('خطوة فى الكشف', 'Visit step'), credential: bi('شهادة / مؤهل', 'Credential') };
 const slotLabel = (slot, lang) => (slot === 'gallery' ? (lang === 'en' ? 'Clinic gallery' : 'معرض صور العيادة') : MEDIA_SLOTS.find((s) => s.slot === slot)?.[lang] || slot);
 
 function useTabs() {
@@ -346,9 +372,10 @@ function useTabs() {
       hint: d('w_faqsHint'),
       addLabel: 'addQuestion',
       publicLink: '/faq',
-      blank: { q_ar: '', a_ar: '', q_en: '', a_en: '', published: true },
-      row: (f, lang) => ({ title: f[`q_${lang}`] || f.q_ar, sub: f[`a_${lang}`] || f.a_ar }),
+      blank: { category_ar: '', category_en: '', q_ar: '', a_ar: '', q_en: '', a_en: '', published: true },
+      row: (f, lang) => ({ title: f[`q_${lang}`] || f.q_ar, sub: [f[`category_${lang}`] || f.category_ar, f[`a_${lang}`] || f.a_ar].filter(Boolean).join(' · ') }),
       fields: [
+        { key: 'category', label: 'f_category', bi: true, suggest: true, hint: 'f_categoryHint' },
         { key: 'q', label: 'f_question', bi: true },
         { key: 'a', label: 'f_answer', type: 'area', bi: true },
       ],

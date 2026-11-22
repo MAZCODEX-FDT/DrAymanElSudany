@@ -132,6 +132,8 @@ export const D = {
   settingsHint: { ar: 'لازم تكون مطابقة لصفحة Google بالحرف.', en: 'Must match the Google Business profile exactly.' },
   s_phone: { ar: 'رقم التليفون', en: 'Phone' },
   s_whatsapp: { ar: 'رقم واتساب', en: 'WhatsApp number' },
+  s_email: { ar: 'الإيميل', en: 'Email' },
+  s_website: { ar: 'الموقع الإلكترونى', en: 'Website' },
   s_address_ar: { ar: 'العنوان بالعربى', en: 'Address (Arabic)' },
   s_address_en: { ar: 'العنوان بالإنجليزى', en: 'Address (English)' },
   s_hours_ar: { ar: 'المواعيد بالعربى', en: 'Hours (Arabic)' },
@@ -203,5 +205,8 @@ export const D = {
   kind_statement: { ar: 'واحد بس: جملة كبيرة بتظهر كاقتباس فى الرئيسية وصفحة «عن الدكتور».', en: 'Only one: a large sentence shown as a quote on the home and About pages.' },
   kind_highlight: { ar: 'رقم أو إنجاز (العنوان = الرقم، النص = الشرح). بيظهر فى كروت.', en: 'A number or achievement (title = the number, text = the explanation). Shown as cards.' },
   kind_section: { ar: 'فقرة بعنوان ونص وصورة اختيارية.', en: 'A paragraph with a title, text and optional image.' },
+  kind_step: { ar: 'خطوة فى «إزاى بيمشى الكشف» (العنوان = الخطوة، النص = الشرح). بتظهر بالترتيب.', en: 'A step in “How a visit goes” (title = the step, text = the explanation). Shown in order.' },
+  f_category: { ar: 'القسم', en: 'Category' },
+  f_categoryHint: { ar: 'اكتب نفس اسم القسم بالظبط عشان الأسئلة تتجمع مع بعض، أو اختار من القائمة.', en: 'Use the exact same category name so questions group together, or pick from the list.' },
   kind_credential: { ar: 'شهادة أو مؤهل أو عضوية. الصورة اختيارية (لوجو الجهة).', en: 'A degree, qualification or membership. Image optional (the body’s logo).' },
 };

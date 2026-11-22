@@ -5,6 +5,7 @@ import { useSettings, whatsappHref, telHref } from '@/lib/settings';
 import { track } from '@/lib/api';
 import { useContent } from '@/lib/content';
 import { Logo } from '@/components/ui/Logo';
+import { SocialIcon, SOCIAL_KEYS, SOCIAL_NAMES } from '@/components/ui/SocialIcons';
 
 export function Footer() {
   const { t, L, to, lang } = useLang();
@@ -44,7 +45,7 @@ export function Footer() {
           <div className="md:col-span-2">
             <p className="eyebrow mb-5">{t('nav.menu')}</p>
             <ul className="space-y-3">
-              {[['/about', 'nav.about'], ['/for-doctors', 'nav.doctors'], ['/faq', 'nav.faq'], ['/book', 'nav.book']].map(([h, k]) => (
+              {[['/about', 'nav.about'], ['/for-doctors', 'nav.doctors'], ['/faq', 'nav.faq'], ['/contact', 'nav.contact'], ['/book', 'nav.book']].map(([h, k]) => (
                 <li key={h}>
                   <Link to={to(h)} className="text-linen/70 transition-colors hover:text-amber-soft">
                     {t(k)}
@@ -76,6 +77,15 @@ export function Footer() {
             <a href={whatsappHref(s, lang)} onClick={() => track('whatsapp')} target="_blank" rel="noopener" className="inline-block text-amber-soft underline-offset-4 hover:underline">
               {t('cta.whatsapp')}
             </a>
+            {SOCIAL_KEYS.some((k) => s[k]) && (
+              <div className="flex gap-2 pt-2">
+                {SOCIAL_KEYS.filter((k) => s[k]).map((k) => (
+                  <a key={k} href={s[k]} target="_blank" rel="noopener" aria-label={SOCIAL_NAMES[k]} className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-linen/80 transition-colors hover:border-amber hover:bg-amber hover:text-deep-900">
+                    <SocialIcon name={k} size={17} />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
         </div>
         <div className="font-display pointer-events-none mt-20 select-none whitespace-nowrap text-center text-[8vw] leading-none text-white/[.04]">

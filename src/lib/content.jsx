@@ -5,7 +5,7 @@ import { publicContent } from './api';
 // about-the-doctor blocks and images. Loaded once per visit; the last copy is kept in
 // localStorage so returning visitors see it instantly while the fresh copy loads.
 
-const CACHE = 'aes-content-v1';
+const CACHE = 'aes-content-v2';
 const ContentContext = createContext({ ready: false });
 export const useContent = () => useContext(ContentContext);
 
@@ -14,7 +14,7 @@ const bi = (row, key) => ({ ar: row[`${key}_ar`] || '', en: row[`${key}_en`] || 
 export function normalize(raw) {
   if (!raw) return null;
   const procedures = (raw.procedures || []).map((p) => ({ id: p.id, slug: p.slug, icon: p.icon, image: p.image || '', ...(p.content || {}) })).filter((p) => p.slug && p.title);
-  const faqs = (raw.faqs || []).map((f) => ({ id: f.id, q: bi(f, 'q'), a: bi(f, 'a') })).filter((f) => f.q.ar || f.q.en);
+  const faqs = (raw.faqs || []).map((f) => ({ id: f.id, category: bi(f, 'category'), q: bi(f, 'q'), a: bi(f, 'a') })).filter((f) => f.q.ar || f.q.en);
   const branches = (raw.branches || []).map((b) => ({
     id: b.id,
     name: bi(b, 'name'),
@@ -31,6 +31,7 @@ export function normalize(raw) {
     statement: blocks.find((b) => b.kind === 'statement') || null,
     highlights: blocks.filter((b) => b.kind === 'highlight'),
     sections: blocks.filter((b) => b.kind === 'section'),
+    steps: blocks.filter((b) => b.kind === 'step'),
     credentials: blocks.filter((b) => b.kind === 'credential'),
   };
   const media = {};
@@ -76,7 +77,7 @@ export function ContentProvider({ children }) {
   }, []);
   const value = useMemo(() => {
     const n = normalize(raw);
-    return n ? { ready: true, fresh, ...n } : { ready: false, fresh, procedures: [], faqs: [], branches: [], about: { highlights: [], sections: [], credentials: [] }, media: {}, gallery: [] };
+    return n ? { ready: true, fresh, ...n } : { ready: false, fresh, procedures: [], faqs: [], branches: [], about: { highlights: [], sections: [], steps: [], credentials: [] }, media: {}, gallery: [] };
   }, [raw, fresh]);
   return <ContentContext.Provider value={value}>{children}</ContentContext.Provider>;
 }
