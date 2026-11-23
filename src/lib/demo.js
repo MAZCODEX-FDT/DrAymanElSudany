@@ -1,4 +1,4 @@
-// Demo data so the site and dashboard work without the PHP API (local preview, design review).
+// Demo data so the site and dashboard work without the Laravel API (local preview, design review).
 // Names are fictional. Website content (procedures, FAQs, branches, about, images) starts from the site defaults.
 import { seedContent } from '@/data/seed';
 import { STOCK_SLOTS, STOCK_GALLERY, STOCK_BRANCH, STOCK_NOTE } from '@/data/stock';

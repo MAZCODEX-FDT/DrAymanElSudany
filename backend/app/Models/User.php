@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-/** Dashboard admin. Created once with `php artisan clinic:admin` or the one-time /setup page. */
+/** A dashboard admin (clinic staff). */
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
@@ -17,5 +17,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function toApi(): array
+    {
+        return ['id' => $this->id, 'email' => $this->email, 'name' => $this->name];
     }
 }

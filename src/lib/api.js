@@ -1,10 +1,10 @@
-// Data layer. Talks to the PHP API in /api (Bluehost). If the API is not reachable
+// Data layer. Talks to the Laravel API at /api/... (Bluehost). If the API is not reachable
 // (local preview, design review) it falls back to demo data kept in localStorage.
 import { db, save, nextId, GOOGLE_SAMPLE } from './demo';
 import { trackAction } from './analytics';
 
 const FORCE_DEMO = import.meta.env.VITE_DEMO === '1';
-const BASE = import.meta.env.VITE_API_BASE || '/api/index.php';
+const BASE = import.meta.env.VITE_API_BASE || '/api';
 
 let mode = FORCE_DEMO ? 'demo' : 'unknown';
 const listeners = new Set();
@@ -18,11 +18,11 @@ function setMode(m) {
 }
 
 async function http(method, r, { id, body } = {}) {
-  const url = `${BASE}?r=${encodeURIComponent(r)}${id != null ? `&id=${encodeURIComponent(id)}` : ''}`;
+  const url = `${BASE}/${encodeURIComponent(r)}${id != null ? `/${encodeURIComponent(id)}` : ''}`;
   const res = await fetch(url, {
     method,
     credentials: 'same-origin',
-    headers: body ? { 'Content-Type': 'application/json' } : undefined,
+    headers: { Accept: 'application/json', ...(body ? { 'Content-Type': 'application/json' } : {}) },
     body: body ? JSON.stringify(body) : undefined,
   });
   const type = res.headers.get('content-type') || '';
@@ -116,7 +116,7 @@ export async function upload(file) {
     try {
       const fd = new FormData();
       fd.append('file', file);
-      const res = await fetch(`${BASE}?r=upload`, { method: 'POST', credentials: 'same-origin', body: fd });
+      const res = await fetch(`${BASE}/upload`, { method: 'POST', credentials: 'same-origin', headers: { Accept: 'application/json' }, body: fd });
       const type = res.headers.get('content-type') || '';
       if (!type.includes('application/json')) throw Object.assign(new Error('API unavailable'), { unavailable: true });
       const data = await res.json();

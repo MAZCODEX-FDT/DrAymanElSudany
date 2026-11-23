@@ -14,15 +14,24 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_sqlite, pdo_mysql, fileinfo, gd
+          tools: composer
       - run: npm ci
-      - run: npm run build
+      - name: Test the Laravel API
+        working-directory: backend
+        run: |
+          composer install --no-interaction --no-progress --prefer-dist
+          php artisan test
+      # Builds the site and the Laravel app, ready for Bluehost (see README, Deploy to Bluehost).
+      - run: bash scripts/package-bluehost.sh
         env:
           SITE_URL: ${{ vars.SITE_URL }}
-      - name: Lint PHP API
-        run: for f in public/api/*.php; do php -l "$f"; done
-      # Upload this folder's contents to the domain's document root on Bluehost (public_html).
       - uses: actions/upload-artifact@v4
         with:
-          name: site-dist
-          path: dist
-          include-hidden-files: true
+          name: bluehost-upload
+          path: |
+            build/bluehost/public_html.zip
+            build/bluehost/drayman-app.zip

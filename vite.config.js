@@ -9,8 +9,8 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   server: {
-    // Point this at a local PHP server (php -S localhost:8000 -t public) to use the real API.
-    proxy: { '/api': { target: 'http://localhost:8000', changeOrigin: false } },
+    // Real API in development: run `php artisan serve` in backend/ (port 8000), then `npm run dev`.
+    proxy: Object.fromEntries(['/api', '/sitemap.xml', '/setup'].map((p) => [p, { target: 'http://localhost:8000', changeOrigin: false }])),
   },
   build: {
     chunkSizeWarningLimit: 700, // recharts loads only with the lazy /dashboard chunks

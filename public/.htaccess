@@ -1,5 +1,6 @@
-# Bluehost / Apache: serve the React app for every route except real files and the PHP API.
-Options -MultiViews
+# Bluehost / Apache: the React app for every page, the Laravel API (index.php) for /api and a few server pages.
+Options -MultiViews -Indexes
+DirectoryIndex index.html
 RewriteEngine On
 RewriteBase /
 
@@ -8,10 +9,13 @@ RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-RewriteRule ^api/ - [L]
-# Live sitemap from the database, and Search Console file verification from Settings.
-RewriteRule ^sitemap\.xml$ api/sitemap.php [L]
-RewriteRule ^(google[A-Za-z0-9]+\.html)$ api/gsc.php?f=$1 [L,QSA]
+# Laravel: API, live sitemap, Search Console file check, one-time setup page.
+RewriteRule ^api/ index.php [L]
+RewriteRule ^sitemap\.xml$ index.php [L]
+RewriteRule ^google[A-Za-z0-9]+\.html$ index.php [L]
+RewriteRule ^setup$ index.php [L]
+
+# Real files (assets, images, uploads), then the React app.
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]

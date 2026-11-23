@@ -2,6 +2,9 @@ node_modules
 dist
 .env
 .env.local
-public/api/config.php
+backend/.env
 *.log
 .DS_Store
+backend/database/data/seed.json
+build/
+backend/public/uploads/
