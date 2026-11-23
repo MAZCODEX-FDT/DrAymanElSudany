@@ -4,7 +4,7 @@ import { useLang } from '@/i18n';
 import { useSettings, whatsappHref, telHref } from '@/lib/settings';
 import { track } from '@/lib/api';
 import { useContent } from '@/lib/content';
-import { Logo, Emblem } from '@/components/ui/Logo';
+import { LogoFull, Emblem } from '@/components/ui/Logo';
 import { SocialIcon, SOCIAL_KEYS, SOCIAL_NAMES } from '@/components/ui/SocialIcons';
 
 export function Footer() {
@@ -20,7 +20,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 pb-10 pt-20">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-4">
-            <Logo light />
+            <LogoFull light />
             <p className="mt-6 max-w-sm leading-relaxed text-linen/65">{t('hero.sub')}</p>
           </div>
           <div className="md:col-span-3">
@@ -89,7 +89,7 @@ export function Footer() {
           </div>
         </div>
         <div className="pointer-events-none relative mt-16 h-[18vw] max-h-64 select-none overflow-hidden" aria-hidden>
-          <Emblem variant="tonal" weight={1.2} className="absolute start-1/2 top-0 w-[46vw] max-w-[640px] -translate-x-1/2 rtl:translate-x-1/2" />
+          <Emblem variant="tonal" className="absolute start-1/2 top-0 h-full w-auto -translate-x-1/2 rtl:translate-x-1/2" />
         </div>
         <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-linen/65 md:flex-row md:items-center md:justify-between">
           <p>
