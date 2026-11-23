@@ -1,6 +1,6 @@
 import { defaultArticles } from './articles.js';
 // Default website content in database shape. Used to fill the demo data and, through
-// scripts/seed-content.mjs → api/seed.json, the MySQL tables the first time setup.php runs.
+// scripts/seed-content.mjs → backend/database/data/seed.json, loaded into the MySQL tables by /setup (Laravel ContentSeeder).
 // After that everything here is edited from the dashboard (Website section).
 import { procedures } from './procedures.js';
 import { defaultFaqs } from './faqs.js';

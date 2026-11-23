@@ -137,7 +137,7 @@ export const D = {
   leadsBySource: { ar: 'الحجوزات حسب المصدر', en: 'Bookings by source' },
   leadsSourceEmpty: { ar: 'هيظهر هنا أول ما توصل حجوزات جديدة من الموقع (آخر 30 يوم).', en: 'Shows here once new bookings arrive from the site (last 30 days).' },
   growth: { ar: 'جوجل والإحصائيات', en: 'Google and analytics' },
-  growthHint: { ar: 'سيبهم فاضيين لحد ما الحسابات تتعمل. مفتاح Google Places بيتحط فى ملف config.php على السيرفر، مش هنا.', en: 'Leave empty until the accounts exist. The Google Places key goes in config.php on the server, not here.' },
+  growthHint: { ar: 'سيبهم فاضيين لحد ما الحسابات تتعمل. مفتاح Google Places بيتحط فى ملف .env على السيرفر، مش هنا.', en: 'Leave empty until the accounts exist. The Google Places key goes in the .env file on the server, not here.' },
   s_google_place_id: { ar: 'Place ID بتاع العيادة على جوجل', en: 'Clinic Google Place ID' },
   s_ga_id: { ar: 'Google Analytics (GA4)', en: 'Google Analytics (GA4)' },
   s_meta_pixel_id: { ar: 'Meta Pixel', en: 'Meta Pixel' },

@@ -1,6 +1,6 @@
 name: Demo on GitHub Pages
 
-# Static demo of the site and dashboard with demo data (the PHP API does not run on Pages).
+# Static demo of the site and dashboard with demo data (the Laravel API does not run on Pages).
 # One-time setup: Settings → Pages → Build and deployment → Source: "GitHub Actions".
 on:
   push:
@@ -35,7 +35,7 @@ jobs:
       - name: Prepare Pages output
         run: |
           cp dist/index.html dist/404.html   # deep links (e.g. /dashboard) load the app
-          rm -rf dist/api dist/.htaccess     # PHP API is not used by the demo
+          rm -f dist/.htaccess dist/index.php  # the Laravel API does not run on Pages
           touch dist/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
