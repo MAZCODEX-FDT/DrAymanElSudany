@@ -1,9 +1,11 @@
 // Site-wide content blocks (bilingual). Medical statements are drafts pending the doctor's approval.
 
+// Articles on the first brain catheterization in Sharqia (October 2026).
 export const press = [
-  { ar: 'الأهرام', en: 'Al-Ahram' },
-  { ar: 'الوطن', en: 'El Watan' },
-  { ar: 'الدستور', en: 'El Dostour' },
+  { ar: 'الأهرام', en: 'Al-Ahram', url: 'https://gate.ahram.org.eg/News/5943018.aspx' },
+  { ar: 'الوطن', en: 'El Watan', url: 'https://www.elwatannews.com/news/details/8375085' },
+  { ar: 'الدستور', en: 'El Dostour', url: 'https://www.dostor.org/5735660' },
+  { ar: 'صدى البلد', en: 'Sada El Balad', url: 'https://www.elbalad.news/7137650' },
 ];
 
 export const journey = [

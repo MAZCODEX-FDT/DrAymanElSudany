@@ -30,7 +30,7 @@ export function PageHero({ eyebrow, title, sub, children, className, image, imag
         </div>
         {image && (
           <div className="ph-fade lg:col-span-5">
-            <img src={imgSrc(image)} alt={imageAlt} className="aspect-[4/3] w-full rounded-[2rem] object-cover lg:aspect-[4/5]" loading="eager" />
+            <img src={imgSrc(image)} alt={imageAlt} className="aspect-[4/3] w-full rounded-[2rem] object-cover object-top lg:aspect-[4/5]" loading="eager" />
           </div>
         )}
       </div>

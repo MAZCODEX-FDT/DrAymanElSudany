@@ -34,9 +34,9 @@ export function Milestone() {
           <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/15 pt-8">
             <span className="text-sm text-white/60">{t('milestone.pressTitle')}</span>
             {press.map((p, i) => (
-              <span key={i} className="font-display text-2xl text-white/90">
+              <a key={i} href={p.url} target="_blank" rel="noopener" className="font-display text-2xl text-white/90 underline decoration-amber/60 decoration-2 underline-offset-8 transition-colors hover:text-amber-soft hover:decoration-amber">
                 {L(p)}
-              </span>
+              </a>
             ))}
           </div>
           <div className="mt-10">
