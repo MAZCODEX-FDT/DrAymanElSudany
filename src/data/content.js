@@ -77,8 +77,8 @@ export const about = {
     en: 'Dr. Ayman Hassan El Sudany is a consultant in neurology and brain catheterization who welcomes patients from everywhere. He performed the first brain catheterization in Sharqia in October 2026.',
   },
   philosophy: {
-    ar: 'المرضى بيوصفوه بكلمتين أكتر من أى حاجة تانية: «مستمع جيد» و«محترم». وده أساس طريقته: يسمع الحكاية كاملة، يشرح للمريض وأهله بلغة بسيطة، ويقول بصراحة لو الحالة مش محتاجة قسطرة.',
-    en: 'Patients describe him with two words more than any others: “a good listener” and “respectful”. That is the core of his approach: hear the whole story, explain simply to the patient and family, and say honestly when a case does not need a catheter.',
+    ar: 'أكتر كلمة المرضى بيوصفوه بيها: «مستمع جيد». وده أساس طريقته: يسمع الحكاية كاملة، يشرح للمريض وأهله بلغة بسيطة، ويقول بصراحة لو الحالة مش محتاجة قسطرة.',
+    en: 'The words patients use for him most often: “a good listener”. That is the core of his approach: hear the whole story, explain simply to the patient and family, and say honestly when a case does not need a catheter.',
   },
   // Longer About page. DRAFT copy for the doctor to approve.
   sections: [

@@ -156,7 +156,7 @@ function seed() {
     events,
     // Sample reviews for the demo only (source says so). Real ones are added and approved in the dashboard.
     testimonials: withIds([
-      ['دكتور محترم جدًا، سمعنى للآخر وشرحلى أنا وولادى الحالة بالتفصيل قبل أى قرار.', 'A very respectful doctor. He listened to the end and explained everything to me and my children before any decision.', 'م. ع.', 5],
+      ['دكتور ممتاز، سمعنى للآخر وشرحلى أنا وولادى الحالة بالتفصيل قبل أى قرار.', 'An excellent doctor. He listened to the end and explained everything to me and my children before any decision.', 'م. ع.', 5],
       ['أحسن حاجة إنه قال بصراحة إن والدى مش محتاج قسطرة، وكتب لنا خطة متابعة واضحة.', 'The best thing was that he honestly said my father did not need a catheter, and wrote us a clear follow-up plan.', 'س. ح.', 5],
       ['مستمع جيد جدًا، وبيرد على الواتساب بسرعة لما بنبعت الأشعة.', 'A very good listener, and he replies quickly on WhatsApp when we send scans.', 'أ. م.', 5],
       ['الكشف كان منظم والدكتور خد وقته معانا ومحسسناش إننا مستعجلين.', 'The visit was organised and the doctor took his time with us; we never felt rushed.', 'ن. ك.', 4],
