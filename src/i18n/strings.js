@@ -104,8 +104,8 @@ export const strings = {
     eyebrow: { ar: 'آراء المرضى', en: 'Patient voices' },
     title: { ar: 'اللى المرضى بيكرروه عنه', en: 'What patients keep saying' },
     listener: { ar: 'مرة اتكتبت «مستمع جيد»', en: 'times “a good listener”' },
-    respectful: { ar: 'مرة اتكتبت «محترم»', en: 'times “respectful”' },
-    avg: { ar: 'متوسط التقييم من 715 مريض', en: 'average rating from 715 patients' },
+    reviews: { ar: 'تقييم من المرضى', en: 'patient reviews' },
+    avg: { ar: 'متوسط التقييم من 5', en: 'average rating out of 5' },
     source: { ar: 'المصدر: تقييمات فيزيتا، نوفمبر 2026', en: 'Source: Vezeeta reviews, November 2026' },
   },
   cost: {

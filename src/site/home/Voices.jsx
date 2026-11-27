@@ -19,7 +19,7 @@ export function Voices() {
   }, []);
   const stats = [
     { n: <CountUp to={58} duration={2} />, label: t('voices.listener') },
-    { n: <CountUp to={66} duration={2} />, label: t('voices.respectful') },
+    { n: <CountUp to={715} duration={2} separator="," />, label: t('voices.reviews') },
     { n: <CountUp to={4.5} decimals={1} duration={2} />, label: t('voices.avg') },
   ];
   return (
