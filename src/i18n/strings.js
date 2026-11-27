@@ -4,7 +4,6 @@ export const strings = {
     name: { ar: 'د. أيمن السودانى', en: 'Dr. Ayman El Sudany' },
     fullName: { ar: 'د. أيمن حسن السودانى', en: 'Dr. Ayman Hassan El Sudany' },
     tagline: { ar: 'مخ وأعصاب · قسطرة المخ', en: 'Neurology · Brain Catheterization' },
-    city: { ar: 'مدينة العبور', en: 'Obour City' },
   },
   nav: {
     home: { ar: 'الرئيسية', en: 'Home' },
@@ -49,9 +48,23 @@ export const strings = {
   proof: {
     eyebrow: { ar: 'ليه د. أيمن', en: 'Why Dr. Ayman' },
     reviews: { ar: 'تقييم من المرضى على فيزيتا، بمتوسط 4.5', en: 'patient reviews on Vezeeta, averaging 4.5' },
-    rare: { ar: 'تخصص نادر: قسطرة المخ جوه العبور، من غير مشوار لمدينة نصر', en: 'A rare specialty: brain catheterization inside Obour, no trip across Cairo' },
-    first: { ar: 'أول قسطرة مخية فى الشرقية، أكتوبر 2026', en: 'The first brain catheterization performed in Sharqia, October 2026' },
+    rare: { ar: 'تخصص نادر: استشارى مخ وأعصاب وقسطرة مخية فى نفس الوقت', en: 'A rare specialty: one consultant for both neurology and brain catheterization' },
+    listener: { ar: 'مرة اتكتب عنه «مستمع جيد» فى تقييمات المرضى', en: 'patient reviews call him “a good listener”' },
     pressTitle: { ar: 'اتكتب عنه فى', en: 'As covered by' },
+  },
+  milestone: {
+    eyebrow: { ar: 'إنجاز فى قسطرة المخ', en: 'A milestone in brain catheterization' },
+    date: { ar: 'أكتوبر 2026', en: 'October 2026' },
+    title: { ar: 'أول قسطرة مخية فى الشرقية', en: 'The first brain catheterization in Sharqia' },
+    body: {
+      ar: 'فى أكتوبر 2026 عمل د. أيمن حسن السودانى أول قسطرة مخية فى الشرقية. خطوة بتخلّى قسطرة المخ أقرب لمرضى كتير وأهاليهم، بنفس الدقة فى كل خطوة.',
+      en: 'In October 2026, Dr. Ayman Hassan El Sudany performed the first brain catheterization in Sharqia: a step that brings brain catheterization closer to many patients and their families, with the same precision at every step.',
+    },
+    factDate: { ar: 'تاريخ أول قسطرة', en: 'date of the first procedure' },
+    factFirst: { ar: 'الأولى', en: '1st' },
+    factFirstText: { ar: 'قسطرة مخية فى الشرقية', en: 'brain catheterization in Sharqia' },
+    pressTitle: { ar: 'اتكتب عن الخبر فى', en: 'Reported by' },
+    cta: { ar: 'اعرف أكتر عن الدكتور', en: 'More about the doctor' },
   },
   manifesto: {
     text: {
@@ -132,8 +145,8 @@ export const strings = {
   doctorsBand: {
     title: { ar: 'زميل؟ المريض بيرجعلك بتقرير كامل', en: 'A colleague? Your patient returns to you with a full report' },
     sub: {
-      ar: 'لدكاترة المخ والأعصاب والباطنة فى العبور والزقازيق وبنها: طريق واضح لتحويل أى حالة محتاجة قسطرة.',
-      en: 'For neurologists and internists in Obour, Zagazig and Banha: a clear path to refer any case that may need catheterization.',
+      ar: 'لدكاترة المخ والأعصاب والباطنة: طريق واضح لتحويل أى حالة محتاجة قسطرة.',
+      en: 'For neurologists and internists: a clear path to refer any case that may need catheterization.',
     },
   },
   book: {

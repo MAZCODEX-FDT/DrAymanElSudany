@@ -65,7 +65,7 @@ export function Hero() {
         className="h-emblem pointer-events-none absolute -bottom-[30%] -end-[55%] w-[135vw] max-w-none sm:-end-[22%] sm:w-[95vw] lg:-bottom-[22%] lg:-end-[10%] lg:w-[66vw]"
       />
 
-      <div className={`relative mx-auto grid w-full max-w-7xl flex-1 gap-14 px-6 pt-36 lg:grid-cols-12 lg:pt-32 ${uploaded ? 'items-center pb-24' : 'pb-24 lg:pb-0'}`}>
+      <div className={`relative mx-auto grid w-full max-w-7xl flex-1 px-6 lg:grid-cols-12 lg:gap-14 lg:pt-32 ${uploaded ? 'items-center gap-14 pb-24 pt-36' : 'gap-6 pb-24 pt-28 lg:pb-0'}`}>
         <div className={`h-content self-center lg:col-span-7 ${uploaded ? '' : 'lg:pb-24'}`}>
           <div className="h-badge">
             <Badge dark>{t('hero.eyebrow')}</Badge>
@@ -95,7 +95,7 @@ export function Hero() {
         ) : (
           // Built-in cut-out: stands on the bottom edge of the banner, in front of a flat Pulse Orange disc
           // (the navy scrubs would disappear against Neuro Blue without it).
-          <div className="relative mx-auto -mb-24 w-full max-w-[340px] self-end sm:max-w-[400px] lg:col-span-5 lg:mb-0 lg:max-w-[470px]">
+          <div className="relative order-first mx-auto w-full max-w-[260px] self-end sm:max-w-[380px] lg:order-none lg:col-span-5 lg:max-w-[470px]">
             <div aria-hidden="true" className="h-disc absolute inset-x-0 top-[6%] mx-auto aspect-square w-[92%] rounded-full bg-amber" />
             <img
               src={imgSrc(DEFAULT_PHOTO)}
@@ -107,6 +107,7 @@ export function Hero() {
               alt={t('brand.fullName')}
               className="h-photo relative block h-auto w-full"
             />
+            <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-deep to-transparent lg:hidden" />
             <HeroChips cutout className="hidden sm:block" />
           </div>
         )}
