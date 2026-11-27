@@ -6,7 +6,7 @@ import { Seo } from '@/site/Seo';
 import { PageHero } from '@/site/PageHero';
 import { BranchSection } from '@/site/BranchCards';
 import { WhatsAppIcon } from '@/site/WhatsAppFab';
-import { SocialIcon, SOCIAL_KEYS, SOCIAL_NAMES } from '@/components/ui/SocialIcons';
+import { SocialIcon, SOCIAL_NAMES, filledSocials } from '@/components/ui/SocialIcons';
 import AnimatedContent from '@/components/reactbits/AnimatedContent';
 import { cn } from '@/lib/cn';
 
@@ -22,7 +22,7 @@ export default function Contact() {
     s.email && { key: 'email', icon: <Mail size={22} />, label: t('contact.email'), hint: t('contact.emailHint'), value: s.email, href: `mailto:${s.email}`, tone: 'bg-amber text-deep-900' },
     s.website && { key: 'website', icon: <Globe size={22} />, label: t('contact.website'), hint: t('contact.websiteHint'), value: site, href: s.website, ext: true, tone: 'bg-calm text-linen' },
   ].filter(Boolean);
-  const socials = SOCIAL_KEYS.filter((k) => s[k]);
+  const socials = filledSocials(s);
 
   return (
     <>

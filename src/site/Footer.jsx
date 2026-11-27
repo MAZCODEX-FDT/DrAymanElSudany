@@ -5,7 +5,7 @@ import { useSettings, whatsappHref, telHref } from '@/lib/settings';
 import { track } from '@/lib/api';
 import { useContent } from '@/lib/content';
 import { LogoFull, Emblem } from '@/components/ui/Logo';
-import { SocialIcon, SOCIAL_KEYS, SOCIAL_NAMES } from '@/components/ui/SocialIcons';
+import { SocialIcon, SOCIAL_NAMES, filledSocials } from '@/components/ui/SocialIcons';
 
 export function Footer() {
   const { t, L, to, lang } = useLang();
@@ -77,9 +77,9 @@ export function Footer() {
             <a href={whatsappHref(s, lang)} onClick={() => track('whatsapp')} target="_blank" rel="noopener" className="inline-flex min-h-11 items-center text-amber-soft underline-offset-4 hover:underline">
               {t('cta.whatsapp')}
             </a>
-            {SOCIAL_KEYS.some((k) => s[k]) && (
+            {filledSocials(s).length > 0 && (
               <div className="flex flex-wrap gap-2 pt-2">
-                {SOCIAL_KEYS.filter((k) => s[k]).map((k) => (
+                {filledSocials(s).map((k) => (
                   <a key={k} href={s[k]} target="_blank" rel="noopener" aria-label={SOCIAL_NAMES[k]} className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-linen/80 transition-colors hover:border-amber hover:bg-amber hover:text-deep-900">
                     <SocialIcon name={k} size={17} />
                   </a>
