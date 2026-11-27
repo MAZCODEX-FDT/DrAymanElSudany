@@ -16,6 +16,23 @@ const paths = {
 };
 // Order shown on the site. A link appears only when its URL is filled in dashboard Settings.
 export const SOCIAL_KEYS = ['facebook', 'instagram', 'tiktok', 'youtube', 'x', 'threads', 'snapchat', 'linkedin', 'telegram', 'whatsapp_channel', 'pinterest', 'vezeeta'];
+/**
+ * Social links worth showing: the URL must point at an account, not just the site's home page
+ * (so "https://facebook.com/" or "https://t.me/" count as empty).
+ */
+export function filledSocials(settings = {}) {
+  return SOCIAL_KEYS.filter((k) => {
+    const v = (settings[k] || '').trim();
+    if (!v) return false;
+    try {
+      const u = new URL(/^https?:/i.test(v) ? v : `https://${v}`);
+      const path = u.pathname.replace(/\/+$/, '').replace(/^\/channel$/, '');
+      return path.length > 1 || u.search.length > 1;
+    } catch {
+      return false;
+    }
+  });
+}
 export const SOCIAL_NAMES = {
   facebook: 'Facebook',
   instagram: 'Instagram',

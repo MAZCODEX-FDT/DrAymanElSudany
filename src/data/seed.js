@@ -1,3 +1,4 @@
+import { CLINIC } from './clinic.js';
 import { defaultArticles } from './articles.js';
 // Default website content in database shape. Used to fill the demo data and, through
 // scripts/seed-content.mjs → backend/database/data/seed.json, loaded into the MySQL tables by /setup (Laravel ContentSeeder).
@@ -33,13 +34,13 @@ export function seedContent() {
     {
       name_ar: 'العيادة الرئيسية',
       name_en: 'Main clinic',
-      address_ar: 'مدينة العبور، [العنوان المعتمد]',
-      address_en: 'Obour City, [approved address]',
+      address_ar: CLINIC.address_ar,
+      address_en: CLINIC.address_en,
       hours_ar: 'السبت إلى الخميس، 5 مساءً إلى 10 مساءً',
       hours_en: 'Saturday to Thursday, 5 PM to 10 PM',
-      phone: '',
-      whatsapp: '',
-      map_url: 'https://maps.google.com/?q=Obour+City',
+      phone: CLINIC.phone,
+      whatsapp: CLINIC.whatsapp,
+      map_url: CLINIC.map_url,
       image: '',
       enabled: true,
       sort: 1,
