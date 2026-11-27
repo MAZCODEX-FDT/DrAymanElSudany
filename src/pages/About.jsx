@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Award, Newspaper, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLang } from '@/i18n';
@@ -48,7 +49,15 @@ export default function About() {
             ))}
           </AnimatedContent>
           <p className="mx-auto mt-6 max-w-7xl px-6 text-sm text-slate">
-            {t('proof.pressTitle')}: {press.map(L).join(' · ')}
+            {t('proof.pressTitle')}:{' '}
+            {press.map((p, i) => (
+              <Fragment key={i}>
+                {i > 0 && ' · '}
+                <a href={p.url} target="_blank" rel="noopener" className="underline decoration-amber/60 underline-offset-4 hover:text-amber-ink">
+                  {L(p)}
+                </a>
+              </Fragment>
+            ))}
           </p>
         </section>
       )}

@@ -31,9 +31,9 @@ export function Proof() {
           <p className="shrink-0 text-sm text-slate">{t('proof.pressTitle')}</p>
           <Marquee speed={30} className="w-full">
             {[...press, ...press].map((p, i) => (
-              <span key={i} className="font-display whitespace-nowrap text-2xl text-deep/35 sm:text-3xl">
+              <a key={i} href={p.url} target="_blank" rel="noopener" className="font-display whitespace-nowrap text-2xl text-deep/35 transition-colors hover:text-amber-ink sm:text-3xl">
                 {L(p)}
-              </span>
+              </a>
             ))}
           </Marquee>
         </div>
