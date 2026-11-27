@@ -1,14 +1,21 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { getSettings } from './api';
 import { withBase } from './cn';
+import { CLINIC } from '@/data/clinic';
 
 const SettingsContext = createContext({});
 export const useSettings = () => useContext(SettingsContext);
 
 export function SettingsProvider({ children }) {
-  const [settings, setSettings] = useState({});
+  const [settings, setSettings] = useState(CLINIC);
   useEffect(() => {
-    getSettings().then(setSettings).catch(() => {});
+    // Empty dashboard fields fall back to the clinic's real details.
+    getSettings()
+      .then((s) => {
+        const filled = Object.fromEntries(Object.entries(s || {}).filter(([, v]) => v !== '' && v != null));
+        setSettings({ ...CLINIC, ...filled });
+      })
+      .catch(() => {});
   }, []);
   return <SettingsContext.Provider value={settings}>{children}</SettingsContext.Provider>;
 }

@@ -3,8 +3,8 @@
 import { writeFileSync } from 'node:fs';
 import { seedContent } from '../src/data/seed.js';
 
-const site = (process.env.SITE_URL || 'https://example.com').replace(/\/$/, '');
-if (!process.env.SITE_URL) console.warn('[seo-files] SITE_URL not set; using https://example.com. Set it before the production build.');
+const site = (process.env.SITE_URL || 'https://draymanelsudany.com').replace(/\/$/, '');
+if (!process.env.SITE_URL) console.warn('[seo-files] SITE_URL not set; using https://draymanelsudany.com.');
 
 // Static copy for hosts without PHP (GitHub Pages). On Bluehost, /sitemap.xml is served live by api/sitemap.php from the database.
 const { procedures, articles } = seedContent();

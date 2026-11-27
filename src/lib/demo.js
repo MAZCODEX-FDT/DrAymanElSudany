@@ -1,3 +1,4 @@
+import { CLINIC } from '@/data/clinic';
 // Demo data so the site and dashboard work without the Laravel API (local preview, design review).
 // Names are fictional. Website content (procedures, FAQs, branches, about, images) starts from the site defaults.
 import { seedContent } from '@/data/seed';
@@ -163,13 +164,13 @@ function seed() {
       ['متابعة ممتازة بعد الإجراء، كان بيسأل علينا بنفسه.', 'Excellent follow-up after the procedure; he checked on us himself.', 'ك. ف.', 5],
     ].map(([quote_ar, quote_en, author, rating]) => ({ quote_ar, quote_en, author, source: 'مثال للمعاينة · Demo sample', rating, approved: true }))),
     settings: {
-      phone: '',
-      whatsapp: '',
-      email: 'clinic@example.com',
-      website: 'https://example.com',
-      address_ar: 'مدينة العبور، [العنوان المعتمد]',
-      address_en: 'Obour City, [approved address]',
-      map_url: 'https://maps.google.com/?q=Obour+City',
+      phone: CLINIC.phone,
+      whatsapp: CLINIC.whatsapp,
+      email: CLINIC.email,
+      website: CLINIC.website,
+      address_ar: CLINIC.address_ar,
+      address_en: CLINIC.address_en,
+      map_url: CLINIC.map_url,
       hours_ar: 'السبت إلى الخميس، 5 مساءً إلى 10 مساءً',
       hours_en: 'Saturday to Thursday, 5 PM to 10 PM',
       review_url: '',
