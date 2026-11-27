@@ -20,7 +20,7 @@ function printSummary(p, settings) {
   .muted{color:#5B6275;font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0}.box{background:#FFFFFF;border-radius:12px;padding:12px 14px}
   h2{font-family:Cairo;color:#1B2D8F;font-size:18px;margin:28px 0 10px}.lines{border:1px solid #DCE5FA;border-radius:12px;padding:16px;min-height:120px;line-height:2}
   footer{margin-top:40px;border-top:1px solid #DCE5FA;padding-top:14px;display:flex;justify-content:space-between}@media print{body{padding:24px}}</style></head><body>
-  <div class="top"><div><h1>د. أيمن حسن السودانى<span class="dot"></span></h1><div class="muted">مخ وأعصاب · قسطرة المخ · مدينة العبور</div></div><div class="muted">ملخص الحالة<br>${esc(fmtDate(todayIso(), 'ar'))}</div></div>
+  <div class="top"><div><h1>د. أيمن حسن السودانى<span class="dot"></span></h1><div class="muted">مخ وأعصاب · قسطرة المخ</div></div><div class="muted">ملخص الحالة<br>${esc(fmtDate(todayIso(), 'ar'))}</div></div>
   <div class="grid"><div class="box"><div class="muted">الاسم</div>${esc(p.name)}</div><div class="box"><div class="muted">السن</div>${esc(p.age)}</div><div class="box"><div class="muted">المدينة</div>${esc(p.city)}</div></div>
   <h2>الحالة</h2><div class="lines">${esc(p.condition)}</div>
   <h2>هل محتاجة قسطرة؟ والخطوات</h2><div class="lines">${esc(p.summary).replace(/\n/g, '<br>')}</div>

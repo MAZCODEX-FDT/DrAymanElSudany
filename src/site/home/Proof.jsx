@@ -9,7 +9,7 @@ export function Proof() {
   const items = [
     { value: <CountUp to={715} duration={2.2} separator="," />, suffix: '+', text: t('proof.reviews') },
     { value: lang === 'en' ? '1 of a kind' : 'نادر', text: t('proof.rare') },
-    { value: lang === 'en' ? '1st' : 'الأول', text: t('proof.first') },
+    { value: <CountUp to={58} duration={1.8} />, text: t('proof.listener') },
   ];
   return (
     <section className="relative bg-linen py-24 sm:py-32">

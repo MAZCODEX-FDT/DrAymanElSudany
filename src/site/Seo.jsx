@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useLang } from '@/i18n';
 
 const DEFAULTS = {
-  ar: { title: 'د. أيمن السودانى | مخ وأعصاب وقسطرة المخ فى العبور', desc: 'د. أيمن حسن السودانى، مخ وأعصاب وقسطرة المخ فى مدينة العبور لشرق القاهرة والشرقية. دكتور بيسمعك، بيشرح لأهلك بلغة بسيطة، وبيرد عليك بسرعة.' },
-  en: { title: 'Dr. Ayman El Sudany | Neurology & Brain Catheterization in Obour', desc: 'Dr. Ayman Hassan El Sudany, neurology and brain catheterization in Obour City for East Cairo and Sharqia. A doctor who listens, explains simply to your family, and replies fast.' },
+  ar: { title: 'د. أيمن السودانى | استشارى مخ وأعصاب وقسطرة المخ', desc: 'د. أيمن حسن السودانى، استشارى مخ وأعصاب وقسطرة المخ. دكتور بيسمعك، بيشرح لأهلك بلغة بسيطة، وبيرد عليك بسرعة.' },
+  en: { title: 'Dr. Ayman El Sudany | Neurology & Brain Catheterization', desc: 'Dr. Ayman Hassan El Sudany, consultant in neurology and brain catheterization. A doctor who listens, explains simply to your family, and replies fast.' },
 };
 
 function setMeta(name, content, attr = 'name') {

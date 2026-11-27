@@ -2,6 +2,7 @@ import { Seo } from '@/site/Seo';
 import { Hero } from '@/site/home/Hero';
 import { DoctorIntro } from '@/site/home/DoctorIntro';
 import { Proof } from '@/site/home/Proof';
+import { Milestone } from '@/site/home/Milestone';
 import { Manifesto } from '@/site/home/Manifesto';
 import { Procedures } from '@/site/home/Procedures';
 import { Journey } from '@/site/home/Journey';
@@ -19,6 +20,7 @@ export default function Home() {
       <Seo />
       <Hero />
       <DoctorIntro />
+      <Milestone />
       <Proof />
       <Manifesto />
       <Procedures />

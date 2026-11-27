@@ -71,8 +71,8 @@ export const costFactors = [
 
 export const about = {
   intro: {
-    ar: 'د. أيمن حسن السودانى، استشارى المخ والأعصاب وقسطرة المخ فى مدينة العبور. بيخدم مرضى شرق القاهرة والشرقية، وعمل أول قسطرة مخية فى الشرقية فى أكتوبر 2026.',
-    en: 'Dr. Ayman Hassan El Sudany is a consultant in neurology and brain catheterization in Obour City, serving patients from East Cairo and Sharqia. He performed the first brain catheterization in Sharqia in October 2026.',
+    ar: 'د. أيمن حسن السودانى، استشارى المخ والأعصاب وقسطرة المخ. بيستقبل المرضى من كل مكان، وعمل أول قسطرة مخية فى الشرقية فى أكتوبر 2026.',
+    en: 'Dr. Ayman Hassan El Sudany is a consultant in neurology and brain catheterization who welcomes patients from everywhere. He performed the first brain catheterization in Sharqia in October 2026.',
   },
   philosophy: {
     ar: 'المرضى بيوصفوه بكلمتين أكتر من أى حاجة تانية: «مستمع جيد» و«محترم». وده أساس طريقته: يسمع الحكاية كاملة، يشرح للمريض وأهله بلغة بسيطة، ويقول بصراحة لو الحالة مش محتاجة قسطرة.',
@@ -121,5 +121,4 @@ export const about = {
     { ar: '[الشهادات والزمالات]', en: '[Certificates and fellowships]' },
     { ar: '[اللقب الأكاديمى بعد التأكيد]', en: '[Academic title once confirmed]' },
   ],
-  areas: { ar: ['العبور', 'الشروق', 'بدر', 'العاشر من رمضان', 'الزقازيق', 'بنها'], en: ['Obour', 'El Shorouk', 'Badr', '10th of Ramadan', 'Zagazig', 'Banha'] },
 };
