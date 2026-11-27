@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Phone, CalendarCheck, X, MapPin } from 'lucide-react';
 import { useLang } from '@/i18n';
 import { useSettings, whatsappHref } from '@/lib/settings';
+import { withBase } from '@/lib/cn';
 import { track } from '@/lib/api';
 import { usePlaces } from './BranchCards';
 import { WhatsAppIcon } from './WhatsAppFab';
@@ -67,11 +68,12 @@ export function ContactDock() {
   const [picker, setPicker] = useState(null);
   const en = lang === 'en';
 
-  const phoneOf = (p) => p?.phone || s.phone || '';
+  // Until the clinic phone is set, the call button falls back to the WhatsApp number, then to the contact page.
+  const phoneOf = (p) => p?.phone || s.phone || p?.whatsapp || s.whatsapp || '';
   const waOf = (p) => (p?.whatsapp ? whatsappHref({ whatsapp: p.whatsapp }, lang) : whatsappHref(s, lang));
   const needsPick = places.length > 1 && !place && places.some((p) => p.phone || p.whatsapp);
   const phone = phoneOf(place);
-  const hasPhone = needsPick ? places.some((p) => phoneOf(p)) : !!phone;
+  const callHref = needsPick ? '#' : phone ? tel(phone) : withBase(en ? '/en/contact' : '/contact');
   const ext = (href) => (href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {});
 
   const onTap = (kind) => (e) => {
@@ -88,8 +90,8 @@ export function ContactDock() {
     <>
       {/* desktop */}
       <div className="fixed bottom-8 end-8 z-40 hidden flex-col items-end gap-3 sm:flex print:hidden">
-        {hasPhone && (
-          <a href={needsPick ? '#' : tel(phone)} onClick={onTap('call')} aria-label={t('cta.call')} className="group flex min-h-14 items-center gap-3 rounded-full bg-deep p-4 text-linen shadow-lg transition-all hover:pe-6">
+        {(
+          <a href={callHref} onClick={onTap('call')} aria-label={t('cta.call')} className="group flex min-h-14 items-center gap-3 rounded-full bg-amber p-4 text-deep shadow-lg transition-all hover:pe-6">
             <Phone size={22} />
             <span className="max-w-0 overflow-hidden whitespace-nowrap text-sm font-medium transition-all duration-500 group-hover:max-w-40">{t('cta.call')}</span>
           </a>
@@ -110,8 +112,8 @@ export function ContactDock() {
           <a href={needsPick ? '#' : wa} {...(needsPick ? {} : ext(wa))} onClick={onTap('whatsapp')} className="flex min-h-14 flex-1 items-center justify-center gap-2 rounded-2xl bg-[#178245] text-[15px] font-semibold text-white">
             <WhatsAppIcon size={22} /> {en ? 'WhatsApp' : 'واتساب'}
           </a>
-          {hasPhone && (
-            <a href={needsPick ? '#' : tel(phone)} onClick={onTap('call')} className="flex min-h-14 flex-1 items-center justify-center gap-2 rounded-2xl bg-deep text-[15px] font-semibold text-linen">
+          {(
+            <a href={callHref} onClick={onTap('call')} className="flex min-h-14 flex-1 items-center justify-center gap-2 rounded-2xl bg-deep text-[15px] font-semibold text-linen">
               <Phone size={20} /> {en ? 'Call' : 'اتصل'}
             </a>
           )}

@@ -7,8 +7,7 @@ export const STOCK_NOTE = { ar: 'صورة استوك للمعاينة، استب
 /** One photo per fixed slot. */
 export const STOCK_SLOTS = {
   // hero_doctor: none, the banner uses the real cut-out in public/images.
-  home_doctor: u('1622253692010-333f2da6031d'),
-  about_doctor: u('1612349317150-e413f6a5b16d'),
+  // home_doctor / about_doctor: none, the site uses the real photos in public/images.
   for_doctors: u('1551076805-e1869033e561'),
   book: u('1631217868264-e5b90bb7e133'),
 };

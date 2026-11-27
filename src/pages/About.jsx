@@ -18,7 +18,8 @@ export default function About() {
   const { about, media, gallery, procedures } = useContent();
   const en = lang === 'en';
   const intro = about.intro ? L(about.intro.body) : '';
-  const photo = media.about_doctor;
+  // Without an upload in Website > Images > about_doctor, the built-in seated photo is used.
+  const photo = media.about_doctor || { url: 'images/dr-ayman-seated.webp', alt: { ar: 'د. أيمن حسن السودانى', en: 'Dr. Ayman Hassan El Sudany' } };
 
   return (
     <>

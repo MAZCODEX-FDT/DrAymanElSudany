@@ -18,15 +18,17 @@ export function DoctorIntro() {
     <section className="bg-linen py-24 sm:py-32">
       <AnimatedContent stagger={0.12} className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[2.5rem] bg-deep">
-            {photo ? (
+          {photo ? (
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[2.5rem] bg-deep">
               <img src={imgSrc(photo.url)} alt={L(photo.alt)} className="h-full w-full object-cover object-top" loading="lazy" />
-            ) : (
-              <div className="grid h-full place-items-center">
-                <LogoMark light className="h-1/3 w-1/3 opacity-80" />
-              </div>
-            )}
-          </div>
+            </div>
+          ) : (
+            // Built-in cut-out (side pose) on a Mist panel: the navy scrubs need a light ground.
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[2.5rem] bg-mist">
+              <LogoMark className="absolute end-6 top-6 h-10 w-10 opacity-80" />
+              <img src={imgSrc('images/dr-ayman-side.webp')} alt={t('brand.fullName')} width="726" height="1140" className="absolute inset-x-0 bottom-0 mx-auto h-[94%] w-auto max-w-none" loading="lazy" />
+            </div>
+          )}
         </div>
         <div className="lg:col-span-7">
           <p className="eyebrow mb-5">{L(intro.title) || t('about.eyebrow')}</p>
