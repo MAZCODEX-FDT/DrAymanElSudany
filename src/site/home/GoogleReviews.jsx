@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Star, ArrowUpRight } from 'lucide-react';
 import { useLang } from '@/i18n';
 import { publicGoogle } from '@/lib/api';
+import { Marquee } from '@/components/ui/Marquee';
 
 export function GoogleG({ size = 22 }) {
   return (
@@ -39,7 +40,7 @@ export function GoogleReviews() {
     publicGoogle().then(setG).catch(() => {});
   }, []);
   if (!g || !g.rating) return null;
-  const reviews = (g[`reviews_${lang}`]?.length ? g[`reviews_${lang}`] : g.reviews_ar || []).filter((r) => r.text).slice(0, 3);
+  const reviews = (g[`reviews_${lang}`]?.length ? g[`reviews_${lang}`] : g.reviews_ar || []).filter((r) => r.text);
 
   return (
     <div className="mx-auto mt-20 max-w-7xl px-6">
@@ -66,9 +67,15 @@ export function GoogleReviews() {
           {g.demo && <p className="mt-4 text-xs text-slate">{en ? 'Sample for preview. Real Google reviews appear once the Place ID is set.' : 'مثال للمعاينة. التقييمات الحقيقية بتظهر لما يتحط رقم المكان على جوجل.'}</p>}
         </div>
         {reviews.length > 0 && (
-          <div className="grid gap-5 md:grid-cols-3">
+          <Marquee
+            label={en ? 'Google reviews' : 'تقييمات جوجل'}
+            speed={reviews.length * 7 * Math.ceil(6 / reviews.length)}
+            repeat={Math.ceil(6 / reviews.length)}
+            className="-mx-6 min-w-0 lg:mx-0"
+            trackClassName="items-stretch gap-5 pe-5"
+          >
             {reviews.map((r, i) => (
-              <figure key={i} className="flex min-w-0 flex-col rounded-3xl border border-white/10 bg-white/5 p-6 text-linen">
+              <figure key={i} className="flex w-[17rem] shrink-0 snap-start flex-col rounded-3xl border border-white/10 bg-white/5 p-6 text-linen sm:w-[20rem]">
                 <Stars n={r.rating} size={14} />
                 <blockquote className="mt-4 flex-1 text-lg leading-relaxed">«{short(r.text)}»</blockquote>
                 <figcaption className="mt-5 text-sm text-linen/60">
@@ -83,7 +90,7 @@ export function GoogleReviews() {
                 </figcaption>
               </figure>
             ))}
-          </div>
+          </Marquee>
         )}
       </div>
     </div>
