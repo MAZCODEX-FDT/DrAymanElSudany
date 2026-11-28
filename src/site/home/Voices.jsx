@@ -7,12 +7,12 @@ import { publicTestimonials } from '@/lib/api';
 import CountUp from '@/components/reactbits/CountUp';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { GoogleReviews } from './GoogleReviews';
+import { Marquee } from '@/components/ui/Marquee';
 
 /** Real review statistics, plus quotes the clinic approves in the dashboard. */
 export function Voices() {
   const { t, lang } = useLang();
   const [quotes, setQuotes] = useState([]);
-  const [all, setAll] = useState(false);
   const s = useSettings();
   useEffect(() => {
     publicTestimonials().then(setQuotes).catch(() => {});
@@ -38,42 +38,55 @@ export function Voices() {
       </div>
       <GoogleReviews />
       {quotes.length > 0 && (
-        <div className="mx-auto mt-20 max-w-7xl px-6">
-          <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
-            {(all ? quotes : quotes.slice(0, 6)).map((q) => (
-              <figure key={q.id} className="mb-5 break-inside-avoid rounded-3xl bg-white p-7 text-ink">
-                <div className="flex items-center justify-between">
-                  <div className="flex gap-0.5 text-amber" aria-label={`${Number(q.rating) || 5}/5`}>
-                    {[1, 2, 3, 4, 5].map((n) => (
-                      <Star key={n} size={16} fill="currentColor" className={n > (Number(q.rating) || 5) ? 'opacity-25' : ''} />
-                    ))}
-                  </div>
-                  <Quote size={22} className="text-calm/40" />
-                </div>
-                <blockquote className="mt-5 text-lg leading-relaxed text-ink/85">{lang === 'en' && q.quote_en ? q.quote_en : q.quote_ar}</blockquote>
-                <figcaption className="mt-5 flex items-center gap-3 text-sm text-slate">
-                  <span className="grid h-9 w-9 place-items-center rounded-full bg-mist font-medium text-deep">{(q.author || '؟').trim().charAt(0)}</span>
-                  <span>
-                    {q.author} {q.source && <span className="block text-xs">{q.source}</span>}
-                  </span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {quotes.length > 6 && !all && (
-              <Button variant="ghostDark" onClick={() => setAll(true)}>
-                {lang === 'en' ? `All reviews (${quotes.length})` : `كل التقييمات (${quotes.length})`}
-              </Button>
-            )}
-            {s.review_url && (
+        <div className="mt-20">
+          {/* Endless rows that move on their own; a second row (opposite way) once there are 8+ reviews. */}
+          {(quotes.length >= 8 ? [quotes.filter((_, i) => i % 2 === 0), quotes.filter((_, i) => i % 2 === 1)] : [quotes]).map((row, r) => (
+            <Marquee
+              key={r}
+              reverse={r === 1}
+              label={r === 0 ? t('voices.title') : undefined}
+              speed={row.length * 8 * Math.ceil(6 / row.length)}
+              repeat={Math.ceil(6 / row.length)}
+              className={r === 1 ? 'mt-5' : ''}
+              trackClassName="items-stretch gap-5 pe-5"
+            >
+              {row.map((q) => (
+                <QuoteCard key={q.id} q={q} lang={lang} />
+              ))}
+            </Marquee>
+          ))}
+          {s.review_url && (
+            <div className="mx-auto mt-10 max-w-7xl px-6">
               <Button href={s.review_url} target="_blank" rel="noopener" variant="amber">
                 <Star size={16} /> {lang === 'en' ? 'Leave a Google review' : 'اكتب تقييمك على جوجل'}
               </Button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       )}
     </section>
+  );
+}
+
+function QuoteCard({ q, lang }) {
+  const rating = Number(q.rating) || 5;
+  return (
+    <figure className="flex w-[18rem] shrink-0 snap-start flex-col rounded-3xl bg-white p-7 text-ink sm:w-[24rem]">
+      <div className="flex items-center justify-between">
+        <div className="flex gap-0.5 text-amber" aria-label={`${rating}/5`}>
+          {[1, 2, 3, 4, 5].map((n) => (
+            <Star key={n} size={16} fill="currentColor" className={n > rating ? 'opacity-25' : ''} />
+          ))}
+        </div>
+        <Quote size={22} className="text-calm/40" />
+      </div>
+      <blockquote className="mt-5 flex-1 text-lg leading-relaxed text-ink/85">{lang === 'en' && q.quote_en ? q.quote_en : q.quote_ar}</blockquote>
+      <figcaption className="mt-5 flex items-center gap-3 text-sm text-slate">
+        <span className="grid h-9 w-9 place-items-center rounded-full bg-mist font-medium text-deep">{(q.author || '؟').trim().charAt(0)}</span>
+        <span>
+          {q.author} {q.source && <span className="block text-xs">{q.source}</span>}
+        </span>
+      </figcaption>
+    </figure>
   );
 }
